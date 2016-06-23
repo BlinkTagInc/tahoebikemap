@@ -1,0 +1,51 @@
+.controls {
+  width: 300px;
+  float: left;
+  padding: 10px 15px;
+
+  .start-address {
+    height: 55px;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+
+  .start-address .control-label {
+    display: none;
+  }
+
+  .start-address .control-icon {
+    margin-right: 10px;
+  }
+
+  .start-address .form-control {
+    vertical-align: 18px;
+    width: 224px;
+  }
+
+  .end-address {
+    height: 55px;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+
+  .end-address .control-label {
+    display: none;
+  }
+
+  .end-address .control-icon {
+    margin-right: 10px;
+  }
+
+  .end-address .form-control {
+    vertical-align: 18px;
+    width: 224px;
+  }
+
+  .route-type .control-label {
+    line-height: 30px;
+  }
+
+  .route-type .form-control {
+    float: right;
+  }
+}

@@ -1,0 +1,45 @@
+.map-layers {
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+  background: white;
+  padding: 10px;
+
+  .map-layer-legend {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    vertical-align: -6px;
+    margin: 4px;
+
+    &.class1 {
+      background: #2ca25f;
+    }
+
+    &.class2 {
+      background: #c994c7;
+    }
+
+    &.class3 {
+      background: #ff6600;
+    }
+
+    &.bikeParking {
+      background: url('../img/bike_parking_marker.svg') 0 0 no-repeat;
+      background-size: 15px 15px;
+    }
+
+    &.bikeStores {
+      background: url('../img/bike_store_marker.png') 0 0 no-repeat;
+      background-size: 15px 15px;
+    }
+  }
+
+  label {
+    padding-right: 10px;
+
+    input[type="checkbox"] {
+      margin-right: 5px;
+    }
+  }
+}

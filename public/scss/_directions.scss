@@ -1,0 +1,23 @@
+.directions {
+  width: 300px;
+  clear: left;
+  float: left;
+  padding: 10px 15px;
+  overflow-y: scroll;
+
+  h3 {
+    font-size: 14px;
+    margin-top: 0;
+  }
+
+  .directions-list {
+    list-style-type: none;
+    padding: 10px 0 0;
+  }
+
+  .directions-list li {
+    border-bottom: #ccc 1px solid;
+    padding: 3px 0;
+    font-size: 11px;
+  }
+}

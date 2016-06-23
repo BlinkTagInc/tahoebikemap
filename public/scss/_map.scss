@@ -1,0 +1,23 @@
+.map-container {
+  position: relative;
+  margin-left: 300px;
+
+  .map {
+    min-height: 400px;
+  }
+
+  .bike-rack-icon {
+    width: 20px;
+    height: 20px;
+    background: url('../img/bike_parking_marker.svg') 0 0 no-repeat;
+    background-size: 20px 20px;
+    cursor: auto;
+  }
+
+  .bike-store-icon {
+    width: 24px;
+    height: 24px;
+    background: url('../img/bike_store_marker.png') 0 0 no-repeat;
+    background-size: 24px 24px;
+  }
+}
