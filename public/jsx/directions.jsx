@@ -24,14 +24,15 @@ class Directions extends React.Component {
       return <div />;
     }
 
-    const directionsList = this.props.directions.map((direction, idx) => {
-      return (
-        <li key={idx}>{direction[0]} on {direction[1]}</li>
-      );
-    });
+    const directionsList = this.props.directions.reduce((memo, direction, idx) => {
+      if (direction[1] !== 'nameless') {
+        memo.push(<li key={idx}><b>{direction[0]}</b> on <b>{direction[1]}</b></li>);
+      }
+      return memo;
+    }, []);
 
     directionsList.push((
-      <li key="final">arrive at {this.props.endAddress}</li>
+      <li key="final"><b>arrive</b> at <b>{this.props.endAddress}</b></li>
     ));
 
     const totalDistance = this.getDistance();
