@@ -90,11 +90,12 @@ class Controls extends React.Component {
           <div className="form-group form-inline route-type">
             <label className="control-label">Route Type</label>
             <select className="form-control">
-              <option value="direct">The most direct route</option>
               <option value="comfortable">Prefer bike lanes & routes</option>
+              <option value="direct">The most direct route</option>
             </select>
           </div>
-          <input type="submit" value="Get Directions" className="btn btn-success" />
+          <a href="#" className="clear-link" onClick={this.props.clearRoute}>Clear</a>
+          <input type="submit" value="Get Directions" className="btn btn-success btn-update-route" />
         </form>
       </div>
     );
@@ -103,6 +104,7 @@ class Controls extends React.Component {
 
 Controls.propTypes = {
   updateRoute: React.PropTypes.func.isRequired,
+  clearRoute: React.PropTypes.func.isRequired,
   startAddress: React.PropTypes.string,
   endAddress: React.PropTypes.string,
 };

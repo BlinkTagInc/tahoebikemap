@@ -15,7 +15,7 @@ L.mapbox.accessToken = config.mapboxAccessToken;
 
 // Add polyline distance function
 L.Polyline = L.Polyline.extend({
-  getDistance: function() {
+  getDistance: function getDistance() {
     // distance in meters
     let distance = 0;
     const length = this._latlngs.length;
@@ -114,9 +114,13 @@ function createBikeStoreLayer() {
   });
 }
 
+function formatConstructionPopup(item) {
+  return `<p>${item[0]}</p><small>Added: ${item[3]}`;
+}
+
 function createConstructionLayer() {
-  const bikeStoresLayerTableId = '1lYIV19mk2ztU2lL-7U68NFC04l352mxLg7Klo_v7';
-  fetch(`https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%20${bikeStoresLayerTableId}&key=${config.googleMapsApiKey}`)
+  const bikeConstructionLayerTableId = '1lYIV19mk2ztU2lL-7U68NFC04l352mxLg7Klo_v7';
+  fetch(`https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%20${bikeConstructionLayerTableId}&key=${config.googleMapsApiKey}`)
   .then((response) => response.json())
   .then((json) => {
     if (!json || !json.rows) {
@@ -124,15 +128,15 @@ function createConstructionLayer() {
       return;
     }
 
-    json.rows.forEach((store) => {
-      L.marker([parseFloat(store[1]), parseFloat(store[2])], {
+    json.rows.forEach((item) => {
+      L.marker([parseFloat(item[1]), parseFloat(item[2])], {
         icon: L.mapbox.marker.icon({
           'marker-size': 'small',
           'marker-symbol': 'triangle-stroked',
           'marker-color': '#ffc033',
         }),
       })
-      .bindPopup(store[0])
+      .bindPopup(formatConstructionPopup(item))
       .addTo(constructionLayer);
     });
   });
@@ -185,20 +189,22 @@ exports.drawMap = (center, zoom, handleMapClick, handleMarkerDrag) => {
   class1Layer.addTo(map);
   class2Layer.addTo(map);
   class3Layer.addTo(map);
-  bikeParkingLayer.addTo(map);
-  bikeStoresLayer.addTo(map);
   constructionLayer.addTo(map);
 };
 
 exports.updateStartMarker = (latlng) => {
   if (latlng) {
     startMarker.setLatLng(latlng).addTo(map);
+  } else {
+    map.removeLayer(startMarker);
   }
 };
 
 exports.updateEndMarker = (latlng) => {
   if (latlng) {
     endMarker.setLatLng(latlng).addTo(map);
+  } else {
+    map.removeLayer(endMarker);
   }
 };
 
@@ -238,6 +244,11 @@ exports.toggleLayer = (layerName, show) => {
     layer = bikeParkingLayer;
   } else if (layerName === 'bikeStores') {
     layer = bikeStoresLayer;
+  } else if (layerName === 'construction') {
+    layer = constructionLayer;
+  } else {
+    error.handleError(new Error('Unable to find layer specified'));
+    return;
   }
 
   if (show) {

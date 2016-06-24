@@ -12,8 +12,16 @@ class MapLayers extends React.Component {
       class1: true,
       class2: true,
       class3: true,
-      bikeParking: true,
-      bikeStores: true,
+      bikeParking: false,
+      bikeStores: false,
+      construction: true,
+    };
+
+    this.toggleConstruction = () => {
+      map.toggleLayer('construction', !this.state.construction);
+      this.setState({
+        construction: !this.state.construction,
+      });
     };
 
     this.toggleClass1 = () => {
@@ -55,6 +63,17 @@ class MapLayers extends React.Component {
   render() {
     return (
       <div className="map-layers">
+        <div>
+          <div className="map-layer-legend construction"></div>
+          <label>
+            <input
+              type="checkbox"
+              checked={this.state.construction}
+              onChange={this.toggleConstruction}
+            />
+            <span>Construction</span>
+          </label>
+        </div>
         <div>
           <div className="map-layer-legend bikeParking"></div>
           <label>

@@ -28,12 +28,10 @@ class App extends React.Component {
     };
 
     this.updateRoute = (startAddress, endAddress) => {
-      this.clearRoute();
+      this.clearPath();
       this.setState({
         startAddress,
         endAddress,
-        startLocation: undefined,
-        endLocation: undefined,
       });
       const promises = [
         geocode.geocode(startAddress),
@@ -73,7 +71,7 @@ class App extends React.Component {
     };
 
     this.setStartLocation = (latlng) => {
-      this.clearRoute();
+      this.clearPath();
       this.setState({
         startLocation: latlng,
         startAddress: undefined,
@@ -96,7 +94,7 @@ class App extends React.Component {
     };
 
     this.setEndLocation = (latlng) => {
-      this.clearRoute();
+      this.clearPath();
       this.setState({
         endLocation: latlng,
         endAddress: undefined,
@@ -122,6 +120,11 @@ class App extends React.Component {
         totalDistance,
       });
     };
+
+    this.clearRoute = () => {
+      this.clearPath();
+      this.clearMarkers();
+    };
   }
 
   componentDidMount() {
@@ -145,11 +148,20 @@ class App extends React.Component {
     }
   }
 
-  clearRoute() {
+  clearPath() {
     this.setState({
       decodedPath: undefined,
       directions: undefined,
       elevationProfile: undefined,
+    });
+  }
+
+  clearMarkers() {
+    this.setState({
+      startLocation: undefined,
+      endLocation: undefined,
+      startAddress: undefined,
+      endAddress: undefined,
     });
   }
 
@@ -158,6 +170,7 @@ class App extends React.Component {
       <div>
         <Controls
           updateRoute={this.updateRoute}
+          clearRoute={this.clearRoute}
           windowHeight={this.state.windowHeight}
           startAddress={this.state.startAddress}
           endAddress={this.state.endAddress}
