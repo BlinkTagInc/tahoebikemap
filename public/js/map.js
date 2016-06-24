@@ -128,14 +128,13 @@ function createConstructionLayer() {
       return;
     }
 
+    const constructionIcon = L.divIcon({
+      className: 'construction-icon',
+      iconSize: [24, 24],
+    });
+
     json.rows.forEach((item) => {
-      L.marker([parseFloat(item[1]), parseFloat(item[2])], {
-        icon: L.mapbox.marker.icon({
-          'marker-size': 'small',
-          'marker-symbol': 'triangle-stroked',
-          'marker-color': '#ffc033',
-        }),
-      })
+      L.marker([parseFloat(item[1]), parseFloat(item[2])], { icon: constructionIcon })
       .bindPopup(formatConstructionPopup(item))
       .addTo(constructionLayer);
     });

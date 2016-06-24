@@ -33,6 +33,11 @@
       background: url('../img/bike_store_marker.png') 0 0 no-repeat;
       background-size: 15px 15px;
     }
+
+    &.construction {
+      background: url('../img/construction_marker.svg') 0 0 no-repeat;
+      background-size: 15px 15px;
+    }
   }
 
   label {
