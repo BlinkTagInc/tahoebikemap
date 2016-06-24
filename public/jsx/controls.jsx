@@ -69,7 +69,7 @@ class Controls extends React.Component {
         <form onSubmit={this.processForm}>
           <div className={classNames('form-group', 'form-inline', 'start-address', { 'has-error': _.contains(this.state.errorFields, 'startAddress') })}>
             <label className="control-label">Start Location</label>
-            <img src="img/start_marker.png" srcSet="img/start_marker@2x.png 2x" className="control-icon" />
+            <img src="img/start_marker.png" srcSet="img/start_marker@2x.png 2x" className="control-icon" alt="Start Marker" />
             <input
               type="text"
               value={this.state.startAddress}
@@ -80,7 +80,7 @@ class Controls extends React.Component {
           </div>
           <div className={classNames('form-group', 'form-inline', 'end-address', { 'has-error': _.contains(this.state.errorFields, 'endAddress') })}>
             <label className="control-label">End Location</label>
-            <img src="img/end_marker.png" srcSet="img/end_marker@2x.png 2x" className="control-icon" />
+            <img src="img/end_marker.png" srcSet="img/end_marker@2x.png 2x" className="control-icon" alt="End Marker" />
             <input
               type="text"
               value={this.state.endAddress}

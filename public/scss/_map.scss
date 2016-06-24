@@ -2,6 +2,21 @@
   position: relative;
   margin-left: 300px;
 
+  .logo {
+    position: absolute;
+    top: 0;
+    left: 52px;
+    width: 127px;
+    height: 47px;
+    z-index: 10;
+    background: $white;
+    padding: 5px;
+    border: 1px solid $border;
+    border-top: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
   .map {
     min-height: 400px;
   }

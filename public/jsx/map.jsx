@@ -48,6 +48,11 @@ class Map extends React.Component {
   render() {
     return (
       <div className="map-container">
+        <div className="logo">
+          <a href="http://tahoebike.org">
+            <img src="/img/ltbc-logo.png" srcSet="img/ltbc-logo@2x.png 2x" alt="logo" />
+          </a>
+        </div>
         <div className="map" id="map" style={{ height: `${this.props.windowHeight}px` }}></div>
         <MapLayers />
       </div>

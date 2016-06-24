@@ -2,7 +2,11 @@
   position: absolute;
   bottom: 20px;
   right: 0;
-  background: white;
+  background: $white;
+  border: 1px solid $border;
+  border-right: 0;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
   padding: 10px;
 
   .map-layer-legend {
