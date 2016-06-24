@@ -142,10 +142,12 @@ function createConstructionLayer() {
 }
 
 exports.drawMap = (center, zoom, handleMapClick, handleMarkerDrag) => {
-  map = L.mapbox.map('map', 'mapbox.streets', {
+  map = L.map('map', {
     center,
     zoom,
   });
+
+  L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/256/{z}/{x}/{y}?access_token=${config.mapboxAccessToken}`).addTo(map);
 
   startMarker = L.marker(center, {
     draggable: true,
