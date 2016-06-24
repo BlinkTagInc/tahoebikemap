@@ -1,4 +1,4 @@
-exports.error = (err, silent) => {
+exports.handleError = (err, silent) => {
   console.error(err);
 
   if (!silent) {

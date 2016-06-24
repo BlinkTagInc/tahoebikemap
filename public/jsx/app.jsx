@@ -34,22 +34,28 @@ class App extends React.Component {
         endAddress,
       });
       const promises = [
-        geocode.geocode(startAddress),
-        geocode.geocode(endAddress),
+        geocode.geocode(startAddress).catch((e) => {
+          alert('Invalid start address. Please try a different address.');
+
+        }),
+        geocode.geocode(endAddress).catch((e) => {
+          alert('Invalid end address. Please try a different address.');
+
+        }),
       ];
-      Promise.all(promises).then((results) => {
+      Promise.all(promises)
+      .then((results) => {
+        if (!results || !results[0] || !results[1]) {
+          return;
+        }
+
         this.setState({
           startLocation: results[0],
           endLocation: results[1],
         });
 
-        if (!this.state.startLocation || !this.state.endLocation) {
-          error.handleError(new Error('Unable to geocode start or end location.'));
-          return;
-        }
-
         this.fetchRoute();
-      }, error.handleError);
+      });
     };
 
     this.fetchRoute = () => {
