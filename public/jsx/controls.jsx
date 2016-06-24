@@ -9,6 +9,8 @@ class Controls extends React.Component {
     super(props);
 
     this.state = {
+      startAddress: '',
+      endAddress: '',
       errorFields: [],
     };
 
