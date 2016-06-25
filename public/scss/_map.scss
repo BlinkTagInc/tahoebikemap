@@ -17,6 +17,17 @@
     border-bottom-right-radius: 5px;
   }
 
+  .disclaimer {
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    background-color: rgba(255,255,255,0.5);
+    color: #404040;
+    padding: 0 5px;
+  }
+
   .map {
     min-height: 400px;
   }

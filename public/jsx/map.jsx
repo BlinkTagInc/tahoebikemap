@@ -53,6 +53,7 @@ class Map extends React.Component {
             <img src="/img/ltbc-logo.png" srcSet="img/ltbc-logo@2x.png 2x" alt="logo" />
           </a>
         </div>
+        <div className="disclaimer">The Lake Tahoe Bicycle Coalition is solely responsible for the content on this site.</div>
         <div className="map" id="map" style={{ height: `${this.props.windowHeight}px` }}></div>
         <MapLayers />
       </div>
