@@ -1,9 +1,5 @@
 const config = require('../../frontendconfig.json');
 
-exports.encode = (string) => encodeURIComponent(string).replace(/%20/g, '+');
-
-exports.decode = (string) => decodeURIComponent(string.replace(/\+/g, '%20'));
-
 function metersToMiles(meters) {
   return meters * 0.000621371;
 }

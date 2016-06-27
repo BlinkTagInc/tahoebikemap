@@ -11,7 +11,7 @@ const api = require('../js/api');
 const analytics = require('../js/analytics');
 const error = require('../js/error');
 const geocode = require('../js/geocode');
-const helper = require('../js/helper');
+const url = require('../js/url');
 
 class App extends React.Component {
   constructor(props) {
@@ -34,13 +34,11 @@ class App extends React.Component {
         endAddress,
       });
       const promises = [
-        geocode.geocode(startAddress).catch((e) => {
+        geocode.geocode(startAddress).catch(() => {
           alert('Invalid start address. Please try a different address.');
-
         }),
-        geocode.geocode(endAddress).catch((e) => {
+        geocode.geocode(endAddress).catch(() => {
           alert('Invalid end address. Please try a different address.');
-
         }),
       ];
       Promise.all(promises)
@@ -71,7 +69,7 @@ class App extends React.Component {
           directions: results.directions,
           elevationProfile: results.elevation_profile,
         });
-        this.updateUrlParams();
+        url.updateUrlParams([this.state.startAddress, this.state.endAddress, this.state.routing]);
         analytics.logQuery(this.state.startAddress, this.state.endAddress, this.state.startLocation, this.state.endLocation);
       });
     };
@@ -135,23 +133,15 @@ class App extends React.Component {
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
-    this.readUrlParams();
+    const urlParams = url.readUrlParams();
+
+    if (urlParams.length === 3) {
+      this.updateRoute(urlParams[0], urlParams[1], urlParams[2]);
+    }
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
-  }
-
-  updateUrlParams() {
-    const newHash = `#${helper.encode(this.state.startAddress)}/${helper.encode(this.state.endAddress)}/${helper.encode(this.state.routing)}`;
-    window.location.hash = newHash;
-  }
-
-  readUrlParams() {
-    const urlParams = window.location.hash.replace(/^#\/?|\/$/g, '').split('/');
-    if (urlParams.length === 3) {
-      this.updateRoute(helper.decode(urlParams[0]), helper.decode(urlParams[1]), helper.decode(urlParams[2]));
-    }
   }
 
   clearPath() {
