@@ -11,6 +11,7 @@ class Controls extends React.Component {
     this.state = {
       startAddress: '',
       endAddress: '',
+      scenario: '1',
       errorFields: [],
     };
 
@@ -24,7 +25,7 @@ class Controls extends React.Component {
         return false;
       }
 
-      return this.props.updateRoute(this.state.startAddress, this.state.endAddress);
+      return this.props.updateRoute(this.state.startAddress, this.state.endAddress, this.state.scenario);
     };
 
     this.handleStartAddressChange = (event) => {
@@ -33,6 +34,10 @@ class Controls extends React.Component {
 
     this.handleEndAddressChange = (event) => {
       this.setState({ endAddress: event.target.value });
+    };
+
+    this.handleScenarioChange = (event) => {
+      this.setState({ scenario: event.target.value });
     };
   }
 
@@ -46,6 +51,12 @@ class Controls extends React.Component {
     if (nextProps.endAddress !== this.state.endAddress) {
       this.setState({
         endAddress: nextProps.endAddress,
+      });
+    }
+
+    if (nextProps.scenario !== this.state.scenario) {
+      this.setState({
+        scenario: nextProps.scenario,
       });
     }
   }
@@ -91,9 +102,13 @@ class Controls extends React.Component {
           </div>
           <div className="form-group form-inline route-type">
             <label className="control-label">Route Type</label>
-            <select className="form-control">
-              <option value="comfortable">Prefer bike lanes & routes</option>
-              <option value="direct">The most direct route</option>
+            <select
+              className="form-control"
+              onChange={this.handleScenarioChange}
+              value={this.state.scenario}
+            >
+              <option value="1">Prefer bike lanes & routes</option>
+              <option value="2">The most direct route</option>
             </select>
           </div>
           <a href="#" className="clear-link" onClick={this.props.clearRoute}>Clear</a>

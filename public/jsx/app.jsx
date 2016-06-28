@@ -21,6 +21,7 @@ class App extends React.Component {
       windowHeight: window.innerHeight,
       windowWidth: window.innerWidth,
       elevationVisible: true,
+      scenario: '1',
     };
 
     this.handleResize = () => {
@@ -30,11 +31,12 @@ class App extends React.Component {
       });
     };
 
-    this.updateRoute = (startAddress, endAddress) => {
+    this.updateRoute = (startAddress, endAddress, scenario) => {
       this.clearPath();
       this.setState({
         startAddress,
         endAddress,
+        scenario,
       });
       const promises = [
         geocode.geocode(startAddress).catch(() => {
@@ -60,7 +62,7 @@ class App extends React.Component {
     };
 
     this.fetchRoute = () => {
-      api.getRoute(this.state.startLocation, this.state.endLocation)
+      api.getRoute(this.state.startLocation, this.state.endLocation, this.state.scenario)
       .then((results) => {
         if (!results.path | !results.path.length) {
           error.handleError(new Error('No path recieved'));
@@ -72,7 +74,7 @@ class App extends React.Component {
           directions: results.directions,
           elevationProfile: results.elevation_profile,
         });
-        url.updateUrlParams([this.state.startAddress, this.state.endAddress, this.state.routing]);
+        url.updateUrlParams([this.state.startAddress, this.state.endAddress, this.state.scenario]);
         analytics.logQuery(this.state.startAddress, this.state.endAddress, this.state.startLocation, this.state.endLocation);
       });
     };
@@ -194,6 +196,7 @@ class App extends React.Component {
           clearRoute={this.clearRoute}
           startAddress={this.state.startAddress}
           endAddress={this.state.endAddress}
+          scenario={this.state.scenario}
         />
         <Directions
           directions={this.state.directions}
