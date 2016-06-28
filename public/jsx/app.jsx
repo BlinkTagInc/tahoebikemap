@@ -37,18 +37,22 @@ class App extends React.Component {
         startAddress,
         endAddress,
         scenario,
+        loading: true,
       });
       const promises = [
         geocode.geocode(startAddress).catch(() => {
+          this.setState({ loading: false });
           alert('Invalid start address. Please try a different address.');
         }),
         geocode.geocode(endAddress).catch(() => {
+          this.setState({ loading: false });
           alert('Invalid end address. Please try a different address.');
         }),
       ];
       Promise.all(promises)
       .then((results) => {
         if (!results || !results[0] || !results[1]) {
+          this.setState({ loading: false });
           return;
         }
 
@@ -62,8 +66,10 @@ class App extends React.Component {
     };
 
     this.fetchRoute = () => {
+      this.setState({ loading: true });
       api.getRoute(this.state.startLocation, this.state.endLocation, this.state.scenario)
       .then((results) => {
+        this.setState({ loading: false });
         if (!results.path | !results.path.length) {
           error.handleError(new Error('No path recieved'));
           return;
@@ -197,6 +203,7 @@ class App extends React.Component {
           startAddress={this.state.startAddress}
           endAddress={this.state.endAddress}
           scenario={this.state.scenario}
+          loading={this.state.loading}
         />
         <Directions
           directions={this.state.directions}

@@ -112,7 +112,15 @@ class Controls extends React.Component {
             </select>
           </div>
           <a href="#" className="clear-link" onClick={this.props.clearRoute}>Clear</a>
-          <input type="submit" value="Get Directions" className="btn btn-success btn-update-route" />
+          <button
+            type="submit"
+            className="btn btn-success btn-update-route"
+          >
+            <i
+              className={classNames('fa', 'fa-circle-o-notch', 'fa-spin', {hidden: !this.props.loading})}
+              aria-hidden="true"
+            ></i> Get Directions
+          </button>
         </form>
       </div>
     );
@@ -124,6 +132,7 @@ Controls.propTypes = {
   clearRoute: React.PropTypes.func.isRequired,
   startAddress: React.PropTypes.string,
   endAddress: React.PropTypes.string,
+  loading: React.PropTypes.bool,
 };
 
 module.exports = Controls;
