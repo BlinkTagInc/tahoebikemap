@@ -19,11 +19,14 @@ class App extends React.Component {
 
     this.state = {
       windowHeight: window.innerHeight,
+      windowWidth: window.innerWidth,
+      elevationVisible: true,
     };
 
     this.handleResize = () => {
       this.setState({
         windowHeight: window.innerHeight,
+        windowWidth: window.innerWidth,
       });
     };
 
@@ -129,6 +132,12 @@ class App extends React.Component {
       this.clearPath();
       this.clearMarkers();
     };
+
+    this.toggleElevationVisibility = () => {
+      this.setState({
+        elevationVisible: !this.state.elevationVisible,
+      });
+    };
   }
 
   componentDidMount() {
@@ -161,13 +170,28 @@ class App extends React.Component {
     });
   }
 
+  getMapHeight() {
+    const elevationHeight = 175;
+    let mapHeight = this.state.windowHeight;
+
+    if (this.state.elevationVisible && this.state.elevationProfile) {
+      mapHeight -= elevationHeight;
+    }
+
+    return mapHeight;
+  }
+
   render() {
+    const controlsHeight = 208;
+    const directionsHeight = this.state.windowHeight - controlsHeight;
+    const sidebarWidth = 300;
+    const elevationWidth = this.state.windowWidth - sidebarWidth;
+
     return (
       <div>
         <Controls
           updateRoute={this.updateRoute}
           clearRoute={this.clearRoute}
-          windowHeight={this.state.windowHeight}
           startAddress={this.state.startAddress}
           endAddress={this.state.endAddress}
         />
@@ -176,7 +200,7 @@ class App extends React.Component {
           decodedPath={this.state.decodedPath}
           endAddress={this.state.endAddress}
           elevationProfile={this.state.elevationProfile}
-          windowHeight={this.state.windowHeight}
+          height={directionsHeight}
         />
         <Map
           startLocation={this.state.startLocation}
@@ -184,10 +208,13 @@ class App extends React.Component {
           decodedPath={this.state.decodedPath}
           setStartLocation={this.setStartLocation}
           setEndLocation={this.setEndLocation}
-          windowHeight={this.state.windowHeight}
+          height={this.getMapHeight()}
         />
         <Elevation
           elevationProfile={this.state.elevationProfile}
+          width={elevationWidth}
+          toggleElevationVisibility={this.toggleElevationVisibility}
+          elevationVisible={this.state.elevationVisible && !!this.state.elevationProfile}
         />
       </div>
     );

@@ -1,0 +1,43 @@
+.elevation {
+  background: $white;
+  position: relative;
+  margin-left: 300px;
+  border-left: 1px solid $light-grey;
+  border-top: 1px solid $light-grey;
+  box-sizing: border-box;
+  height: 175px;
+
+  .close-box {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    color: $grey;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 20px;
+  }
+
+  .legend {
+    display: none;
+  }
+
+  .grid-axis .tick {
+    display: none;
+  }
+}
+
+.elevation-open-box {
+  position: absolute;
+  bottom: 0;
+  right: 275px;
+  background: $white;
+  border: 1px solid $border;
+  border-bottom: 0;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}

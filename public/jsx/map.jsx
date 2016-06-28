@@ -54,7 +54,7 @@ class Map extends React.Component {
           </a>
         </div>
         <div className="disclaimer">The Lake Tahoe Bicycle Coalition is solely responsible for the content on this site.</div>
-        <div className="map" id="map" style={{ height: `${this.props.windowHeight}px` }}></div>
+        <div className="map" id="map" style={{ height: `${this.props.height}px` }}></div>
         <MapLayers />
       </div>
     );
@@ -66,7 +66,7 @@ Map.propTypes = {
   endLocation: React.PropTypes.object,
   setStartLocation: React.PropTypes.func.isRequired,
   setEndLocation: React.PropTypes.func.isRequired,
-  windowHeight: React.PropTypes.number,
+  height: React.PropTypes.number,
 };
 
 module.exports = Map;

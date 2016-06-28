@@ -1,21 +1,17 @@
 const config = require('../../frontendconfig.json');
 
-function metersToMiles(meters) {
-  return meters * 0.000621371;
-}
+exports.metersToMiles = (meters) => meters * 0.000621371;
 
-function metersToFeet(meters) {
-  return meters * 3.28084;
-}
+exports.metersToFeet = (meters) => meters * 3.28084;
 
 function hoursToMinutes(hours) {
   return hours * 60;
 }
 
-exports.formatDistance = (meters) => `${metersToMiles(meters).toFixed(1)} miles`;
+exports.formatDistance = (meters) => `${exports.metersToMiles(meters).toFixed(1)} miles`;
 
 exports.formatTime = (meters) => {
-  const miles = metersToMiles(meters);
+  const miles = exports.metersToMiles(meters);
   const lowEstimate = miles / config.highBikeSpeedMph;
   const highEstimate = miles / config.lowBikeSpeedMph;
 
@@ -40,4 +36,4 @@ exports.getElevationGain = (profile) => {
   return totalElevGain;
 };
 
-exports.formatElevation = (elevation) => `${metersToFeet(elevation).toFixed()} feet`;
+exports.formatElevation = (elevation) => `${exports.metersToFeet(elevation).toFixed()} feet`;

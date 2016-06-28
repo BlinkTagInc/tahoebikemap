@@ -10,11 +10,6 @@ class Directions extends React.Component {
     this.state = {};
   }
 
-  getDirectionsHeight() {
-    const controlsHeight = 208;
-    return this.props.windowHeight - controlsHeight;
-  }
-
   getDistance() {
     return map.getPathDistance(this.props.decodedPath);
   }
@@ -38,7 +33,7 @@ class Directions extends React.Component {
     const totalDistance = this.getDistance();
 
     return (
-      <div className="directions" style={{ height: `${this.getDirectionsHeight()}px` }}>
+      <div className="directions" style={{ height: `${this.props.height}px` }}>
         <h3>Directions to {this.props.endAddress}</h3>
         <div className="stats">
           <div className="stat">
@@ -64,7 +59,7 @@ Directions.propTypes = {
   endAddress: React.PropTypes.string,
   decodedPath: React.PropTypes.array,
   elevationProfile: React.PropTypes.array,
-  windowHeight: React.PropTypes.number,
+  height: React.PropTypes.number,
 };
 
 module.exports = Directions;
