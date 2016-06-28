@@ -6,7 +6,15 @@ function decode(string) {
   return decodeURIComponent(string.replace(/\+/g, '%20'));
 }
 
+exports.validateUrlParams = (params) => {
+  return params.length >= 2 && params[0] !== 'undefined' && params[1] !== 'undefined';
+}
+
 exports.updateUrlParams = (params) => {
+  if (!exports.validateUrlParams(params)) {
+    return;
+  }
+
   window.location.hash = params.map(encode).join('/');
 };
 

@@ -135,7 +135,7 @@ class App extends React.Component {
     window.addEventListener('resize', this.handleResize);
     const urlParams = url.readUrlParams();
 
-    if (urlParams.length === 3) {
+    if (url.validateUrlParams(urlParams)) {
       this.updateRoute(urlParams[0], urlParams[1], urlParams[2]);
     }
   }
