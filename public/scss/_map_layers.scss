@@ -33,9 +33,12 @@
       background-size: 15px 15px;
     }
 
-    &.bikeStores {
-      background: url('../img/bike_store_marker.png') 0 0 no-repeat;
-      background-size: 15px 15px;
+    &.bikeShops {
+      background: url('../img/bike_shop_marker.png') 0 0 no-repeat;
+      background-size: 19px 19px;
+      width: 19px;
+      height: 19px;
+      margin: 2px;
     }
 
     &.construction {

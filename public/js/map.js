@@ -13,32 +13,19 @@ const L = require('mapbox.js');
 // Setup mapbox
 L.mapbox.accessToken = config.mapboxAccessToken;
 
-// Add polyline distance function
-L.Polyline = L.Polyline.extend({
-  getDistance: function getDistance() {
-    // distance in meters
-    let distance = 0;
-    const length = this._latlngs.length;
-    for (let i = 1; i < length; i++) {
-      distance += this._latlngs[i].distanceTo(this._latlngs[i - 1]);
-    }
-    return distance;
-  },
-});
-
-// Setup class layers
+// Setup layers
 const class1Layer = L.mapbox.featureLayer();
 const class2Layer = L.mapbox.featureLayer();
 const class3Layer = L.mapbox.featureLayer();
 const bikeParkingLayer = L.layerGroup();
-const bikeStoresLayer = L.layerGroup();
+const bikeShopsLayer = L.layerGroup();
 const constructionLayer = L.layerGroup();
 
 fetch('/data/class1.geojson')
 .then((response) => response.json())
 .then((json) => {
-  class1Layer.setGeoJSON(json);
-  class1Layer.setStyle({
+  class1Layer.setGeoJSON(json)
+  .setStyle({
     color: '#2ca25f',
     weight: 3,
   });
@@ -47,8 +34,8 @@ fetch('/data/class1.geojson')
 fetch('/data/class2.geojson')
 .then((response) => response.json())
 .then((json) => {
-  class2Layer.setGeoJSON(json);
-  class2Layer.setStyle({
+  class2Layer.setGeoJSON(json)
+  .setStyle({
     color: '#c994c7',
     weight: 3,
   });
@@ -57,8 +44,8 @@ fetch('/data/class2.geojson')
 fetch('/data/class3.geojson')
 .then((response) => response.json())
 .then((json) => {
-  class3Layer.setGeoJSON(json);
-  class3Layer.setStyle({
+  class3Layer.setGeoJSON(json)
+  .setStyle({
     color: '#ff6600',
     weight: 3,
   });
@@ -79,37 +66,38 @@ function createBikeParkingLayer() {
       const bikeRackIcon = L.divIcon({
         className: 'bike-rack-icon',
         iconSize: [20, 20],
-       });
+      });
 
-      L.marker([parseFloat(point[0]), parseFloat(point[1])], { icon: bikeRackIcon }).addTo(bikeParkingLayer);
+      L.marker([parseFloat(point[0]), parseFloat(point[1])], { icon: bikeRackIcon })
+      .addTo(bikeParkingLayer);
     });
   });
 }
 
-function formatBikeStorePopup(store) {
-  const website = store[4] ? `<a href="http://${store[4]}" target="_blank">${store[4]}</a>` : '';
-  return `<b>${store[0]}</b><br>${store[1]}<br>${website}`;
+function formatBikeShopPopup(shop) {
+  const website = shop[4] ? `<a href="http://${shop[4]}" target="_blank">${shop[4]}</a>` : '';
+  return `<b>${shop[0]}</b><br>${shop[1]}<br>${website}`;
 }
 
-function createBikeStoreLayer() {
-  const bikeStoresLayerTableId = '1Jlh83cf0VSIAqPiPd3QRaI-EFrpvl5zWl53PBDi0';
-  fetch(`https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%20${bikeStoresLayerTableId}&key=${config.googleMapsApiKey}`)
+function createBikeShopLayer() {
+  const bikeShopsLayerTableId = '1Jlh83cf0VSIAqPiPd3QRaI-EFrpvl5zWl53PBDi0';
+  fetch(`https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%20${bikeShopsLayerTableId}&key=${config.googleMapsApiKey}`)
   .then((response) => response.json())
   .then((json) => {
     if (!json || !json.rows) {
-      error.handleError(new Error('Unable to fetch bike store data'));
+      error.handleError(new Error('Unable to fetch bike shop data'));
       return;
     }
 
-    json.rows.forEach((store) => {
-      const bikeStoreIcon = L.divIcon({
-        className: 'bike-store-icon',
+    json.rows.forEach((shop) => {
+      const bikeShopIcon = L.divIcon({
+        className: 'bike-shop-icon',
         iconSize: [24, 24],
       });
 
-      L.marker([parseFloat(store[2]), parseFloat(store[3])], { icon: bikeStoreIcon })
-      .bindPopup(formatBikeStorePopup(store))
-      .addTo(bikeStoresLayer);
+      L.marker([parseFloat(shop[2]), parseFloat(shop[3])], { icon: bikeShopIcon })
+      .bindPopup(formatBikeShopPopup(shop))
+      .addTo(bikeShopsLayer);
     });
   });
 }
@@ -184,7 +172,7 @@ exports.drawMap = (center, zoom, handleMapClick, handleMarkerDrag) => {
     handleMarkerDrag(marker.getLatLng(), 'end');
   });
 
-  createBikeStoreLayer();
+  createBikeShopLayer();
   createBikeParkingLayer();
   createConstructionLayer();
 
@@ -251,8 +239,8 @@ exports.toggleLayer = (layerName, show) => {
     layer = class3Layer;
   } else if (layerName === 'bikeParking') {
     layer = bikeParkingLayer;
-  } else if (layerName === 'bikeStores') {
-    layer = bikeStoresLayer;
+  } else if (layerName === 'bikeShops') {
+    layer = bikeShopsLayer;
   } else if (layerName === 'construction') {
     layer = constructionLayer;
   } else {
@@ -268,5 +256,13 @@ exports.toggleLayer = (layerName, show) => {
 };
 
 exports.getPathDistance = (decodedPath) => {
-  return L.polyline(decodedPath).getDistance();
+  // Returns distance in meters
+  const polyline = L.polyline(decodedPath);
+
+  let distance = 0;
+  const length = polyline._latlngs.length;
+  for (let i = 1; i < length; i++) {
+    distance += polyline._latlngs[i].distanceTo(polyline._latlngs[i - 1]);
+  }
+  return distance;
 };

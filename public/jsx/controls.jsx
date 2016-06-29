@@ -107,7 +107,7 @@ class Controls extends React.Component {
               onChange={this.handleScenarioChange}
               value={this.state.scenario}
             >
-              <option value="1">Prefer bike lanes & routes</option>
+              <option value="1">Prefer bike paths & lanes</option>
               <option value="2">The most direct route</option>
             </select>
           </div>

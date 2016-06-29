@@ -13,7 +13,7 @@ class MapLayers extends React.Component {
       class2: true,
       class3: true,
       bikeParking: false,
-      bikeStores: false,
+      bikeShops: false,
       construction: true,
     };
 
@@ -52,10 +52,10 @@ class MapLayers extends React.Component {
       });
     };
 
-    this.toggleBikeStores = () => {
-      map.toggleLayer('bikeStores', !this.state.bikeStores);
+    this.toggleBikeShops = () => {
+      map.toggleLayer('bikeShops', !this.state.bikeShops);
       this.setState({
-        bikeStores: !this.state.bikeStores,
+        bikeShops: !this.state.bikeShops,
       });
     };
   }
@@ -86,14 +86,14 @@ class MapLayers extends React.Component {
           </label>
         </div>
         <div>
-          <div className="map-layer-legend bikeStores"></div>
+          <div className="map-layer-legend bikeShops"></div>
           <label>
             <input
               type="checkbox"
-              checked={this.state.bikeStores}
-              onChange={this.toggleBikeStores}
+              checked={this.state.bikeShops}
+              onChange={this.toggleBikeShops}
             />
-            <span>Bike Stores</span>
+            <span>Bike Shops</span>
           </label>
         </div>
         <div>

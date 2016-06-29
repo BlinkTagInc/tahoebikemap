@@ -7,7 +7,7 @@ class FeedbackModal extends React.Component {
     super(props);
 
     this.state = {
-      selectedForm: 'accidentOrIncident',
+      selectedForm: 'collisionOrIncident',
     };
 
     this.showFeedbackForm = () => {
@@ -43,7 +43,7 @@ class FeedbackModal extends React.Component {
 
   render() {
     const forms = {
-      accidentOrIncident: (
+      collisionOrIncident: (
         <div>
           <div className="form-group">
             <p>Choose type of incident, provide brief desription, & contact info (optional)</p>
@@ -134,7 +134,7 @@ class FeedbackModal extends React.Component {
             <div className="form-group">
               <label className="control-label">Feedback Type</label>
               <select className="form-control" onChange={this.toggleFormCategory}>
-                <option value="accidentOrIncident">Accident or Incident</option>
+                <option value="collisionOrIncident">Collision or Incident</option>
                 <option value="unsafeCondition">Unsafe Condition</option>
                 <option value="constructionZone">Construction Zone</option>
                 <option value="infrastructureRequest">Infrastructure Request or Idea</option>
