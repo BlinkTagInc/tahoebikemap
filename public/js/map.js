@@ -210,6 +210,7 @@ exports.updatePath = (decodedPath) => {
     map.removeLayer(path);
   } else {
     path.setLatLngs(decodedPath).addTo(map);
+    map.fitBounds(path.getBounds(), { padding: [30, 30] });
   }
 };
 
