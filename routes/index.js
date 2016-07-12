@@ -37,6 +37,8 @@ exports.feedback = (req, res, next) => {
     console.log(response.statusCode);
     console.log(response.body);
     console.log(response.headers);
-    res.render('thankyou');
+    res.render('thankyou', {
+      redirectUrl: req.body.redirectUrl,
+    });
   });
 }

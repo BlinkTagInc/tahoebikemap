@@ -21,3 +21,7 @@ exports.updateUrlParams = (params) => {
 exports.readUrlParams = () => {
   return window.location.hash.replace(/^#\/?|\/$/g, '').split('/').map(decode);
 };
+
+exports.getUrl = () => {
+  return window.location.href;
+};

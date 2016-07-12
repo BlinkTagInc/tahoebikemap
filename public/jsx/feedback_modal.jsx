@@ -1,6 +1,7 @@
 const React = require('react');
 const Modal = require('react-modal');
-const _ = require('underscore');
+
+const url = require('../js/url');
 
 class FeedbackModal extends React.Component {
   constructor(props) {
@@ -143,6 +144,7 @@ class FeedbackModal extends React.Component {
               </select>
             </div>
             {forms[this.state.selectedForm]}
+            <input type="hidden" value={url.getUrl()} name="redirectUrl" />
             <button onClick={this.hideFeedbackForm} className="btn btn-danger">Cancel</button>&nbsp;
             <button type="submit" className="btn btn-primary">Send</button>
           </form>
