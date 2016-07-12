@@ -44,7 +44,7 @@ class Elevation extends React.Component {
         <div
           className="close-box"
           onClick={this.props.toggleElevationVisibility}
-        >&times;</div>
+        >&minus;</div>
         <LineChart
           margins={{
             left: 70,

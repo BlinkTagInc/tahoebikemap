@@ -116,7 +116,7 @@ class FeedbackModal extends React.Component {
 
     return (
       <div>
-        <button onClick={this.showFeedbackForm} className="btn btn-default">Feedback</button>
+        <button onClick={this.showFeedbackForm} className="btn btn-default">Improve this map</button>
         <Modal
           isOpen={this.state.modalOpen}
           onRequestClose={this.hideFeedbackForm}

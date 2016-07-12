@@ -104,7 +104,7 @@ class MapLayers extends React.Component {
               checked={this.state.class1}
               onChange={this.toggleClass1}
             />
-            <span>Class 1</span>
+            <span>Multi-use Path</span>
           </label>
         </div>
         <div>
@@ -115,7 +115,7 @@ class MapLayers extends React.Component {
               checked={this.state.class2}
               onChange={this.toggleClass2}
             />
-            <span>Class 2</span>
+            <span>Bike Lane</span>
           </label>
         </div>
         <div>
@@ -126,7 +126,7 @@ class MapLayers extends React.Component {
               checked={this.state.class3}
               onChange={this.toggleClass3}
             />
-            <span>Class 3</span>
+            <span>Bike Route</span>
           </label>
         </div>
         <FeedbackModal />

@@ -26,8 +26,9 @@ fetch('/data/class1.geojson')
 .then((json) => {
   class1Layer.setGeoJSON(json)
   .setStyle({
-    color: '#2ca25f',
+    color: '#003366',
     weight: 3,
+    opacity: 1,
   });
 });
 
@@ -36,8 +37,9 @@ fetch('/data/class2.geojson')
 .then((json) => {
   class2Layer.setGeoJSON(json)
   .setStyle({
-    color: '#c994c7',
-    weight: 3,
+    color: '#0066CC',
+    weight: 2,
+    opacity: 0.8,
   });
 });
 
@@ -46,8 +48,9 @@ fetch('/data/class3.geojson')
 .then((json) => {
   class3Layer.setGeoJSON(json)
   .setStyle({
-    color: '#ff6600',
-    weight: 3,
+    color: '#3399FF',
+    weight: 1,
+    opacity: 0.6,
   });
 });
 
@@ -103,7 +106,8 @@ function createBikeShopLayer() {
 }
 
 function formatConstructionPopup(item) {
-  return `<p>${item[0]}</p><small>Added: ${item[3]}`;
+  const disclaimer = 'Construction notices provided by map users. Note that less recent notices may be out of date, and require confirmation.';
+  return `<p>${item[0]}</p><small>Added: ${item[3]}<br>${disclaimer}`;
 }
 
 function createConstructionLayer() {
