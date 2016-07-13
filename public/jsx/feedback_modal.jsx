@@ -1,6 +1,12 @@
+const _ = require('underscore');
 const React = require('react');
 const Modal = require('react-modal');
+const classNames = require('classnames');
+window.jQuery = require("jquery");
+const $ = jQuery;
+require('jquery-locationpicker');
 
+const config = require('../../frontendconfig.json');
 const url = require('../js/url');
 
 class FeedbackModal extends React.Component {
@@ -14,6 +20,8 @@ class FeedbackModal extends React.Component {
     this.showFeedbackForm = () => {
       this.setState({
         modalOpen: true,
+      }, () => {
+        this.enableLocationPicker();
       });
     };
 
@@ -23,23 +31,33 @@ class FeedbackModal extends React.Component {
       });
     };
 
-    // this.sendFeedbackForm = (event) => {
-    //   event.preventDefault();
-    //
-    //   console.log(event);
-    //
-    //   const feedback = {};
-    //
-    //   _.each(event.target, (input) => {
-    //     feedback[input.name] = input.value;
-    //   });
-    //
-    //   console.log(feedback);
-    // };
-
     this.toggleFormCategory = (event) => {
       this.setState({ selectedForm: event.target.value });
     };
+  }
+
+  enableLocationPicker() {
+    $(this.refs.locationpicker).locationpicker({
+      location: {
+        latitude: config.initialCenterLat,
+        longitude: config.initialCenterLng,
+      },
+      radius: 0,
+      zoom: 11,
+      inputBinding: {
+        locationNameInput: $(this.refs.locationpickerAddress),
+      },
+      enableAutocomplete: true,
+      onchanged: (location) => {
+        console.log(location)
+        this.state.latitude = location.latitude;
+        this.state.longitude = location.longitude;
+      }
+    });
+
+    $(this.refs.locationpickerAddress).keypress((event) => {
+      return event.keyCode !== 13;
+    });
   }
 
   render() {
@@ -123,8 +141,8 @@ class FeedbackModal extends React.Component {
           onRequestClose={this.hideFeedbackForm}
           style={{
             content: {
-              left: '0',
-              right: '0',
+              left: '0px',
+              right: '0px',
               maxWidth: '600px',
               margin: '0 auto',
             },
@@ -144,6 +162,17 @@ class FeedbackModal extends React.Component {
               </select>
             </div>
             {forms[this.state.selectedForm]}
+            <div className={classNames({hide: this.state.selectedForm === 'praiseOrFeedback'})}>
+              <div className="form-group">
+                <label>Location</label><br />
+                <input type="text" ref="locationpickerAddress" className="form-control address" name="address" />
+              </div>
+              <div className="form-group">
+                <div className="locationpicker" ref="locationpicker"></div>
+              </div>
+              <input type="hidden" value={this.state.latitude} name="latitude" />
+              <input type="hidden" value={this.state.longitude} name="longitude" />
+            </div>
             <input type="hidden" value={url.getUrl()} name="redirectUrl" />
             <button onClick={this.hideFeedbackForm} className="btn btn-danger">Cancel</button>&nbsp;
             <button type="submit" className="btn btn-primary">Send</button>

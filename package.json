@@ -32,7 +32,7 @@
     "gulp-streamify": "1.0.2",
     "gulp-uglify": "1.5.4",
     "gulp-util": "3.0.7",
-    "jquery": "3.0.0",
+    "jquery": "2.2.4",
     "jquery-locationpicker": "0.1.12",
     "keen-js": "3.4.1",
     "mapbox.js": "2.4.0",
