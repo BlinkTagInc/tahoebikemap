@@ -1,6 +1,6 @@
 {
-  "name": "bikesy-frontend",
-  "description": "Bikesy Frontend",
+  "name": "bikesy",
+  "description": "Bikesy",
   "version": "2.0.0",
   "author": {
     "name": "Brendan Nee",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/brendannee/Bikesy-Frontend"
+    "url": "https://github.com/brendannee/bikesy"
   },
   "dependencies": {
     "async": "2.0.0-rc.6",
@@ -56,7 +56,6 @@
   "engines": {
     "node": "6.3.0"
   },
-  "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "postinstall": "./node_modules/gulp/bin/gulp.js build"
@@ -71,5 +70,6 @@
     "gulp-livereload": "3.8.1",
     "gulp-sass-lint": "1.2.0",
     "nodemon": "1.9.2"
-  }
+  },
+  "license": "MIT"
 }
