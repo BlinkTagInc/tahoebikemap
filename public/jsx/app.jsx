@@ -18,11 +18,13 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    const isMobile = this.isMobile(window.innerWidth);
+
     this.state = {
       windowHeight: window.innerHeight,
       windowWidth: window.innerWidth,
-      isMobile: this.isMobile(window.innerWidth),
-      elevationVisible: true,
+      isMobile,
+      elevationVisible: !isMobile,
       scenario: '1',
       mobileView: 'controls',
     };
@@ -244,6 +246,7 @@ class App extends React.Component {
           setStartLocation={this.setStartLocation}
           setEndLocation={this.setEndLocation}
           height={this.getMapHeight()}
+          isMobile={this.state.isMobile}
         />
       );
       elevation = (

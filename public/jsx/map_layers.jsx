@@ -16,7 +16,7 @@ class MapLayers extends React.Component {
       bikeParking: false,
       bikeShops: false,
       construction: true,
-      visible: true,
+      visible: !this.props.isMobile,
     };
 
     this.toggleConstruction = () => {
@@ -157,6 +157,7 @@ class MapLayers extends React.Component {
 }
 
 MapLayers.propTypes = {
+  isMobile: React.PropTypes.bool.isRequired,
 };
 
 module.exports = MapLayers;
