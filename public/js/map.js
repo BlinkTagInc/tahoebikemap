@@ -38,7 +38,7 @@ fetch('/data/class2.geojson')
   class2Layer.setGeoJSON(json)
   .setStyle({
     color: '#0066CC',
-    weight: 2,
+    weight: 3,
     opacity: 0.8,
   });
 });
@@ -49,7 +49,7 @@ fetch('/data/class3.geojson')
   class3Layer.setGeoJSON(json)
   .setStyle({
     color: '#3399FF',
-    weight: 1,
+    weight: 3,
     opacity: 0.6,
   });
 });
