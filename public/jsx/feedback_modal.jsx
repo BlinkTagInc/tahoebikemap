@@ -25,7 +25,8 @@ class FeedbackModal extends React.Component {
       });
     };
 
-    this.hideFeedbackForm = () => {
+    this.hideFeedbackForm = (e) => {
+      e.preventDefault();
       this.setState({
         modalOpen: false,
       });
