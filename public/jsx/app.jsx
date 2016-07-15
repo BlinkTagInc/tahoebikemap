@@ -210,8 +210,6 @@ class App extends React.Component {
       elevationHeight = 0;
     }
 
-    console.log(this.state.windowHeight, elevationHeight, titlebarHeight);
-
     return this.state.windowHeight - elevationHeight - titlebarHeight;
   }
 

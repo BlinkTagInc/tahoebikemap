@@ -1,9 +1,8 @@
-const _ = require('underscore');
 const React = require('react');
 const Modal = require('react-modal');
 const classNames = require('classnames');
-window.jQuery = require("jquery");
-const $ = jQuery;
+window.jQuery = require('jquery');
+const $ = window.jQuery;
 require('jquery-locationpicker');
 
 const config = require('../../frontendconfig.json');
@@ -50,7 +49,6 @@ class FeedbackModal extends React.Component {
       },
       enableAutocomplete: true,
       onchanged: (location) => {
-        console.log(location)
         this.state.latitude = location.latitude;
         this.state.longitude = location.longitude;
       }
@@ -169,6 +167,7 @@ class FeedbackModal extends React.Component {
             <div className={classNames({hide: this.state.selectedForm === 'praiseOrFeedback'})}>
               <div className="form-group">
                 <label>Location</label><br />
+                <p>Drag the marker on the map or type an address below to indicate a specific location.</p>
                 <input type="text" ref="locationpickerAddress" className="form-control address" name="address" />
               </div>
               <div className="form-group">

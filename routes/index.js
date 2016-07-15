@@ -7,8 +7,6 @@ exports.index = (req, res, next) => {
 };
 
 exports.feedback = (req, res, next) => {
-  console.log(req.body);
-
   if (!req.body) {
     next(new Error('No body sent'));
   }
@@ -34,9 +32,6 @@ exports.feedback = (req, res, next) => {
   request.path = '/v3/mail/send';
   request.body = requestBody;
   sg.API(request, (response) => {
-    console.log(response.statusCode);
-    console.log(response.body);
-    console.log(response.headers);
     res.render('thankyou', {
       redirectUrl: req.body.redirectUrl,
     });
