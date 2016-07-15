@@ -1,9 +1,5 @@
 .directions {
-  width: 300px;
-  clear: left;
-  float: left;
   padding: 10px 15px;
-  overflow-y: scroll;
 
   h3 {
     font-size: 14px;
@@ -20,5 +16,14 @@
     padding: 3px 0;
     font-size: 11px;
     text-transform: capitalize;
+  }
+}
+
+@media only screen and (min-width: 667px) {
+  .directions {
+    width: 300px;
+    clear: left;
+    float: left;
+    overflow-y: scroll;
   }
 }

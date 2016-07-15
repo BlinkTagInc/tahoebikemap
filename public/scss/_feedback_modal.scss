@@ -2,10 +2,20 @@
   z-index: 1001;
 }
 
-.locationpicker {
-  height: 200px;
-}
-
 .pac-container{
   z-index: 1002;
+}
+
+.feedback-form {
+  .locationpicker {
+    height: 200px;
+  }
+
+  .checkbox-inline {
+    display: block;
+  }
+
+  .radio-inline + .radio-inline, .checkbox-inline + .checkbox-inline {
+    margin: 0;
+  }
 }

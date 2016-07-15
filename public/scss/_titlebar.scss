@@ -1,0 +1,37 @@
+.titlebar {
+  height: 37px;
+  background-color: #e0e0e0;
+  border-bottom: 1px solid #ccc;
+
+  .site-title {
+    font-size: 14px;
+    text-align: center;
+    margin: 0;
+    line-height: 35px;
+
+    .logo {
+      width: 20px;
+      margin-right: 9px;
+    }
+  }
+
+  .btn-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 3px 5px;
+  }
+
+  .btn-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 4px 5px;
+  }
+}
+
+@media only screen and (min-width: 667px) {
+  .titlebar {
+    display: none;
+  }
+}

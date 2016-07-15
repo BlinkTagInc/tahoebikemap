@@ -1,4 +1,5 @@
 const React = require('react');
+const classNames = require('classnames');
 
 const FeedbackModal = require('./feedback_modal.jsx');
 
@@ -15,6 +16,7 @@ class MapLayers extends React.Component {
       bikeParking: false,
       bikeShops: false,
       construction: true,
+      visible: true,
     };
 
     this.toggleConstruction = () => {
@@ -58,11 +60,30 @@ class MapLayers extends React.Component {
         bikeShops: !this.state.bikeShops,
       });
     };
+
+    this.toggleMapLayersVisibility = () => {
+      this.setState({
+        visible: !this.state.visible,
+      });
+    };
   }
 
   render() {
+    if (!this.state.visible) {
+      return (
+        <div
+          className="map-layers-open-box"
+          onClick={this.toggleMapLayersVisibility}
+        >Toggle Map Layers</div>
+      );
+    }
+
     return (
-      <div className="map-layers">
+      <div className={classNames('map-layers', { hide: !this.state.visible })}>
+        <div
+          className="close-box"
+          onClick={this.toggleMapLayersVisibility}
+        >&minus;</div>
         <div>
           <div className="map-layer-legend construction"></div>
           <label>

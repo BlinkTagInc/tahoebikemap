@@ -7,6 +7,7 @@ const Controls = require('./controls.jsx');
 const Directions = require('./directions.jsx');
 const Elevation = require('./elevation.jsx');
 const Map = require('./map.jsx');
+const TitleBar = require('./titlebar.jsx');
 const api = require('../js/api');
 const analytics = require('../js/analytics');
 const error = require('../js/error');
@@ -20,14 +21,17 @@ class App extends React.Component {
     this.state = {
       windowHeight: window.innerHeight,
       windowWidth: window.innerWidth,
+      isMobile: this.isMobile(window.innerWidth),
       elevationVisible: true,
       scenario: '1',
+      mobileView: 'controls',
     };
 
     this.handleResize = () => {
       this.setState({
         windowHeight: window.innerHeight,
         windowWidth: window.innerWidth,
+        isMobile: this.isMobile(window.innerWidth),
       });
     };
 
@@ -38,6 +42,7 @@ class App extends React.Component {
         endAddress,
         scenario,
         loading: true,
+        mobileView: 'map',
       });
       const promises = [
         geocode.geocode(startAddress).catch(() => {
@@ -146,6 +151,12 @@ class App extends React.Component {
         elevationVisible: !this.state.elevationVisible,
       });
     };
+
+    this.changeMobileView = (mobileView) => {
+      this.setState({
+        mobileView,
+      });
+    };
   }
 
   componentDidMount() {
@@ -178,40 +189,54 @@ class App extends React.Component {
     });
   }
 
-  getMapHeight() {
+  getElevationHeight() {
     const elevationHeight = 175;
-    let mapHeight = this.state.windowHeight;
+    return elevationHeight;
+  }
 
-    if (this.state.elevationVisible && this.state.elevationProfile) {
-      mapHeight -= elevationHeight;
+  getMapHeight() {
+    let elevationHeight = this.getElevationHeight();
+    let titlebarHeight;
+
+    if (this.state.isMobile) {
+      titlebarHeight = 38;
+    } else {
+      titlebarHeight = 0;
     }
 
-    return mapHeight;
+    if (!this.state.elevationVisible || !this.state.elevationProfile) {
+      elevationHeight = 0;
+    }
+
+    console.log(this.state.windowHeight, elevationHeight, titlebarHeight);
+
+    return this.state.windowHeight - elevationHeight - titlebarHeight;
+  }
+
+  isMobile(width) {
+    const mobileBreakpoint = 667;
+    return width <= mobileBreakpoint;
   }
 
   render() {
     const controlsHeight = 208;
-    const directionsHeight = this.state.windowHeight - controlsHeight;
     const sidebarWidth = 300;
-    const elevationWidth = this.state.windowWidth - sidebarWidth;
+    let elevationWidth;
+    let directionsHeight;
 
-    return (
-      <div>
-        <Controls
-          updateRoute={this.updateRoute}
-          clearRoute={this.clearRoute}
-          startAddress={this.state.startAddress}
-          endAddress={this.state.endAddress}
-          scenario={this.state.scenario}
-          loading={this.state.loading}
-        />
-        <Directions
-          directions={this.state.directions}
-          decodedPath={this.state.decodedPath}
-          endAddress={this.state.endAddress}
-          elevationProfile={this.state.elevationProfile}
-          height={directionsHeight}
-        />
+    if (this.state.isMobile) {
+      elevationWidth = this.state.windowWidth;
+    } else {
+      elevationWidth = this.state.windowWidth - sidebarWidth;
+      directionsHeight = this.state.windowHeight - controlsHeight;
+    }
+
+    let map;
+    let elevation;
+    let directions;
+
+    if (!this.state.isMobile || this.state.mobileView === 'map') {
+      map = (
         <Map
           startLocation={this.state.startLocation}
           endLocation={this.state.endLocation}
@@ -220,12 +245,50 @@ class App extends React.Component {
           setEndLocation={this.setEndLocation}
           height={this.getMapHeight()}
         />
+      );
+      elevation = (
         <Elevation
           elevationProfile={this.state.elevationProfile}
           width={elevationWidth}
+          height={this.getElevationHeight()}
           toggleElevationVisibility={this.toggleElevationVisibility}
           elevationVisible={this.state.elevationVisible && !!this.state.elevationProfile}
         />
+      );
+    }
+
+    if (!this.state.isMobile || this.state.mobileView === 'directions') {
+      directions = (
+        <Directions
+          directions={this.state.directions}
+          decodedPath={this.state.decodedPath}
+          endAddress={this.state.endAddress}
+          elevationProfile={this.state.elevationProfile}
+          height={directionsHeight}
+        />
+      );
+    }
+
+    return (
+      <div>
+        <TitleBar
+          changeMobileView={this.changeMobileView}
+          isMobile={this.state.isMobile}
+          mobileView={this.state.mobileView}
+        />
+        <Controls
+          updateRoute={this.updateRoute}
+          clearRoute={this.clearRoute}
+          startAddress={this.state.startAddress}
+          endAddress={this.state.endAddress}
+          scenario={this.state.scenario}
+          loading={this.state.loading}
+          isMobile={this.state.isMobile}
+          mobileView={this.state.mobileView}
+        />
+        {directions}
+        {map}
+        {elevation}
       </div>
     );
   }

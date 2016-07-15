@@ -16,7 +16,6 @@ class Map extends React.Component {
         if (map.latlngIsWithinBounds(latlng)) {
           this.props.setStartLocation(latlng);
         }
-
       } else if (!this.props.endLocation) {
         if (map.latlngIsWithinBounds(latlng)) {
           this.props.setEndLocation(latlng);
@@ -36,7 +35,8 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
-    map.drawMap([config.initialCenterLat, config.initialCenterLng], config.initialZoom, this.handleMapClick, this.handleMarkerDrag);
+    const point = [config.initialCenterLat, config.initialCenterLng];
+    map.drawMap(point, config.initialZoom, this.handleMapClick, this.handleMarkerDrag);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -53,7 +53,9 @@ class Map extends React.Component {
             <img src="/img/ltbc-logo.png" srcSet="img/ltbc-logo@2x.png 2x" alt="logo" />
           </a>
         </div>
-        <div className="disclaimer">The Lake Tahoe Bicycle Coalition is solely responsible for the content on this site.</div>
+        <div
+          className="disclaimer"
+        >The Lake Tahoe Bicycle Coalition is solely responsible for the content on this site.</div>
         <div className="map" id="map" style={{ height: `${this.props.height}px` }}></div>
         <MapLayers />
       </div>
@@ -66,7 +68,7 @@ Map.propTypes = {
   endLocation: React.PropTypes.object,
   setStartLocation: React.PropTypes.func.isRequired,
   setEndLocation: React.PropTypes.func.isRequired,
-  height: React.PropTypes.number,
+  height: React.PropTypes.number
 };
 
 module.exports = Map;

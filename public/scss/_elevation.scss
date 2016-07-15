@@ -1,7 +1,6 @@
 .elevation {
   background: $white;
   position: relative;
-  margin-left: 300px;
   border-left: 1px solid $light-grey;
   border-top: 1px solid $light-grey;
   box-sizing: border-box;
@@ -31,8 +30,8 @@
 
 .elevation-open-box {
   position: absolute;
-  bottom: 0;
-  right: 275px;
+  bottom: 112px;
+  left: 30px;
   background: $white;
   border: 1px solid $border;
   border-bottom: 0;
@@ -40,4 +39,19 @@
   border-top-right-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
+  transform: rotate(90deg);
+  transform-origin: left top 0;
+}
+
+@media only screen and (min-width: 667px) {
+  .elevation {
+    margin-left: 300px;
+  }
+
+  .elevation-open-box {
+    bottom: 0;
+    left: auto;
+    right: 275px;
+    transform: none;
+  }
 }

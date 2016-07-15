@@ -31,9 +31,10 @@ class Directions extends React.Component {
     ));
 
     const totalDistance = this.getDistance();
+    const height = this.props.height ? `${this.props.height}px` : 'auto';
 
     return (
-      <div className="directions" style={{ height: `${this.props.height}px` }}>
+      <div className="directions" style={{ height }}>
         <h3>Directions to {this.props.endAddress}</h3>
         <div className="stats">
           <div className="stat">

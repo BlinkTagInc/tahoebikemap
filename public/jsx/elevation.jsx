@@ -54,7 +54,7 @@ class Elevation extends React.Component {
           }}
           data={elevationProfile}
           width={this.props.width}
-          height={170}
+          height={this.props.height - 5}
           chartSeries={[
             {
               field: 'elevation',
@@ -75,6 +75,7 @@ class Elevation extends React.Component {
 Elevation.propTypes = {
   elevationProfile: React.PropTypes.array,
   width: React.PropTypes.number,
+  height: React.PropTypes.number.isRequired,
   elevationVisible: React.PropTypes.bool,
   toggleElevationVisibility: React.PropTypes.func.isRequired,
 };

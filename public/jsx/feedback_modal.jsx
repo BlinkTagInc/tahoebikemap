@@ -135,7 +135,10 @@ class FeedbackModal extends React.Component {
 
     return (
       <div>
-        <button onClick={this.showFeedbackForm} className="btn btn-default">Improve this map</button>
+        <button
+          onClick={this.showFeedbackForm}
+          className="btn btn-default btn-block"
+        >Improve this map</button>
         <Modal
           isOpen={this.state.modalOpen}
           onRequestClose={this.hideFeedbackForm}
@@ -149,7 +152,7 @@ class FeedbackModal extends React.Component {
           }}
         >
           <h1>Feedback</h1>
-          <form method="POST" action="/api/feedback">
+          <form method="POST" action="/api/feedback" className="feedback-form">
             <div className="form-group">
               <label className="control-label">Feedback Type</label>
               <select className="form-control" onChange={this.toggleFormCategory}>

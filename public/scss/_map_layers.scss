@@ -9,6 +9,19 @@
   border-bottom-left-radius: 5px;
   padding: 10px;
 
+  .close-box {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    color: $grey;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 20px;
+  }
+
   .map-layer-legend {
     width: 15px;
     height: 15px;
@@ -52,6 +65,29 @@
 
     input[type="checkbox"] {
       margin-right: 5px;
+    }
+  }
+}
+
+.map-layers-open-box {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  background: $white;
+  border: 1px solid $border;
+  border-top: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transform: rotate(90deg);
+  transform-origin: right bottom 0;
+}
+
+@media only screen and (min-width: 667px) {
+  .map-layers {
+    .close-box {
+      display: none;
     }
   }
 }

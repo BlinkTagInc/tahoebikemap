@@ -76,11 +76,16 @@ class Controls extends React.Component {
 
   render() {
     return (
-      <div className="controls">
+      <div className={classNames('controls', { hide: this.props.mobileView !== 'controls' && this.props.isMobile })}>
         <form onSubmit={this.processForm}>
           <div className={classNames('form-group', 'form-inline', 'start-address', { 'has-error': _.contains(this.state.errorFields, 'startAddress') })}>
             <label className="control-label">Start Location</label>
-            <img src="img/start_marker.png" srcSet="img/start_marker@2x.png 2x" className="control-icon" alt="Start Marker" />
+            <img
+              src="img/start_marker.png"
+              srcSet="img/start_marker@2x.png 2x"
+              className="control-icon"
+              alt="Start Marker"
+            />
             <input
               type="text"
               value={this.state.startAddress}
@@ -89,9 +94,19 @@ class Controls extends React.Component {
               placeholder={config.startAddressPlaceholder}
             />
           </div>
-          <div className={classNames('form-group', 'form-inline', 'end-address', { 'has-error': _.contains(this.state.errorFields, 'endAddress') })}>
+          <div className={classNames(
+            'form-group',
+            'form-inline',
+            'end-address',
+            { 'has-error': _.contains(this.state.errorFields, 'endAddress') }
+          )}>
             <label className="control-label">End Location</label>
-            <img src="img/end_marker.png" srcSet="img/end_marker@2x.png 2x" className="control-icon" alt="End Marker" />
+            <img
+              src="img/end_marker.png"
+              srcSet="img/end_marker@2x.png 2x"
+              className="control-icon"
+              alt="End Marker"
+            />
             <input
               type="text"
               value={this.state.endAddress}
@@ -117,7 +132,12 @@ class Controls extends React.Component {
             className="btn btn-success btn-update-route"
           >
             <i
-              className={classNames('fa', 'fa-circle-o-notch', 'fa-spin', {hidden: !this.props.loading})}
+              className={classNames(
+                'fa',
+                'fa-circle-o-notch',
+                'fa-spin',
+                { hidden: !this.props.loading }
+              )}
               aria-hidden="true"
             ></i> Get Directions
           </button>
@@ -133,6 +153,8 @@ Controls.propTypes = {
   startAddress: React.PropTypes.string,
   endAddress: React.PropTypes.string,
   loading: React.PropTypes.bool,
+  isMobile: React.PropTypes.bool.isRequired,
+  mobileView: React.PropTypes.string.isRequired,
 };
 
 module.exports = Controls;
