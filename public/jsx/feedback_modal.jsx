@@ -46,12 +46,10 @@ class FeedbackModal extends React.Component {
       zoom: 11,
       inputBinding: {
         locationNameInput: $(this.refs.locationpickerAddress),
+        latitudeInput: $(this.refs.locationpickerLat),
+        longitudeInput: $(this.refs.locationpickerLon),
       },
-      enableAutocomplete: true,
-      onchanged: (location) => {
-        this.state.latitude = location.latitude;
-        this.state.longitude = location.longitude;
-      }
+      enableAutocomplete: true
     });
 
     $(this.refs.locationpickerAddress).keypress((event) => {
@@ -173,8 +171,16 @@ class FeedbackModal extends React.Component {
               <div className="form-group">
                 <div className="locationpicker" ref="locationpicker"></div>
               </div>
-              <input type="hidden" value={this.state.latitude} name="latitude" />
-              <input type="hidden" value={this.state.longitude} name="longitude" />
+              <input
+                type="hidden"
+                name="latitude"
+                ref="locationpickerLat"
+              />
+              <input
+                type="hidden"
+                name="longitude"
+                ref="locationpickerLon"
+                />
             </div>
             <input type="hidden" value={url.getUrl()} name="redirectUrl" />
             <button onClick={this.hideFeedbackForm} className="btn btn-danger">Cancel</button>&nbsp;

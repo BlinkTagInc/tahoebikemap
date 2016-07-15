@@ -19,11 +19,13 @@ exports.feedback = (req, res, next) => {
     return memo;
   }, []).join('');
 
-  const from_email = new mailHelper.Email("noreply@tahoebike.org");
-  const to_email = new mailHelper.Email("brendan+tahoe@blinktag.com");
-  const subject = "Feedback from Lake Tahoe Bike Mapper";
-  const content = new mailHelper.Content("text/plain", text);
-  const mail = new mailHelper.Mail(from_email, subject, to_email, content);
+  console.log(text);
+
+  const fromEmail = new mailHelper.Email('noreply@tahoebike.org');
+  const toEmail = new mailHelper.Email('info@tahoebike.org');
+  const subject = 'Feedback from Lake Tahoe Bike Mapper';
+  const content = new mailHelper.Content('text/plain', text);
+  const mail = new mailHelper.Mail(fromEmail, subject, toEmail, content);
 
   const sg = require('sendgrid').SendGrid(nconf.get('SENDGRID_API_KEY'));
   const requestBody = mail.toJSON();
@@ -36,4 +38,4 @@ exports.feedback = (req, res, next) => {
       redirectUrl: req.body.redirectUrl,
     });
   });
-}
+};
