@@ -49,12 +49,10 @@ class FeedbackModal extends React.Component {
         latitudeInput: $(this.refs.locationpickerLat),
         longitudeInput: $(this.refs.locationpickerLon),
       },
-      enableAutocomplete: true
+      enableAutocomplete: true,
     });
 
-    $(this.refs.locationpickerAddress).keypress((event) => {
-      return event.keyCode !== 13;
-    });
+    $(this.refs.locationpickerAddress).keypress((event) => event.keyCode !== 13);
   }
 
   render() {
@@ -120,7 +118,7 @@ class FeedbackModal extends React.Component {
           </div>
         </div>
       ),
-      praiseOrFeedback: (
+      feedback: (
         <div>
           <div className="form-group">
             <label>How can we improve this map?</label>
@@ -158,15 +156,20 @@ class FeedbackModal extends React.Component {
                 <option value="constructionZone">Construction Zone</option>
                 <option value="infrastructureRequest">Infrastructure Request or Idea</option>
                 <option value="bikeParking">Bike Parking Request or Tag Existing</option>
-                <option value="praiseOrFeedback">Praise / Feedback</option>
+                <option value="feedback">Feedback</option>
               </select>
             </div>
             {forms[this.state.selectedForm]}
-            <div className={classNames({hide: this.state.selectedForm === 'praiseOrFeedback'})}>
+            <div className={classNames({ hide: this.state.selectedForm === 'feedback' })}>
               <div className="form-group">
                 <label>Location</label><br />
                 <p>Drag the marker on the map or type an address below to indicate a specific location.</p>
-                <input type="text" ref="locationpickerAddress" className="form-control address" name="address" />
+                <input
+                  type="text"
+                  ref="locationpickerAddress"
+                  className="form-control address"
+                  name="address"
+                />
               </div>
               <div className="form-group">
                 <div className="locationpicker" ref="locationpicker"></div>
@@ -180,7 +183,7 @@ class FeedbackModal extends React.Component {
                 type="hidden"
                 name="longitude"
                 ref="locationpickerLon"
-                />
+              />
             </div>
             <input type="hidden" value={url.getUrl()} name="redirectUrl" />
             <button onClick={this.hideFeedbackForm} className="btn btn-danger">Cancel</button>&nbsp;
