@@ -114,7 +114,23 @@ class FeedbackModal extends React.Component {
       bikeParking: (
         <div>
           <div className="form-group">
-            <p>Tag or enter location of desired or exisiting bike parking</p>
+            <label className="control-label">Type</label>
+            <div>
+              <label className="checkbox-inline">
+                <input
+                  type="radio"
+                  name="requestType"
+                  value="bikeParkingRequest"
+                /> Bike parking request
+              </label>
+              <label className="checkbox-inline">
+                <input
+                  type="radio"
+                  name="requestType"
+                  value="tagExistingBikeParking"
+                /> Tag existing bike parking
+              </label>
+            </div>
           </div>
         </div>
       ),
