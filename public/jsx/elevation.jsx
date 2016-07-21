@@ -1,4 +1,5 @@
 const React = require('react');
+const classNames = require('classnames');
 const LineChart = require('react-d3-basic').LineChart;
 
 const helper = require('../js/helper');
@@ -31,7 +32,10 @@ class Elevation extends React.Component {
     if (!this.props.elevationVisible) {
       return (
         <div
-          className="elevation-open-box"
+          className={classNames(
+            'elevation-open-box',
+            { hide: this.props.isMobile && this.props.mobileView !== 'map' }
+          )}
           onClick={this.props.toggleElevationVisibility}
         >Elevation Profile</div>
       );
@@ -40,7 +44,12 @@ class Elevation extends React.Component {
     const elevationProfile = this.formatElevationProfile();
 
     return (
-      <div className="elevation">
+      <div
+        className={classNames(
+          'elevation',
+          { hide: this.props.isMobile && this.props.mobileView !== 'map' }
+        )}
+      >
         <div
           className="close-box"
           onClick={this.props.toggleElevationVisibility}
@@ -78,6 +87,8 @@ Elevation.propTypes = {
   height: React.PropTypes.number.isRequired,
   elevationVisible: React.PropTypes.bool,
   toggleElevationVisibility: React.PropTypes.func.isRequired,
+  isMobile: React.PropTypes.bool.isRequired,
+  mobileView: React.PropTypes.string,
 };
 
 module.exports = Elevation;

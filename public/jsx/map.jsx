@@ -1,4 +1,5 @@
 const React = require('react');
+const classNames = require('classnames');
 
 const MapLayers = require('./map_layers.jsx');
 
@@ -44,11 +45,17 @@ class Map extends React.Component {
     map.updateStartMarker(nextProps.startLocation);
     map.updateEndMarker(nextProps.endLocation);
     map.updatePath(nextProps.decodedPath);
+    map.updateMapSize();
   }
 
   render() {
     return (
-      <div className="map-container">
+      <div
+        className={classNames(
+          'map-container',
+          { hide: this.props.isMobile && this.props.mobileView !== 'map' }
+        )}
+      >
         <div className="logo">
           <a href="http://tahoebike.org">
             <img src="/img/ltbc-logo.png" srcSet="img/ltbc-logo@2x.png 2x" alt="logo" />
@@ -70,6 +77,7 @@ Map.propTypes = {
   setEndLocation: React.PropTypes.func.isRequired,
   height: React.PropTypes.number,
   isMobile: React.PropTypes.bool.isRequired,
+  mobileView: React.PropTypes.string,
 };
 
 module.exports = Map;

@@ -12,6 +12,7 @@ const api = require('../js/api');
 const analytics = require('../js/analytics');
 const error = require('../js/error');
 const geocode = require('../js/geocode');
+const map = require('../js/map');
 const url = require('../js/url');
 
 class App extends React.Component {
@@ -159,6 +160,10 @@ class App extends React.Component {
     this.changeMobileView = (mobileView) => {
       this.setState({
         mobileView,
+      }, () => {
+        if (this.state.mobileView === 'map') {
+          map.updateMapSize();
+        }
       });
     };
   }
@@ -233,45 +238,6 @@ class App extends React.Component {
       directionsHeight = this.state.windowHeight - controlsHeight;
     }
 
-    let map;
-    let elevation;
-    let directions;
-
-    if (!this.state.isMobile || this.state.mobileView === 'map') {
-      map = (
-        <Map
-          startLocation={this.state.startLocation}
-          endLocation={this.state.endLocation}
-          decodedPath={this.state.decodedPath}
-          setStartLocation={this.setStartLocation}
-          setEndLocation={this.setEndLocation}
-          height={this.getMapHeight()}
-          isMobile={this.state.isMobile}
-        />
-      );
-      elevation = (
-        <Elevation
-          elevationProfile={this.state.elevationProfile}
-          width={elevationWidth}
-          height={this.getElevationHeight()}
-          toggleElevationVisibility={this.toggleElevationVisibility}
-          elevationVisible={this.state.elevationVisible && !!this.state.elevationProfile}
-        />
-      );
-    }
-
-    if (!this.state.isMobile || this.state.mobileView === 'directions') {
-      directions = (
-        <Directions
-          directions={this.state.directions}
-          decodedPath={this.state.decodedPath}
-          endAddress={this.state.endAddress}
-          elevationProfile={this.state.elevationProfile}
-          height={directionsHeight}
-        />
-      );
-    }
-
     return (
       <div>
         <TitleBar
@@ -290,9 +256,34 @@ class App extends React.Component {
           mobileView={this.state.mobileView}
           showDisclaimer={this.state.showDisclaimer}
         />
-        {directions}
-        {map}
-        {elevation}
+        <Directions
+          directions={this.state.directions}
+          decodedPath={this.state.decodedPath}
+          endAddress={this.state.endAddress}
+          elevationProfile={this.state.elevationProfile}
+          height={directionsHeight}
+          isMobile={this.state.isMobile}
+          mobileView={this.state.mobileView}
+        />
+        <Map
+          startLocation={this.state.startLocation}
+          endLocation={this.state.endLocation}
+          decodedPath={this.state.decodedPath}
+          setStartLocation={this.setStartLocation}
+          setEndLocation={this.setEndLocation}
+          height={this.getMapHeight()}
+          isMobile={this.state.isMobile}
+          mobileView={this.state.mobileView}
+        />
+        <Elevation
+          elevationProfile={this.state.elevationProfile}
+          width={elevationWidth}
+          height={this.getElevationHeight()}
+          toggleElevationVisibility={this.toggleElevationVisibility}
+          elevationVisible={this.state.elevationVisible && !!this.state.elevationProfile}
+          isMobile={this.state.isMobile}
+          mobileView={this.state.mobileView}
+        />
       </div>
     );
   }

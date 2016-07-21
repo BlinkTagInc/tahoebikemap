@@ -141,19 +141,13 @@ exports.drawMap = (center, zoom, draggable, handleMapClick, handleMarkerDrag) =>
   map = L.map('map', {
     center,
     zoom,
-    attributionControl: false
+    attributionControl: false,
   });
-
-  // Add attribution to Mapbox and OpenStreetMap.
-  const attribution = L.control.attribution({position: 'topright'});
-  attribution.setPrefix('');
-  attribution.addAttribution('<a href="/terms" target="_blank">Terms</a>');
-  attribution.addTo(map);
 
   L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/256/{z}/{x}/{y}?access_token=${config.mapboxAccessToken}`).addTo(map);
 
   startMarker = L.marker(center, {
-    draggable: draggable,
+    draggable,
     icon: L.mapbox.marker.icon({
       'marker-size': 'large',
       'marker-symbol': 's',
@@ -170,7 +164,12 @@ exports.drawMap = (center, zoom, draggable, handleMapClick, handleMarkerDrag) =>
     }),
   });
 
-  path = L.polyline([center, center], { color: '#4812ff' });
+  path = L.polyline([center, center], {
+    color: '#ff6712',
+    opacity: 0.8,
+    width: 5,
+    dashArray: '10, 10',
+  });
 
   map.on('click', (event) => {
     handleMapClick(event.latlng);
@@ -199,7 +198,7 @@ exports.drawMap = (center, zoom, draggable, handleMapClick, handleMarkerDrag) =>
   L.control.attribution({
     position: 'bottomright',
   })
-  .addAttribution('© <a href="https://www.mapbox.com/about/maps/"">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>')
+  .addAttribution('© <a href="https://www.mapbox.com/about/maps/"">Mapbox</a> | © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> | <a href="/terms" target="_blank">Terms</a>')
   .addTo(map);
 };
 
@@ -280,4 +279,9 @@ exports.getPathDistance = (decodedPath) => {
     distance += polyline._latlngs[i].distanceTo(polyline._latlngs[i - 1]);
   }
   return distance;
+};
+
+exports.updateMapSize = () => {
+  console.log('size');
+  map.invalidateSize();
 };

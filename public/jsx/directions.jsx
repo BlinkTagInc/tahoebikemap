@@ -1,4 +1,5 @@
 const React = require('react');
+const classNames = require('classnames');
 
 const helper = require('../js/helper');
 const map = require('../js/map');
@@ -34,7 +35,13 @@ class Directions extends React.Component {
     const height = this.props.height ? `${this.props.height}px` : 'auto';
 
     return (
-      <div className="directions" style={{ height }}>
+      <div
+        className={classNames(
+          'directions',
+          { hide: this.props.isMobile && this.props.mobileView !== 'directions' }
+        )}
+        style={{ height }}
+      >
         <h3>Directions to {this.props.endAddress}</h3>
         <div className="stats">
           <div className="stat">
@@ -61,6 +68,8 @@ Directions.propTypes = {
   decodedPath: React.PropTypes.array,
   elevationProfile: React.PropTypes.array,
   height: React.PropTypes.number,
+  isMobile: React.PropTypes.bool.isRequired,
+  mobileView: React.PropTypes.string,
 };
 
 module.exports = Directions;
