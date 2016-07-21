@@ -6,6 +6,10 @@ exports.index = (req, res, next) => {
   res.render('index');
 };
 
+exports.terms = (req, res, next) => {
+  res.render('terms');
+};
+
 exports.feedback = (req, res, next) => {
   if (!req.body) {
     next(new Error('No body sent'));

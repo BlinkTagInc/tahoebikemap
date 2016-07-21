@@ -27,6 +27,7 @@ class App extends React.Component {
       elevationVisible: !isMobile,
       scenario: '1',
       mobileView: 'controls',
+      showDisclaimer: true,
     };
 
     this.handleResize = () => {
@@ -86,6 +87,7 @@ class App extends React.Component {
           decodedPath: polyline.decode(results.path[0]),
           directions: results.directions,
           elevationProfile: results.elevation_profile,
+          showDisclaimer: false,
         });
         url.updateUrlParams([this.state.startAddress, this.state.endAddress, this.state.scenario]);
         analytics.logQuery(this.state.startAddress, this.state.endAddress, this.state.startLocation, this.state.endLocation);
@@ -286,6 +288,7 @@ class App extends React.Component {
           loading={this.state.loading}
           isMobile={this.state.isMobile}
           mobileView={this.state.mobileView}
+          showDisclaimer={this.state.showDisclaimer}
         />
         {directions}
         {map}

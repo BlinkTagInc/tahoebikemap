@@ -166,7 +166,11 @@ class FeedbackModal extends React.Component {
           <form method="POST" action="/api/feedback" className="feedback-form">
             <div className="form-group">
               <label className="control-label">Feedback Type</label>
-              <select className="form-control" onChange={this.toggleFormCategory}>
+              <select
+                className="form-control"
+                onChange={this.toggleFormCategory}
+                name="formCategory"
+              >
                 <option value="collisionOrIncident">Collision or Incident</option>
                 <option value="unsafeCondition">Unsafe Condition</option>
                 <option value="constructionZone">Construction Zone</option>

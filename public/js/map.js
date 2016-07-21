@@ -26,7 +26,7 @@ fetch('/data/class1.geojson')
 .then((json) => {
   class1Layer.setGeoJSON(json)
   .setStyle({
-    color: '#003366',
+    color: '#330066',
     weight: 3,
     opacity: 1,
   });
@@ -37,7 +37,7 @@ fetch('/data/class2.geojson')
 .then((json) => {
   class2Layer.setGeoJSON(json)
   .setStyle({
-    color: '#0066CC',
+    color: '#660099',
     weight: 3,
     opacity: 0.8,
   });
@@ -48,7 +48,7 @@ fetch('/data/class3.geojson')
 .then((json) => {
   class3Layer.setGeoJSON(json)
   .setStyle({
-    color: '#3399FF',
+    color: '#9933CC',
     weight: 3,
     opacity: 0.6,
   });
@@ -78,8 +78,12 @@ function createBikeParkingLayer() {
 }
 
 function formatBikeShopPopup(shop) {
-  const website = shop[4] ? `<a href="http://${shop[4]}" target="_blank">${shop[4]}</a>` : '';
-  return `<b>${shop[0]}</b><br>${shop[1]}<br>${website}`;
+  if (shop[1] !== 'LTBC Business Member') {
+    return `<b>${shop[0]}</b>`;
+  }
+
+  const website = shop[5] ? `<a href="http://${shop[5]}" target="_blank">${shop[5]}</a>` : '';
+  return `<b>${shop[0]}</b><br>LTBC Business Member<br>${shop[2]}<br>${website}`;
 }
 
 function createBikeShopLayer() {
@@ -98,7 +102,7 @@ function createBikeShopLayer() {
         iconSize: [24, 24],
       });
 
-      L.marker([parseFloat(shop[2]), parseFloat(shop[3])], { icon: bikeShopIcon })
+      L.marker([parseFloat(shop[3]), parseFloat(shop[4])], { icon: bikeShopIcon })
       .bindPopup(formatBikeShopPopup(shop))
       .addTo(bikeShopsLayer);
     });
@@ -133,17 +137,23 @@ function createConstructionLayer() {
   });
 }
 
-exports.drawMap = (center, zoom, handleMapClick, handleMarkerDrag) => {
+exports.drawMap = (center, zoom, draggable, handleMapClick, handleMarkerDrag) => {
   map = L.map('map', {
     center,
     zoom,
-    attributionControl: false,
+    attributionControl: false
   });
+
+  // Add attribution to Mapbox and OpenStreetMap.
+  const attribution = L.control.attribution({position: 'topright'});
+  attribution.setPrefix('');
+  attribution.addAttribution('<a href="/terms" target="_blank">Terms</a>');
+  attribution.addTo(map);
 
   L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/256/{z}/{x}/{y}?access_token=${config.mapboxAccessToken}`).addTo(map);
 
   startMarker = L.marker(center, {
-    draggable: true,
+    draggable: draggable,
     icon: L.mapbox.marker.icon({
       'marker-size': 'large',
       'marker-symbol': 's',
@@ -152,7 +162,7 @@ exports.drawMap = (center, zoom, handleMapClick, handleMarkerDrag) => {
   });
 
   endMarker = L.marker(center, {
-    draggable: true,
+    draggable: draggable,
     icon: L.mapbox.marker.icon({
       'marker-size': 'large',
       'marker-symbol': 'e',

@@ -26,6 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', routes.index);
 
+app.get('/terms', routes.terms);
+
 app.post('/api/feedback', routes.feedback);
 
 // error handlers

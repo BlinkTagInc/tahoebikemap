@@ -117,7 +117,7 @@ class MapLayers extends React.Component {
             <span>Bike Shops</span>
           </label>
         </div>
-        <div>
+        <div title="paved, separated (off the street) bikeways">
           <div className="map-layer-legend class1"></div>
           <label>
             <input
@@ -128,7 +128,7 @@ class MapLayers extends React.Component {
             <span>Multi-use Path</span>
           </label>
         </div>
-        <div>
+        <div title="dedicated on-street bikeways, marked by striping on pavement">
           <div className="map-layer-legend class2"></div>
           <label>
             <input
@@ -139,7 +139,7 @@ class MapLayers extends React.Component {
             <span>Bike Lane</span>
           </label>
         </div>
-        <div>
+        <div title="on-street routes signed for bicyclists">
           <div className="map-layer-legend class3"></div>
           <label>
             <input

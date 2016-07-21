@@ -94,12 +94,14 @@ class Controls extends React.Component {
               placeholder={config.startAddressPlaceholder}
             />
           </div>
-          <div className={classNames(
-            'form-group',
-            'form-inline',
-            'end-address',
-            { 'has-error': _.contains(this.state.errorFields, 'endAddress') }
-          )}>
+          <div
+            className={classNames(
+              'form-group',
+              'form-inline',
+              'end-address',
+              { 'has-error': _.contains(this.state.errorFields, 'endAddress') }
+            )}
+          >
             <label className="control-label">End Location</label>
             <img
               src="img/end_marker.png"
@@ -142,6 +144,9 @@ class Controls extends React.Component {
             ></i> Get Directions
           </button>
         </form>
+        <div className={classNames('disclaimer', { hide: !this.props.showDisclaimer })}>
+          This website should be used for reference purposes only.  LTBC does not guarantee the accuracy, or reliability of the information. This site and all materials contained on it are distributed without any warranties of any kind. By using this website, the user expressly agrees that use of the information contained on this website is at the user's sole risk.
+        </div>
       </div>
     );
   }
@@ -155,6 +160,7 @@ Controls.propTypes = {
   loading: React.PropTypes.bool,
   isMobile: React.PropTypes.bool.isRequired,
   mobileView: React.PropTypes.string.isRequired,
+  showDisclaimer: React.PropTypes.bool.isRequired,
 };
 
 module.exports = Controls;
