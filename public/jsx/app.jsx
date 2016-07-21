@@ -154,6 +154,8 @@ class App extends React.Component {
     this.toggleElevationVisibility = () => {
       this.setState({
         elevationVisible: !this.state.elevationVisible,
+      }, () => {
+        map.updateMapSize();
       });
     };
 
