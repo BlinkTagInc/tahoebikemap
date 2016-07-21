@@ -2,6 +2,9 @@
   height: 37px;
   background-color: #e0e0e0;
   border-bottom: 1px solid #ccc;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
 
   .site-title {
     font-size: 14px;

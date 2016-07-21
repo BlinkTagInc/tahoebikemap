@@ -1,5 +1,6 @@
 .map-container {
   position: relative;
+  padding-top: 38px;
 
   .logo {
     display: none;
@@ -31,6 +32,7 @@
 @media only screen and (min-width: 667px) {
   .map-container {
     margin-left: 300px;
+    padding-top: 0;
 
     .map {
       min-height: 400px;
