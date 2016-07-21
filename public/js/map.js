@@ -7,6 +7,7 @@ let map;
 let startMarker;
 let endMarker;
 let path;
+let initialCenter;
 
 const L = require('mapbox.js');
 
@@ -138,6 +139,7 @@ function createConstructionLayer() {
 }
 
 exports.drawMap = (center, zoom, draggable, handleMapClick, handleMarkerDrag) => {
+  initialCenter = center;
   map = L.map('map', {
     center,
     zoom,
@@ -221,16 +223,10 @@ exports.updateEndMarker = (latlng) => {
 exports.updatePath = (decodedPath) => {
   if (!decodedPath) {
     map.removeLayer(path);
+    path.setLatLngs([initialCenter, initialCenter]);
   } else {
     path.setLatLngs(decodedPath).addTo(map);
     map.fitBounds(path.getBounds(), { padding: [30, 30] });
-  }
-};
-
-exports.destroyMap = () => {
-  if (map) {
-    map.remove();
-    map = undefined;
   }
 };
 
@@ -264,6 +260,12 @@ exports.toggleLayer = (layerName, show) => {
 
   if (show) {
     layer.addTo(map);
+
+    // Re-add route path so it is on top
+    if (path) {
+      map.removeLayer(path);
+      path.addTo(map);
+    }
   } else {
     map.removeLayer(layer);
   }
@@ -282,6 +284,5 @@ exports.getPathDistance = (decodedPath) => {
 };
 
 exports.updateMapSize = () => {
-  console.log('size');
   map.invalidateSize();
 };
