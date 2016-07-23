@@ -230,10 +230,17 @@ exports.updatePath = (decodedPath) => {
   }
 };
 
-exports.latlngIsWithinBounds = (latlng) => {
+exports.latlngIsWithinBounds = (latlng, type) => {
   const isWithinBounds = latlng.lat <= config.boundsTop && latlng.lat >= config.boundsBottom && latlng.lng <= config.boundsRight && latlng.lng >= config.boundsLeft;
   if (!isWithinBounds) {
-    alert('This tool only works for the Lake Tahoe region.');
+    let alertText = 'This tool only works for the Lake Tahoe region.';
+    if (type === 'start') {
+      alertText += ' Change your start address and try again.';
+    } else if (type === 'end') {
+      alertText += ' Change your end address and try again.';
+    }
+
+    alert(alertText);
   }
 
   return isWithinBounds;

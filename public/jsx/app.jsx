@@ -65,6 +65,16 @@ class App extends React.Component {
           return;
         }
 
+        if (!map.latlngIsWithinBounds(results[0], 'start')) {
+          this.setState({ loading: false });
+          return;
+        }
+
+        if (!map.latlngIsWithinBounds(results[1], 'end')) {
+          this.setState({ loading: false });
+          return;
+        }
+
         this.setState({
           startLocation: results[0],
           endLocation: results[1],
