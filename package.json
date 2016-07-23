@@ -33,7 +33,7 @@
     "gulp-uglify": "1.5.4",
     "gulp-util": "3.0.7",
     "jquery": "2.2.4",
-    "jquery-locationpicker": "0.1.12",
+    "jquery-locationpicker": "brendannee/jquery-locationpicker-plugin#e9986f8777d6833a1321f09ca6f58c56884087d2",
     "keen-js": "3.4.1",
     "mapbox.js": "2.4.0",
     "morgan": "1.7.0",

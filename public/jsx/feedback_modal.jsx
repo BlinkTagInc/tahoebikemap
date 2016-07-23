@@ -43,13 +43,15 @@ class FeedbackModal extends React.Component {
         longitude: config.initialCenterLng,
       },
       radius: 0,
-      zoom: 11,
+      zoom: 9,
       inputBinding: {
         locationNameInput: $(this.refs.locationpickerAddress),
         latitudeInput: $(this.refs.locationpickerLat),
         longitudeInput: $(this.refs.locationpickerLon),
       },
       enableAutocomplete: true,
+      enableAutocompleteBlur: true,
+      enableReverseGeocode: true,
     });
 
     $(this.refs.locationpickerAddress).keypress((event) => event.keyCode !== 13);
