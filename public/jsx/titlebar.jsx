@@ -23,7 +23,7 @@ class TitleBar extends React.Component {
     let title = '';
     if (this.props.mobileView === 'controls') {
       title = (
-        <span className="titlebar-text">Bike Mapper</span>
+        <span className="titlebar-text">Bike Map</span>
       );
     }
     return title;

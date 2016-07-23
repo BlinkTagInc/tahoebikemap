@@ -27,7 +27,7 @@ exports.feedback = (req, res, next) => {
 
   const fromEmail = new mailHelper.Email('noreply@tahoebike.org');
   const toEmail = new mailHelper.Email('info@tahoebike.org');
-  const subject = 'Feedback from Lake Tahoe Bike Mapper';
+  const subject = 'Feedback from Lake Tahoe Bike Map';
   const content = new mailHelper.Content('text/plain', text);
   const mail = new mailHelper.Mail(fromEmail, subject, toEmail, content);
 
