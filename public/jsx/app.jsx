@@ -46,7 +46,6 @@ class App extends React.Component {
         endAddress,
         scenario,
         loading: true,
-        mobileView: 'map',
       });
       const promises = [
         geocode.geocode(startAddress).catch(() => {
@@ -78,6 +77,7 @@ class App extends React.Component {
         this.setState({
           startLocation: results[0],
           endLocation: results[1],
+          mobileView: 'map',
         });
 
         this.fetchRoute();
