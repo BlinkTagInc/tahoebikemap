@@ -170,7 +170,7 @@ exports.drawMap = (center, zoom, draggable, handleMapClick, handleMarkerDrag) =>
     color: '#ff6712',
     opacity: 0.8,
     width: 5,
-    dashArray: '10, 10',
+    dashArray: '6, 12',
   });
 
   map.on('click', (event) => {
