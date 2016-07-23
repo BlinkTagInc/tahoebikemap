@@ -1,4 +1,5 @@
 const React = require('react');
+const classNames = require('classnames');
 
 class TitleBar extends React.Component {
   constructor(props) {
@@ -19,21 +20,14 @@ class TitleBar extends React.Component {
     };
   }
 
-  getTitle() {
-    let title = '';
-    if (this.props.mobileView === 'controls') {
-      title = (
-        <span className="titlebar-text">Bike Map</span>
-      );
-    }
-    return title;
-  }
-
   getLeftButton() {
     let button = '';
     if (this.props.mobileView === 'map' || this.props.mobileView === 'directions') {
       button = (
-        <button className="btn btn-primary btn-sm btn-left" onClick={this.showControls}>
+        <button
+          className="btn btn-primary btn-sm btn-left hidden-print"
+          onClick={this.showControls}
+        >
           <i className="fa fa-caret-left" aria-hidden="true"></i> Edit
         </button>
       );
@@ -45,13 +39,19 @@ class TitleBar extends React.Component {
     let button = '';
     if (this.props.mobileView === 'map') {
       button = (
-        <button className="btn btn-primary btn-sm btn-right" onClick={this.showDirections}>
+        <button
+          className="btn btn-primary btn-sm btn-right hidden-print"
+          onClick={this.showDirections}
+        >
           <i className="fa fa-list-alt" aria-hidden="true"></i> Directions
         </button>
       );
     } else if (this.props.mobileView === 'directions') {
       button = (
-        <button className="btn btn-primary btn-sm btn-right" onClick={this.showMap}>
+        <button
+          className="btn btn-primary btn-sm btn-right hidden-print"
+          onClick={this.showMap}
+        >
           <i className="fa fa-map" aria-hidden="true"></i> Map
         </button>
       );
@@ -72,7 +72,7 @@ class TitleBar extends React.Component {
               className="logo"
             />
           </a>
-          {this.getTitle()}
+          <span className={classNames('titlebar-text', { hide: this.props.mobileView !== 'controls' })}>Bike Map</span>
         </h1>
         {this.getRightButton()}
       </div>

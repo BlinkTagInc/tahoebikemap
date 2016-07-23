@@ -79,7 +79,7 @@ class MapLayers extends React.Component {
     }
 
     return (
-      <div className={classNames('map-layers', { hide: !this.state.visible })}>
+      <div className={classNames('map-layers', 'hidden-print', { hide: !this.state.visible })}>
         <div
           className="close-box"
           onClick={this.toggleMapLayersVisibility}
