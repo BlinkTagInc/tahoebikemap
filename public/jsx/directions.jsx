@@ -4,6 +4,8 @@ const classNames = require('classnames');
 const helper = require('../js/helper');
 const map = require('../js/map');
 
+const Disclaimer = require('./disclaimer.jsx');
+
 class Directions extends React.Component {
   constructor(props) {
     super(props);
@@ -57,6 +59,7 @@ class Directions extends React.Component {
         <ul className="directions-list">
           {directionsList}
         </ul>
+        <a href="#" className="hidden-print" onClick={window.print}>Print this map to view your route offline.</a>
       </div>
     );
   }

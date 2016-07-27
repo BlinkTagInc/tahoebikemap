@@ -4,6 +4,8 @@ const classNames = require('classnames');
 
 const config = require('../../frontendconfig.json');
 
+const Disclaimer = require('./disclaimer.jsx');
+
 class Controls extends React.Component {
   constructor(props) {
     super(props);
@@ -144,9 +146,7 @@ class Controls extends React.Component {
             ></i> Get Directions
           </button>
         </form>
-        <div className={classNames('disclaimer', { hide: !this.props.showDisclaimer })}>
-          This website should be used for reference purposes only.  LTBC does not guarantee the accuracy, or reliability of the information. This site and all materials contained on it are distributed without any warranties of any kind. By using this website, the user expressly agrees that use of the information contained on this website is at the user's sole risk.
-        </div>
+        <Disclaimer classes={{ hide: !this.props.showDisclaimer }} />
       </div>
     );
   }

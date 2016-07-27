@@ -5,6 +5,7 @@ import 'whatwg-fetch';
 
 const Controls = require('./controls.jsx');
 const Directions = require('./directions.jsx');
+const Disclaimer = require('./disclaimer.jsx');
 const Elevation = require('./elevation.jsx');
 const Map = require('./map.jsx');
 const TitleBar = require('./titlebar.jsx');
@@ -296,6 +297,7 @@ class App extends React.Component {
           isMobile={this.state.isMobile}
           mobileView={this.state.mobileView}
         />
+        <Disclaimer classes={{ 'visible-print-block': true }} />
       </div>
     );
   }
