@@ -77,7 +77,7 @@ class FeedbackModal extends React.Component {
             </div>
           </div>
           <div className="form-group">
-            <label>Description</label>
+            <label>Description (include date and time)</label>
             <textarea className="form-control" name="description"></textarea>
           </div>
           <div className="form-group">
