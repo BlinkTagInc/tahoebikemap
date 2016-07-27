@@ -83,7 +83,7 @@ function formatBikeShopPopup(shop) {
     return `<b>${shop[0]}</b>`;
   }
 
-  const website = shop[5] ? `<a href="http://${shop[5]}" target="_blank">${shop[5]}</a>` : '';
+  const website = shop[5] ? `<a href="${shop[5]}" target="_blank">${shop[5]}</a>` : '';
   return `<b>${shop[0]}</b><br>LTBC Business Member<br>${shop[2]}<br>${shop[6]}<br>${website}`;
 }
 

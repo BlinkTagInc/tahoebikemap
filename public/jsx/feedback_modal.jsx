@@ -13,7 +13,7 @@ class FeedbackModal extends React.Component {
     super(props);
 
     this.state = {
-      selectedForm: 'collisionOrIncident',
+      selectedForm: 'bikeParking',
     };
 
     this.showFeedbackForm = () => {
@@ -80,6 +80,7 @@ class FeedbackModal extends React.Component {
             <label>Description (include date and time)</label>
             <textarea className="form-control" name="description"></textarea>
           </div>
+          <p>Please report collisions to the police.</p>
           <div className="form-group">
             <label>Contact Info</label>
             <input className="form-control" name="contactInfo" />
@@ -173,11 +174,11 @@ class FeedbackModal extends React.Component {
                 onChange={this.toggleFormCategory}
                 name="formCategory"
               >
+                <option value="bikeParking">Bike Rack Parking Request or Tag Existing Bike Rack Parking</option>
+                <option value="constructionZone">Construction Zone</option>
                 <option value="collisionOrIncident">Collision or Incident</option>
                 <option value="unsafeCondition">Unsafe Condition</option>
-                <option value="constructionZone">Construction Zone</option>
                 <option value="infrastructureRequest">Infrastructure Request or Idea</option>
-                <option value="bikeParking">Bike Rack Parking Request or Tag Existing Bike Rack Parking</option>
                 <option value="feedback">Feedback</option>
               </select>
             </div>
