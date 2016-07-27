@@ -84,7 +84,7 @@ function formatBikeShopPopup(shop) {
   }
 
   const website = shop[5] ? `<a href="http://${shop[5]}" target="_blank">${shop[5]}</a>` : '';
-  return `<b>${shop[0]}</b><br>LTBC Business Member<br>${shop[2]}<br>${website}`;
+  return `<b>${shop[0]}</b><br>LTBC Business Member<br>${shop[2]}<br>${shop[6]}<br>${website}`;
 }
 
 function createBikeShopLayer() {
@@ -138,12 +138,13 @@ function createConstructionLayer() {
   });
 }
 
-exports.drawMap = (center, zoom, draggable, handleMapClick, handleMarkerDrag) => {
+exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarkerDrag) => {
   initialCenter = center;
   map = L.map('map', {
     center,
     zoom,
     attributionControl: false,
+    minZoom,
   });
 
   L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/256/{z}/{x}/{y}?access_token=${config.mapboxAccessToken}`).addTo(map);

@@ -7,6 +7,7 @@
   "initialCenterLat": 39.086855,
   "initialCenterLng": -120.033305,
   "initialZoom": 11,
+  "minZoom": 9,
   "boundsTop": 39.368232,
   "boundsRight": -119.659482,
   "boundsBottom": 38.750276,

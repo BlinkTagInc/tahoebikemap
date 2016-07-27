@@ -38,7 +38,7 @@ class Map extends React.Component {
   componentDidMount() {
     const point = [config.initialCenterLat, config.initialCenterLng];
     const draggable = !this.props.isMobile;
-    map.drawMap(point, config.initialZoom, draggable, this.handleMapClick, this.handleMarkerDrag);
+    map.drawMap(point, config.initialZoom, config.minZoom, draggable, this.handleMapClick, this.handleMarkerDrag);
   }
 
   componentWillReceiveProps(nextProps) {

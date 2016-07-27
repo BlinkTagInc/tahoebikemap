@@ -89,7 +89,7 @@ class FeedbackModal extends React.Component {
       unsafeCondition: (
         <div>
           <div className="form-group">
-            <p>Report an unsafe intesection, pothole, path/road condition, missing connection, incorrect signage, etc.</p>
+            <p>Report an unsafe intersection, pothole, path/road condition, missing connection, incorrect signage, etc.</p>
             <label>Description</label>
             <textarea className="form-control" name="description"></textarea>
           </div>
@@ -123,14 +123,14 @@ class FeedbackModal extends React.Component {
                   type="radio"
                   name="requestType"
                   value="bikeParkingRequest"
-                /> Bike parking request
+                /> Bike rack parking request
               </label>
               <label className="checkbox-inline">
                 <input
                   type="radio"
                   name="requestType"
                   value="tagExistingBikeParking"
-                /> Tag existing bike parking
+                /> Tag existing bike rack parking
               </label>
             </div>
           </div>
@@ -177,7 +177,7 @@ class FeedbackModal extends React.Component {
                 <option value="unsafeCondition">Unsafe Condition</option>
                 <option value="constructionZone">Construction Zone</option>
                 <option value="infrastructureRequest">Infrastructure Request or Idea</option>
-                <option value="bikeParking">Bike Parking Request or Tag Existing</option>
+                <option value="bikeParking">Bike Rack Parking Request or Tag Existing Bike Rack Parking</option>
                 <option value="feedback">Feedback</option>
               </select>
             </div>
