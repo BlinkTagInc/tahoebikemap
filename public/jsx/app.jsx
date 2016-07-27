@@ -238,7 +238,7 @@ class App extends React.Component {
   }
 
   render() {
-    const controlsHeight = 208;
+    const controlsHeight = 212;
     const sidebarWidth = 300;
     let elevationWidth;
     let directionsHeight;
