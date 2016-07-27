@@ -1,15 +1,10 @@
 const React = require('react');
-const classNames = require('classnames');
 
 class TitleBar extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {};
-
-    this.showControls = () => {
-      this.props.changeMobileView('controls');
-    };
 
     this.showDirections = () => {
       this.props.changeMobileView('directions');
@@ -18,21 +13,6 @@ class TitleBar extends React.Component {
     this.showMap = () => {
       this.props.changeMobileView('map');
     };
-  }
-
-  getLeftButton() {
-    let button = '';
-    if (this.props.mobileView === 'map' || this.props.mobileView === 'directions') {
-      button = (
-        <button
-          className="btn btn-primary btn-sm btn-left hidden-print"
-          onClick={this.showControls}
-        >
-          <i className="fa fa-caret-left" aria-hidden="true"></i> Edit
-        </button>
-      );
-    }
-    return button;
   }
 
   getRightButton() {
@@ -62,7 +42,6 @@ class TitleBar extends React.Component {
   render() {
     return (
       <div className="titlebar">
-        {this.getLeftButton()}
         <h1 className="site-title">
           <a href="http://tahoebike.org">
             <img
@@ -72,7 +51,7 @@ class TitleBar extends React.Component {
               className="logo"
             />
           </a>
-          <span className={classNames('titlebar-text', { hide: this.props.mobileView !== 'controls' })}>Bike Map</span>
+          <span className="titlebar-text">Bike Map</span>
         </h1>
         {this.getRightButton()}
       </div>

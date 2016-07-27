@@ -27,7 +27,7 @@ class App extends React.Component {
       isMobile,
       elevationVisible: !isMobile,
       scenario: '1',
-      mobileView: 'controls',
+      mobileView: 'map',
       showDisclaimer: true,
     };
 

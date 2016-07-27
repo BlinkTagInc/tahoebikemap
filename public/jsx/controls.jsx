@@ -76,7 +76,7 @@ class Controls extends React.Component {
 
   render() {
     return (
-      <div className={classNames('controls', 'hidden-print', { hide: this.props.mobileView !== 'controls' && this.props.isMobile })}>
+      <div className={classNames('controls', 'hidden-print', { hide: this.props.mobileView !== 'directions' && this.props.isMobile })}>
         <form onSubmit={this.processForm}>
           <div className={classNames('form-group', 'form-inline', 'start-address', { 'has-error': _.contains(this.state.errorFields, 'startAddress') })}>
             <label className="control-label">Start Location</label>
