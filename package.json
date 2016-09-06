@@ -1,6 +1,6 @@
 {
-  "name": "bikesy",
-  "description": "Bikesy",
+  "name": "tahoebikemap",
+  "description": "Tahoe Bike Map",
   "version": "2.0.0",
   "author": {
     "name": "Brendan Nee",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/brendannee/bikesy"
+    "url": "https://github.com/brendannee/tahoebikemap"
   },
   "dependencies": {
     "async": "2.0.0-rc.6",
