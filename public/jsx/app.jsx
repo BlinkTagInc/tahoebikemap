@@ -90,7 +90,7 @@ class App extends React.Component {
       api.getRoute(this.state.startLocation, this.state.endLocation, this.state.scenario)
       .then((results) => {
         this.setState({ loading: false });
-        if (!results.path | !results.path.length) {
+        if (!results.path || !results.path.length) {
           error.handleError(new Error('No path recieved'));
           return;
         }
