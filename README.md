@@ -8,10 +8,22 @@ Bike routes are provided by the [Bikesy Server](https://github.com/brendannee/bi
 
 The assumptions that go into the routes provided by the Bikesy API are documented on the [Bikesy API page](https://blog.bikesy.com/api/).
 
-# Running Locally
+## Setup
+
+Install node.js dependencies
+
+    npm install
+
+## Running Locally
 
 To run locally:
 
-    npm start
+    gulp develop
 
-The open http://localhost:3000 in your browser.
+Then, open http://localhost:3000 in your browser. Gulp will listen for changes and reload automatically.
+
+## Running in Production
+
+    gulp build
+
+    npm start
