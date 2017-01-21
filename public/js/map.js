@@ -61,8 +61,13 @@ function createBikeParkingLayer() {
   fetch(`https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%20${bikeParkingLayerTableId}&key=${config.googleMapsApiKey}`)
   .then((response) => response.json())
   .then((json) => {
-    if (!json || !json.rows) {
+    if (!json) {
       error.handleError(new Error('Unable to fetch bike rack data'));
+      return;
+    }
+
+    if (!json.rows) {
+      // No data for this table
       return;
     }
 
@@ -92,8 +97,13 @@ function createBikeShopLayer() {
   fetch(`https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%20${bikeShopsLayerTableId}&key=${config.googleMapsApiKey}`)
   .then((response) => response.json())
   .then((json) => {
-    if (!json || !json.rows) {
+    if (!json) {
       error.handleError(new Error('Unable to fetch bike shop data'));
+      return;
+    }
+
+    if (!json.rows) {
+      // No data for this table
       return;
     }
 
@@ -120,8 +130,13 @@ function createConstructionLayer() {
   fetch(`https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%20${bikeConstructionLayerTableId}&key=${config.googleMapsApiKey}`)
   .then((response) => response.json())
   .then((json) => {
-    if (!json || !json.rows) {
+    if (!json) {
       error.handleError(new Error('Unable to fetch construction data'));
+      return;
+    }
+
+    if (!json.rows) {
+      // No data for this table
       return;
     }
 
