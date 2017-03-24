@@ -15,6 +15,8 @@ exports.logQuery = (startAddress, endAddress, startLocation, endLocation) => {
     startLocation,
     endLocation,
     referrer: document.referrer,
+    ip_address: '${keen.ip}',
+    user_agent: '${keen.user_agent}',
     keen: {
       timestamp: new Date().toISOString()
     }
