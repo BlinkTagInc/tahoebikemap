@@ -33,6 +33,10 @@ class Map extends React.Component {
         }
       }
     };
+
+    this.panToTruckee = () => {
+      map.panTo({lat: 39.286855, lng: -120.033305});
+    }
   }
 
   componentDidMount() {
@@ -61,6 +65,7 @@ class Map extends React.Component {
             <img src="/img/ltbc-logo.png" srcSet="img/ltbc-logo@2x.png 2x" alt="logo" />
           </a>
         </div>
+        <button className="btn btn-default btn-lg map-button-top" onClick={this.panToTruckee}><i className="fa fa-arrow-up" aria-hidden="true"></i> Truckee</button>
         <div className="map" id="map" style={{ height: `${this.props.height}px` }}></div>
         <MapLayers
           isMobile={this.props.isMobile}

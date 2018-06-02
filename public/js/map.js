@@ -309,3 +309,11 @@ exports.getPathDistance = (decodedPath) => {
 exports.updateMapSize = () => {
   map.invalidateSize();
 };
+
+exports.panTo = (latlng) => {
+  map.panTo(latlng);
+
+  if (map.getZoom() > 11) {
+    map.setZoom(11);
+  }
+}

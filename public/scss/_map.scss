@@ -6,6 +6,14 @@
     display: none;
   }
 
+  .map-button-top {
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    z-index: 10;
+  }
+
   .bike-rack-icon {
     width: 20px;
     height: 20px;
