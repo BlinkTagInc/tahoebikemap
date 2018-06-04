@@ -10,7 +10,9 @@ class Map extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      showTruckeeButton: true
+    };
 
     this.handleMapClick = (latlng) => {
       if (!this.props.startLocation) {
@@ -35,7 +37,10 @@ class Map extends React.Component {
     };
 
     this.panToTruckee = () => {
-      map.panTo({lat: 39.286855, lng: -120.033305});
+      map.panTo({lat: 39.286855, lng: -120.133305});
+      this.setState({
+        showTruckeeButton: false
+      })
     }
   }
 
@@ -52,6 +57,16 @@ class Map extends React.Component {
     map.updateMapSize();
   }
 
+  renderTruckeeButton() {
+    if (this.state.showTruckeeButton) {
+      return (
+        <button className="btn btn-default btn-lg map-button-top" onClick={this.panToTruckee}>
+          <i className="fa fa-arrow-up" aria-hidden="true"></i> Truckee
+        </button>
+      );
+    }
+  }
+
   render() {
     return (
       <div
@@ -65,7 +80,7 @@ class Map extends React.Component {
             <img src="/img/ltbc-logo.png" srcSet="img/ltbc-logo@2x.png 2x" alt="logo" />
           </a>
         </div>
-        <button className="btn btn-default btn-lg map-button-top" onClick={this.panToTruckee}><i className="fa fa-arrow-up" aria-hidden="true"></i> Truckee</button>
+        {this.renderTruckeeButton()}
         <div className="map" id="map" style={{ height: `${this.props.height}px` }}></div>
         <MapLayers
           isMobile={this.props.isMobile}

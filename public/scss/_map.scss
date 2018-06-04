@@ -9,9 +9,10 @@
   .map-button-top {
     display: block;
     position: absolute;
-    top: 5px;
+    top: 49px;
     left: 50%;
     z-index: 10;
+    margin-left: -60px;
   }
 
   .bike-rack-icon {
@@ -44,6 +45,11 @@
 
     .map {
       min-height: 400px;
+    }
+
+    .map-button-top {
+      top: 5px;
+      margin-left: 0;
     }
 
     .logo {
