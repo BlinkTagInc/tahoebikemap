@@ -16,6 +16,7 @@ L.mapbox.accessToken = config.mapboxAccessToken;
 
 // Setup layers
 const class1Layer = L.mapbox.featureLayer();
+const class1LayerOutline = L.mapbox.featureLayer();
 const class2Layer = L.mapbox.featureLayer();
 const class3Layer = L.mapbox.featureLayer();
 const bikeParkingLayer = L.layerGroup();
@@ -25,11 +26,17 @@ const constructionLayer = L.layerGroup();
 fetch('/data/class1.geojson')
 .then((response) => response.json())
 .then((json) => {
+  class1LayerOutline.setGeoJSON(json)
+  .setStyle({
+    color: '#f47b50',
+    weight: 3,
+    opacity: 0.8,
+  });
   class1Layer.setGeoJSON(json)
   .setStyle({
-    color: '#330066',
-    weight: 3,
-    opacity: 1,
+    color: '#fcf4db',
+    weight: 1,
+    opacity: 0.8,
   });
 });
 
@@ -38,7 +45,7 @@ fetch('/data/class2.geojson')
 .then((json) => {
   class2Layer.setGeoJSON(json)
   .setStyle({
-    color: '#660099',
+    color: '#eb653b',
     weight: 3,
     opacity: 0.8,
   });
@@ -49,9 +56,9 @@ fetch('/data/class3.geojson')
 .then((json) => {
   class3Layer.setGeoJSON(json)
   .setStyle({
-    color: '#9933CC',
+    color: '#cf4328',
     weight: 3,
-    opacity: 0.6,
+    opacity: 0.8,
   });
 });
 
@@ -155,14 +162,14 @@ function createConstructionLayer() {
 
 exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarkerDrag) => {
   initialCenter = center;
-  map = L.map('map', {
+  map = L.mapbox.map('map', 'mapbox.streets', {
     center,
     zoom,
     attributionControl: false,
     minZoom,
   });
 
-  L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/256/{z}/{x}/{y}?access_token=${config.mapboxAccessToken}`).addTo(map);
+  L.tileLayer(`https://api.mapbox.com/styles/v1/tahoebike/cjhxp09fi10232sr94gc17qks/tiles/256/{z}/{x}/{y}?access_token=${config.mapboxAccessToken}`).addTo(map);
 
   startMarker = L.marker(center, {
     draggable,
@@ -183,7 +190,7 @@ exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarke
   });
 
   path = L.polyline([center, center], {
-    color: '#ff6712',
+    color: '#330066',
     opacity: 0.8,
     width: 5,
     dashArray: '6, 12',
@@ -207,6 +214,7 @@ exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarke
   createBikeParkingLayer();
   createConstructionLayer();
 
+  class1LayerOutline.addTo(map);
   class1Layer.addTo(map);
   class2Layer.addTo(map);
   class3Layer.addTo(map);
@@ -263,26 +271,28 @@ exports.latlngIsWithinBounds = (latlng, type) => {
 };
 
 exports.toggleLayer = (layerName, show) => {
-  let layer;
+  let layers;
   if (layerName === 'class1') {
-    layer = class1Layer;
+    layers = [class1LayerOutline, class1Layer];
   } else if (layerName === 'class2') {
-    layer = class2Layer;
+    layers = [class2Layer];
   } else if (layerName === 'class3') {
-    layer = class3Layer;
+    layers = [class3Layer];
   } else if (layerName === 'bikeParking') {
-    layer = bikeParkingLayer;
+    layers = [bikeParkingLayer];
   } else if (layerName === 'bikeShops') {
-    layer = bikeShopsLayer;
+    layers = [bikeShopsLayer];
   } else if (layerName === 'construction') {
-    layer = constructionLayer;
+    layers = [constructionLayer];
   } else {
     error.handleError(new Error('Unable to find layer specified'));
     return;
   }
 
   if (show) {
-    layer.addTo(map);
+    for (const layer of layers) {
+      layer.addTo(map);
+    }
 
     // Re-add route path so it is on top
     if (path) {
@@ -290,7 +300,9 @@ exports.toggleLayer = (layerName, show) => {
       path.addTo(map);
     }
   } else {
-    map.removeLayer(layer);
+    for (const layer of layers) {
+      map.removeLayer(layer);
+    }
   }
 };
 

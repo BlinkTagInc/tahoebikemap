@@ -30,15 +30,23 @@
     margin: 4px;
 
     &.class1 {
-      background: #330066;
+      background: #fcf4db;
+      border-top: 1px solid #f47b50;
+      border-bottom: 1px solid #f47b50;
+      height: 3px;
+      vertical-align: -2px;
     }
 
     &.class2 {
-      background: #660099;
+      background: #eb653b;
+      height: 3px;
+      vertical-align: -2px;
     }
 
     &.class3 {
-      background: #9933CC;
+      background: #cf4328;
+      height: 3px;
+      vertical-align: -2px;
     }
 
     &.bikeParking {

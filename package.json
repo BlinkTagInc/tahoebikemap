@@ -34,7 +34,7 @@
     "jquery": "2.2.4",
     "jquery-locationpicker": "brendannee/jquery-locationpicker-plugin#e9986f8777d6833a1321f09ca6f58c56884087d2",
     "keen-js": "3.4.1",
-    "mapbox.js": "2.4.0",
+    "mapbox.js": "3.1.1",
     "morgan": "1.7.0",
     "nconf": "0.8.4",
     "node-fetch": "^1.5.3",
