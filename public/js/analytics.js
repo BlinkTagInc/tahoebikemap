@@ -24,7 +24,7 @@ exports.logQuery = (startAddress, endAddress, startLocation, endLocation) => {
 
   client.addEvent("queries", queryEvent, (err, res) => {
     if (err) {
-      error.handleError(err);
+      console.error(err);
     }
   });
 };
