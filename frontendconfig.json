@@ -3,7 +3,7 @@
   "endAddressPlaceholder": "Dunlap Dr, S. Lake Tahoe",
   "googleMapsApiKey": "AIzaSyD_repW8YQX-tel3u4cwjUgw5LDXlhD0fc",
   "mapboxAccessToken": "pk.eyJ1IjoidGFob2ViaWtlIiwiYSI6ImNpc3I1OXR3czAyajEybnBoczNkNzd1YXIifQ.O5qezdcKNSR2pF6U-CLu6A",
-  "bikeMapperApiUrl": "http://ec2-52-39-88-148.us-west-2.compute.amazonaws.com",
+  "bikeMapperApiUrl": "/api",
   "initialCenterLat": 39.086855,
   "initialCenterLng": -120.033305,
   "initialZoom": 11,

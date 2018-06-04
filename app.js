@@ -28,6 +28,8 @@ app.get('/', routes.index);
 
 app.get('/terms', routes.terms);
 
+app.get('/api', routes.api);
+
 app.post('/api/feedback', routes.feedback);
 
 // error handlers

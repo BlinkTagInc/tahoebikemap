@@ -1,6 +1,7 @@
 const nconf = require('nconf');
 const mailHelper = require('sendgrid').mail;
 const _ = require('underscore');
+const request = require('request');
 
 exports.index = (req, res, next) => {
   res.render('index');
@@ -8,6 +9,12 @@ exports.index = (req, res, next) => {
 
 exports.terms = (req, res, next) => {
   res.render('terms');
+};
+
+exports.api = (req, res, next) => {
+  console.log(req.url)
+  var url = nconf.get('BIKE_MAPPER_API_URL') + req.url.replace('/api', '');
+  req.pipe(request(url)).pipe(res);
 };
 
 exports.feedback = (req, res, next) => {
