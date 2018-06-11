@@ -59,6 +59,7 @@ fetch('/data/class3.geojson')
     color: '#cf4328',
     weight: 3,
     opacity: 0.8,
+    dashArray: '3,5'
   });
 });
 

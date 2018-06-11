@@ -38,14 +38,14 @@
     }
 
     &.class2 {
-      background: #eb653b;
-      height: 3px;
+      border-top: 3px solid #eb653b;
+      height: 0px;
       vertical-align: -2px;
     }
 
     &.class3 {
-      background: #cf4328;
-      height: 3px;
+      border-top: 3px dashed #cf4328;
+      height: 0px;
       vertical-align: -2px;
     }
 
