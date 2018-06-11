@@ -165,7 +165,6 @@ exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarke
   map = L.mapbox.map('map', 'mapbox.streets', {
     center,
     zoom,
-    attributionControl: false,
     minZoom,
   });
 
@@ -219,13 +218,6 @@ exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarke
   class2Layer.addTo(map);
   class3Layer.addTo(map);
   constructionLayer.addTo(map);
-
-  // Attribution and disclaimer
-  L.control.attribution({
-    position: 'bottomright',
-  })
-  .addAttribution('© <a href="https://www.mapbox.com/about/maps/"" target="_blank">Mapbox</a> | © <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> | <a href="/terms" target="_blank">Terms</a>')
-  .addTo(map);
 };
 
 exports.updateStartMarker = (latlng) => {
