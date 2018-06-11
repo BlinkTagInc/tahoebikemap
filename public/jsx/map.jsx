@@ -60,8 +60,8 @@ class Map extends React.Component {
   renderTruckeeButton() {
     if (this.state.showTruckeeButton) {
       return (
-        <button className="btn btn-default btn-lg map-button-top" onClick={this.panToTruckee}>
-          <i className="fa fa-arrow-up" aria-hidden="true"></i> Truckee
+        <button className="btn btn-default map-button-top" onClick={this.panToTruckee}>
+          <i className="fa fa-arrow-up" aria-hidden="true"></i> <b>Truckee</b>
         </button>
       );
     }
