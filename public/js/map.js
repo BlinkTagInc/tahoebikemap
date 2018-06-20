@@ -161,7 +161,7 @@ function createConstructionLayer() {
   });
 }
 
-exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarkerDrag) => {
+exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarkerDrag, handleMapZoom) => {
   initialCenter = center;
   map = L.mapbox.map('map', 'mapbox.streets', {
     center,
@@ -198,6 +198,10 @@ exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarke
 
   map.on('click', (event) => {
     handleMapClick(event.latlng);
+  });
+
+  map.on('zoom', (event) => {
+    handleMapZoom(map.getZoom());
   });
 
   startMarker.on('dragend', (event) => {

@@ -36,6 +36,14 @@ class Map extends React.Component {
       }
     };
 
+    this.handleMapZoom = (zoom) => {
+      if (zoom > 13) {
+        this.setState({
+          showTruckeeButton: false
+        })
+      }
+    }
+
     this.panToTruckee = () => {
       map.panTo({lat: 39.286855, lng: -120.133305});
       this.setState({
@@ -47,7 +55,7 @@ class Map extends React.Component {
   componentDidMount() {
     const point = [config.initialCenterLat, config.initialCenterLng];
     const draggable = !this.props.isMobile;
-    map.drawMap(point, config.initialZoom, config.minZoom, draggable, this.handleMapClick, this.handleMarkerDrag);
+    map.drawMap(point, config.initialZoom, config.minZoom, draggable, this.handleMapClick, this.handleMarkerDrag, this.handleMapZoom);
   }
 
   componentWillReceiveProps(nextProps) {
