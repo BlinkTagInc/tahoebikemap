@@ -28,7 +28,7 @@ fetch('/data/class1.geojson')
 .then((json) => {
   class1LayerOutline.setGeoJSON(json)
   .setStyle({
-    color: '#f47b50',
+    color: '#330066',
     weight: 3,
     opacity: 0.8,
   });
@@ -45,7 +45,7 @@ fetch('/data/class2.geojson')
 .then((json) => {
   class2Layer.setGeoJSON(json)
   .setStyle({
-    color: '#eb653b',
+    color: '#660099',
     weight: 3,
     opacity: 0.8,
   });
@@ -56,7 +56,7 @@ fetch('/data/class3.geojson')
 .then((json) => {
   class3Layer.setGeoJSON(json)
   .setStyle({
-    color: '#cf4328',
+    color: '#9933CC',
     weight: 3,
     opacity: 0.8,
     dashArray: '3,5'
@@ -190,7 +190,7 @@ exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarke
   });
 
   path = L.polyline([center, center], {
-    color: '#330066',
+    color: '#ff6712',
     opacity: 0.8,
     width: 5,
     dashArray: '6, 12',
