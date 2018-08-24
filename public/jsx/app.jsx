@@ -234,7 +234,7 @@ class App extends React.Component {
       elevationHeight = 0;
     }
 
-    return this.state.windowHeight - elevationHeight - titlebarHeight;
+    return this.state.windowHeight - elevationHeight - titlebarHeight - 1; //  -1 removes vertical scroll wiggle
   }
 
   isMobile(width) {
@@ -243,7 +243,7 @@ class App extends React.Component {
   }
 
   render() {
-    const controlsHeight = 212;
+    const controlsHeight = 300; // measured to prevent vertical scroll
     const sidebarWidth = 300;
     let elevationWidth;
     let directionsHeight;
