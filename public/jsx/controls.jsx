@@ -146,7 +146,7 @@ class Controls extends React.Component {
             ></i> Get Directions
           </button>
         </form>
-        <div className="donate">Like this map? <a href="http://www.tahoebike.org/get-involved/join/">Please donate!</a>
+        <div className="donate">Like this map? <a href="http://www.tahoebike.org/get-involved/join/" target="_blank" rel="noopener noreferrer">Please donate!</a>
         </div>
         <Disclaimer classes={{ hide: !this.props.showDisclaimer }} />
       </div>
