@@ -19,6 +19,7 @@ const class1Layer = L.mapbox.featureLayer();
 const class1LayerOutline = L.mapbox.featureLayer();
 const class2Layer = L.mapbox.featureLayer();
 const class3Layer = L.mapbox.featureLayer();
+const winterLayer = L.mapbox.featureLayer();
 const bikeParkingLayer = L.layerGroup();
 const bikeShopsLayer = L.layerGroup();
 const constructionLayer = L.layerGroup();
@@ -62,6 +63,24 @@ fetch('/data/class3.geojson')
     dashArray: '3,5'
   });
 });
+
+fetch('/data/winter.geojson')
+  .then((response) => response.json())
+  .then((json) => {
+    // Filter out routes without WNT_MAINT == 'YES'
+    const filteredFeatures = json.features.filter(feature => feature.properties.WNTR_MAINT === 'YES')
+    const nextJson = Object.assign({}, json);
+    nextJson.features = filteredFeatures;
+
+    winterLayer.setGeoJSON(nextJson)
+      .setStyle({
+        color: '#4025ec',
+        weight: 3,
+        opacity: 0.8,
+        dashArray: '3,5'
+      });
+  });
+
 
 
 function createBikeParkingLayer() {
@@ -223,6 +242,7 @@ exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarke
   class2Layer.addTo(map);
   class3Layer.addTo(map);
   constructionLayer.addTo(map);
+  winterLayer.addTo(map);
 };
 
 exports.updateStartMarker = (latlng) => {
@@ -281,6 +301,8 @@ exports.toggleLayer = (layerName, show) => {
     layers = [bikeShopsLayer];
   } else if (layerName === 'construction') {
     layers = [constructionLayer];
+  } else if (layerName === 'winter') {
+    layers = [winterLayer];
   } else {
     error.handleError(new Error('Unable to find layer specified'));
     return;

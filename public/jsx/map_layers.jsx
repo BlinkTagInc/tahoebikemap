@@ -16,6 +16,7 @@ class MapLayers extends React.Component {
       bikeParking: false,
       bikeShops: false,
       construction: true,
+      winter: true,
       visible: !this.props.isMobile,
     };
 
@@ -58,6 +59,13 @@ class MapLayers extends React.Component {
       map.toggleLayer('bikeShops', !this.state.bikeShops);
       this.setState({
         bikeShops: !this.state.bikeShops,
+      });
+    };
+
+    this.toggleWinter = () => {
+      map.toggleLayer('winter', !this.state.winter);
+      this.setState({
+        winter: !this.state.winter,
       });
     };
 
@@ -148,6 +156,17 @@ class MapLayers extends React.Component {
               onChange={this.toggleClass3}
             />
             <span>Bike Route</span>
+          </label>
+        </div>
+        <div title="Plowed bike paths for winter access">
+          <div className="map-layer-legend winter"></div>
+          <label>
+            <input
+              type="checkbox"
+              checked={this.state.winter}
+              onChange={this.toggleWinter}
+            />
+            <span>Plowed Winter Path</span>
           </label>
         </div>
         <FeedbackModal />
