@@ -10,7 +10,7 @@ class MapLayers extends React.Component {
     super(props);
 
     this.state = {
-      class1: true,
+      class1: false,
       class2: true,
       class3: true,
       bikeParking: false,

@@ -254,8 +254,6 @@ exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarke
   createBikeParkingLayer();
   createConstructionLayer();
 
-  class1LayerOutline.addTo(map);
-  class1Layer.addTo(map);
   class2Layer.addTo(map);
   class3Layer.addTo(map);
   constructionLayer.addTo(map);
