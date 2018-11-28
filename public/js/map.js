@@ -64,23 +64,40 @@ fetch('/data/class3.geojson')
   });
 });
 
-fetch('/data/winter.geojson')
+
+
+const fetchTrpaData = fetch('/data/trpaTrails.geojson')
   .then((response) => response.json())
   .then((json) => {
-    // Filter out routes without WNT_MAINT == 'YES'
+    // Only include trails with WNT_MAINT == 'YES'
     const filteredFeatures = json.features.filter(feature => feature.properties.WNTR_MAINT === 'YES')
     const nextJson = Object.assign({}, json);
     nextJson.features = filteredFeatures;
-
-    winterLayer.setGeoJSON(nextJson)
-      .setStyle({
-        color: '#4025ec',
-        weight: 3,
-        opacity: 0.8,
-        dashArray: '3,5'
-      });
+    return Promise.resolve(nextJson);
   });
 
+const fetchTruckeeData = fetch('/data/truckeeTrails.geojson')
+  .then((response) => response.json())
+  .then((json) => {
+    // Only include trails with CLASS == "I", and MAINTBY == "Town of Truckee"
+    // "The trails that we plow in the winter are only those Class I paved trails managed by the Town" - Sarah Kunnen, Engineering Technician, Town Of Truckee
+    const filteredFeatures = json.features.filter(({ properties }) => (properties.CLASS === 'I' && properties.MAINTBY == 'Town of Truckee'))
+    const nextJson = Object.assign({}, json);
+    nextJson.features = filteredFeatures;
+    return Promise.resolve(nextJson);
+
+  });
+
+// combinedData is an array of GeoJSON objects
+Promise.all([fetchTrpaData, fetchTruckeeData]).then(combinedData => {
+  winterLayer.setGeoJSON(combinedData)
+    .setStyle({
+      color: '#ff0000',
+      weight: 3,
+      opacity: 0.8,
+      dashArray: '3,5'
+    });
+})
 
 
 function createBikeParkingLayer() {

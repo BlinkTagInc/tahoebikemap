@@ -158,7 +158,7 @@ class MapLayers extends React.Component {
             <span>Bike Route</span>
           </label>
         </div>
-        <div title="Plowed bike paths for winter access">
+        <div title="Plowed bike paths for winter access. Paths are plowed after streets.">
           <div className="map-layer-legend winter"></div>
           <label>
             <input
