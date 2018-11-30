@@ -49,6 +49,12 @@
       vertical-align: -2px;
     }
 
+    &.winter {
+      border-top: 3px dashed #ff0000;
+      height: 0px;
+      vertical-align: -2px;
+    }
+
     &.bikeParking {
       background: url('../img/bike_parking_marker.svg') 0 0 no-repeat;
       background-size: 15px 15px;
