@@ -102,7 +102,7 @@ Promise.all([fetchTrpaData, fetchTruckeeData]).then(combinedData => {
 
 function createBikeParkingLayer() {
   const bikeParkingLayerTableId = '1KeuYN2D5EQMkah2TKCrm8gOfTqHCpTuRMi1JwCkK';
-  fetch(`https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%20${bikeParkingLayerTableId}&key=${config.googleMapsApiKey}`)
+  fetch(`https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%20${bikeParkingLayerTableId}&key=${config.googleFusionTablesApiKey}`)
   .then((response) => response.json())
   .then((json) => {
     if (!json) {
@@ -138,7 +138,7 @@ function formatBikeShopPopup(shop) {
 
 function createBikeShopLayer() {
   const bikeShopsLayerTableId = '1Jlh83cf0VSIAqPiPd3QRaI-EFrpvl5zWl53PBDi0';
-  fetch(`https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%20${bikeShopsLayerTableId}&key=${config.googleMapsApiKey}`)
+  fetch(`https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%20${bikeShopsLayerTableId}&key=${config.googleFusionTablesApiKey}`)
   .then((response) => response.json())
   .then((json) => {
     if (!json) {
@@ -171,7 +171,7 @@ function formatConstructionPopup(item) {
 
 function createConstructionLayer() {
   const bikeConstructionLayerTableId = '1lYIV19mk2ztU2lL-7U68NFC04l352mxLg7Klo_v7';
-  fetch(`https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%20${bikeConstructionLayerTableId}&key=${config.googleMapsApiKey}`)
+  fetch(`https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%20${bikeConstructionLayerTableId}&key=${config.googleFusionTablesApiKey}`)
   .then((response) => response.json())
   .then((json) => {
     if (!json) {
