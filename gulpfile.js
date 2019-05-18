@@ -34,7 +34,7 @@ gulp.task('scss:lint', function() {
 
 
 gulp.task('scss:compileDev', function() {
-  gulp.src('./public/scss/**/*.scss')
+  return gulp.src('./public/scss/**/*.scss')
     //build sourcemaps
     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.sass({errLogToConsole: true}))
@@ -43,19 +43,23 @@ gulp.task('scss:compileDev', function() {
     .pipe(plugins.livereload());
 });
 
+gulp.task('fonts:copy', function(done) {
+  return gulp.src(['./node_modules/font-awesome/fonts/*', './node_modules/bootstrap-sass/assets/fonts/bootstrap/*'])
+    .pipe(gulp.dest('./public/dest/fonts'));
+});
 
-gulp.task('scss:compile', ['fonts:copy'], function() {
-  gulp.src('./public/scss/**/*.scss')
+gulp.task('scss:compile', gulp.series('fonts:copy', function() {
+  return gulp.src('./public/scss/**/*.scss')
     .pipe(plugins.sass({errLogToConsole: true}))
     .pipe(gulp.dest('./public/css'));
-});
+}));
 
 
-gulp.task('css:minify', ['scss:compile'], function() {
-  gulp.src('./public/css/*.css')
+gulp.task('css:minify', gulp.series('scss:compile', function() {
+  return gulp.src('./public/css/*.css')
     .pipe(plugins.cleanCss())
     .pipe(gulp.dest('./public/css'));
-});
+}));
 
 
 gulp.task('js:develop', function() {
@@ -68,7 +72,7 @@ gulp.task('js:compress', function() {
     .transform('babelify', {presets: ['es2015', 'react']})
     .bundle();
 
-  bundleStream
+  return bundleStream
     .pipe(source('index.js'))
     .pipe(plugins.streamify(plugins.uglify()))
     .pipe(require('vinyl-buffer')())
@@ -78,17 +82,11 @@ gulp.task('js:compress', function() {
 });
 
 
-gulp.task('scss:develop', ['scss:lint', 'scss:compileDev']);
-
-
-gulp.task('fonts:copy', function() {
-  gulp.src(['./node_modules/font-awesome/fonts/*', './node_modules/bootstrap-sass/assets/fonts/bootstrap/*'])
-    .pipe(gulp.dest('./public/dest/fonts'));
-});
+gulp.task('scss:develop', gulp.series('scss:lint', 'scss:compileDev'));
 
 
 gulp.task('css:copy', function() {
-  gulp.src('./node_modules/mapbox.js/theme/**/*')
+  return gulp.src('./node_modules/mapbox.js/theme/**/*')
     .pipe(gulp.dest('./public/css/mapbox'));
 });
 
@@ -108,15 +106,15 @@ gulp.task('develop', function() {
     });
   });
 
-  gulp.watch('public/**/*.scss', ['scss:develop']);
+  gulp.watch('public/**/*.scss', gulp.series('scss:develop'));
 
-  gulp.watch('public/**/!(dest)/**/*.+(jsx|js)', ['js:develop']);
+  gulp.watch('public/**/!(dest)/**/*.+(jsx|js)', gulp.series('js:develop'));
 });
 
 
-gulp.task('build', [
+gulp.task('build', gulp.series(
   'fonts:copy',
   'css:copy',
   'css:minify',
   'js:compress'
-]);
+));
