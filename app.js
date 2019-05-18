@@ -7,7 +7,7 @@ const nconf = require('nconf');
 const fs = require('fs');
 
 if (!fs.existsSync('./config.json')) {
-    throw new Error('Missing config file. Make sure to create a config.json in the repo root. As an author for its contents.')
+    console.error('\n\n--\nERROR: Missing config file.\nIf running in development, Make sure to create a config.json in the repo root. Ask an author for its contents.\nIn production, config variables are specified via the Heroku web interface.\n\n')
 }
 
 nconf
