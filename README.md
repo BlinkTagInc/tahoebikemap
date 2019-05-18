@@ -18,12 +18,12 @@ Install node.js dependencies
 
 To run locally:
 
-    gulp develop
+    npm run develop
 
 Then, open http://localhost:3000 in your browser. Gulp will listen for changes and reload automatically.
 
 ## Running in Production
 
-    gulp build
+    npm install
 
     npm start
