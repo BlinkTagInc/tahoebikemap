@@ -1,7 +1,7 @@
 {
   "startAddressPlaceholder": "Wildwood & Lake Tahoe Blvd",
   "endAddressPlaceholder": "Dunlap Dr, S. Lake Tahoe",
-  "googleMapsApiKey": "AIzaSyD_repW8YQX-tel3u4cwjUgw5LDXlhD0fc",
+  "googleMapsApiKey": "AIzaSyC8VIAjGYj2rCivnaUNeYioEWfmW1saV-E",
   "mapboxAccessToken": "pk.eyJ1IjoidGFob2ViaWtlIiwiYSI6ImNpc3I1OXR3czAyajEybnBoczNkNzd1YXIifQ.O5qezdcKNSR2pF6U-CLu6A",
   "bikeMapperApiUrl": "/api",
   "initialCenterLat": 39.086855,
