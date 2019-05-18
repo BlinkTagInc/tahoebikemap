@@ -3,6 +3,8 @@ require('keen-js');
 const config = require('../../frontendconfig.json');
 const error = require('./error');
 
+const LOG_ERRORS = false;
+
 const client = new Keen({
   projectId: config.keenProjectId,
   writeKey: config.keenWriteKey,
@@ -23,8 +25,8 @@ exports.logQuery = (startAddress, endAddress, startLocation, endLocation) => {
   };
 
   client.addEvent("queries", queryEvent, (err, res) => {
-    if (err) {
-      console.error(err);
+    if (LOG_ERRORS && err) {
+      console.error("Analytics error: ", err);
     }
   });
 };

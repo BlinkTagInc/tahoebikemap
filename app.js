@@ -4,6 +4,11 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const nconf = require('nconf');
+const fs = require('fs');
+
+if (!fs.existsSync('./config.json')) {
+    throw new Error('Missing config file. Make sure to create a config.json in the repo root. As an author for its contents.')
+}
 
 nconf
   .argv()

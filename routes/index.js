@@ -12,7 +12,7 @@ exports.terms = (req, res, next) => {
 };
 
 exports.api = (req, res, next) => {
-  console.log(req.url)
+  console.log(req.method, req.url, ' (request received...)');
   var url = nconf.get('BIKE_MAPPER_API_URL') + req.url.replace('/api', '');
   req.pipe(request(url)).pipe(res);
 };
