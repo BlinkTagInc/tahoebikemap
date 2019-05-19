@@ -24,6 +24,6 @@ Then, open http://localhost:3000 in your browser. Gulp will listen for changes a
 
 ## Running in Production
 
-    npm install
+    npm run build
 
     npm start
