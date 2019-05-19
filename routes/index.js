@@ -35,7 +35,7 @@ exports.feedback = (req, res, next) => {
   console.log('Email Content: ', text);
 
   const msg = {
-    to: 'nick@speal.ca',
+    to: 'info@tahoebike.org',
     from: 'noreply@tahoebike.org',
     subject: 'Feedback from Lake Tahoe Bike Map',
     text,
