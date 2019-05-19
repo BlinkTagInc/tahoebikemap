@@ -85,10 +85,17 @@ gulp.task('js:compress', function() {
 gulp.task('scss:develop', gulp.series('scss:lint', 'scss:compileDev'));
 
 
-gulp.task('css:copy', function() {
-  return gulp.src('./node_modules/mapbox.js/dist/mapbox.css')
-    .pipe(gulp.dest('./public/css'));
-});
+gulp.task(
+  'mapbox:copy', 
+  gulp.series(
+    function() {
+      return gulp.src('./node_modules/mapbox.js/dist/mapbox.css').pipe(gulp.dest('./public/css'))
+    },
+    function() {
+      return gulp.src('./node_modules/mapbox.js/dist/images/*').pipe(gulp.dest('./public/css/images'))
+    },
+  ),
+);
 
 
 gulp.task('develop', function() {
@@ -114,7 +121,7 @@ gulp.task('develop', function() {
 
 gulp.task('build', gulp.series(
   'fonts:copy',
-  'css:copy',
+  'mapbox:copy',
   'css:minify',
   'js:compress'
 ));
