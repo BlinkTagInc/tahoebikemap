@@ -86,8 +86,8 @@ gulp.task('scss:develop', gulp.series('scss:lint', 'scss:compileDev'));
 
 
 gulp.task('css:copy', function() {
-  return gulp.src('./node_modules/mapbox.js/theme/**/*')
-    .pipe(gulp.dest('./public/css/mapbox'));
+  return gulp.src('./node_modules/mapbox.js/dist/mapbox.css')
+    .pipe(gulp.dest('./public/css'));
 });
 
 
