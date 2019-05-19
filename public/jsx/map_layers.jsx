@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 const classNames = require('classnames');
 
 const FeedbackModal = require('./feedback_modal.jsx');
@@ -176,7 +177,7 @@ class MapLayers extends React.Component {
 }
 
 MapLayers.propTypes = {
-  isMobile: React.PropTypes.bool.isRequired,
+  isMobile: PropTypes.bool.isRequired,
 };
 
 module.exports = MapLayers;

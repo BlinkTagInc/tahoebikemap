@@ -6,7 +6,7 @@ var plugins = require('gulp-load-plugins')();
 
 
 var bundler = watchify(browserify('./public/js/index.js', watchify.args)
-  .transform('babelify', {presets: ['es2015', 'react']}));
+  .transform('babelify', {presets: ['@babel/preset-env', '@babel/preset-react']}));
 bundler.on('update', bundle);
 bundler.on('log', plugins.util.log);
 
@@ -69,7 +69,7 @@ gulp.task('js:develop', function() {
 
 gulp.task('js:compress', function() {
   var bundleStream = browserify('./public/js/index.js')
-    .transform('babelify', {presets: ['es2015', 'react']})
+    .transform('babelify', {presets: ['@babel/preset-env', '@babel/preset-react']})
     .bundle();
 
   return bundleStream

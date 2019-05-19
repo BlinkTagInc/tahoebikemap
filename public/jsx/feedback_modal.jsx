@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 const Modal = require('react-modal');
 const classNames = require('classnames');
 window.jQuery = require('jquery');
