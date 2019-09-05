@@ -1,7 +1,9 @@
 const nconf = require('nconf');
-const mailHelper = require('sendgrid').mail;
 const _ = require('underscore');
 const request = require('request');
+const SendGrid = require('@sendgrid/mail');
+
+SendGrid.setApiKey(nconf.get('SENDGRID_API_KEY'));
 
 exports.index = (req, res, next) => {
   res.render('index');
@@ -30,23 +32,18 @@ exports.feedback = (req, res, next) => {
     return memo;
   }, []).join('');
 
-  console.log(text);
+  console.log('Email Content: ', text);
 
-  const fromEmail = new mailHelper.Email('noreply@tahoebike.org');
-  const toEmail = new mailHelper.Email('info@tahoebike.org');
-  const subject = 'Feedback from Lake Tahoe Bike Map';
-  const content = new mailHelper.Content('text/plain', text);
-  const mail = new mailHelper.Mail(fromEmail, subject, toEmail, content);
+  const msg = {
+    to: 'info@tahoebike.org',
+    from: 'noreply@tahoebike.org',
+    subject: 'Feedback from Lake Tahoe Bike Map',
+    text,
+  }
 
-  const sg = require('sendgrid').SendGrid(nconf.get('SENDGRID_API_KEY'));
-  const requestBody = mail.toJSON();
-  const request = sg.emptyRequest();
-  request.method = 'POST';
-  request.path = '/v3/mail/send';
-  request.body = requestBody;
-  sg.API(request, (response) => {
-    res.render('thankyou', {
-      redirectUrl: req.body.redirectUrl,
-    });
+  SendGrid.send(msg);
+
+  res.render('thankyou', {
+    redirectUrl: req.body.redirectUrl,
   });
 };

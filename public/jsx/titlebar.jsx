@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 
 class TitleBar extends React.Component {
   constructor(props) {
@@ -60,9 +61,9 @@ class TitleBar extends React.Component {
 }
 
 TitleBar.propTypes = {
-  changeMobileView: React.PropTypes.func.isRequired,
-  isMobile: React.PropTypes.bool.isRequired,
-  mobileView: React.PropTypes.string.isRequired,
+  changeMobileView: PropTypes.func.isRequired,
+  isMobile: PropTypes.bool.isRequired,
+  mobileView: PropTypes.string.isRequired,
 };
 
 module.exports = TitleBar;

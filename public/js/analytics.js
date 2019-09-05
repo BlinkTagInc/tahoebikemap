@@ -1,11 +1,11 @@
-require('keen-js');
+import KeenTracking from 'keen-tracking';
 
 const config = require('../../frontendconfig.json');
 const error = require('./error');
 
 const LOG_ERRORS = false;
 
-const client = new Keen({
+const client = new KeenTracking({
   projectId: config.keenProjectId,
   writeKey: config.keenWriteKey,
 });
@@ -24,7 +24,7 @@ exports.logQuery = (startAddress, endAddress, startLocation, endLocation) => {
     }
   };
 
-  client.addEvent("queries", queryEvent, (err, res) => {
+  client.recordEvent("queries", queryEvent, (err, res) => {
     if (LOG_ERRORS && err) {
       console.error("Analytics error: ", err);
     }

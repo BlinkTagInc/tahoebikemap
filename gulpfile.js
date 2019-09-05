@@ -6,7 +6,7 @@ var plugins = require('gulp-load-plugins')();
 
 
 var bundler = watchify(browserify('./public/js/index.js', watchify.args)
-  .transform('babelify', {presets: ['es2015', 'react']}));
+  .transform('babelify', {presets: ['@babel/preset-env', '@babel/preset-react']}));
 bundler.on('update', bundle);
 bundler.on('log', plugins.util.log);
 
@@ -69,7 +69,7 @@ gulp.task('js:develop', function() {
 
 gulp.task('js:compress', function() {
   var bundleStream = browserify('./public/js/index.js')
-    .transform('babelify', {presets: ['es2015', 'react']})
+    .transform('babelify', {presets: ['@babel/preset-env', '@babel/preset-react']})
     .bundle();
 
   return bundleStream
@@ -85,10 +85,17 @@ gulp.task('js:compress', function() {
 gulp.task('scss:develop', gulp.series('scss:lint', 'scss:compileDev'));
 
 
-gulp.task('css:copy', function() {
-  return gulp.src('./node_modules/mapbox.js/theme/**/*')
-    .pipe(gulp.dest('./public/css/mapbox'));
-});
+gulp.task(
+  'mapbox:copy', 
+  gulp.series(
+    function() {
+      return gulp.src('./node_modules/mapbox.js/dist/mapbox.css').pipe(gulp.dest('./public/css'))
+    },
+    function() {
+      return gulp.src('./node_modules/mapbox.js/dist/images/*').pipe(gulp.dest('./public/css/images'))
+    },
+  ),
+);
 
 
 gulp.task('develop', function() {
@@ -114,7 +121,7 @@ gulp.task('develop', function() {
 
 gulp.task('build', gulp.series(
   'fonts:copy',
-  'css:copy',
+  'mapbox:copy',
   'css:minify',
   'js:compress'
 ));

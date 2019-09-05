@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 const Modal = require('react-modal');
 const classNames = require('classnames');
 window.jQuery = require('jquery');
@@ -13,7 +14,7 @@ class FeedbackModal extends React.Component {
     super(props);
 
     this.state = {
-      selectedForm: 'bikeParking',
+      selectedForm: 'feedback',
     };
 
     this.showFeedbackForm = () => {
@@ -174,12 +175,12 @@ class FeedbackModal extends React.Component {
                 onChange={this.toggleFormCategory}
                 name="formCategory"
               >
+                <option value="feedback">Feedback</option>
                 <option value="bikeParking">Bike Rack Parking Request or Tag Existing Bike Rack Parking</option>
                 <option value="constructionZone">Construction Zone</option>
                 <option value="collisionOrIncident">Collision or Incident</option>
                 <option value="unsafeCondition">Unsafe Condition</option>
                 <option value="infrastructureRequest">Infrastructure Request or Idea</option>
-                <option value="feedback">Feedback</option>
               </select>
             </div>
             {forms[this.state.selectedForm]}
