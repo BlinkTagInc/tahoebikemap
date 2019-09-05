@@ -200,18 +200,18 @@ class App extends React.Component {
 
   clearPath() {
     this.setState({
-      decodedPath: undefined,
-      directions: undefined,
-      elevationProfile: undefined,
+      decodedPath: null,
+      directions: null,
+      elevationProfile: null,
     });
   }
 
   clearMarkers() {
     this.setState({
-      startLocation: undefined,
-      endLocation: undefined,
-      startAddress: undefined,
-      endAddress: undefined,
+      startLocation: null,
+      endLocation: null,
+      startAddress: '',
+      endAddress: '',
     });
   }
 
