@@ -259,7 +259,8 @@ exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarke
   class2Layer.addTo(map);
   class3Layer.addTo(map);
   constructionLayer.addTo(map);
-  winterLayer.addTo(map);
+  // Uncomment to add winterlayer by default:
+  // winterLayer.addTo(map);
 };
 
 exports.updateStartMarker = (latlng) => {
