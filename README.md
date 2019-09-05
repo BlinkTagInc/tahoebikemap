@@ -38,7 +38,7 @@ Then, open http://localhost:3000 in your browser. Gulp will listen for changes a
 * `heroku logs --tail -a tahoebike[stage]`
 * `heroku run bash --remote staging|prod`
 
-## Contibuting
+## Contributing
 
 Contributions welcome. Contact [Nick Speal](http://www.speal.ca/contact/) to get involved with the [Lake Tahoe Bicycle Coalition](https://wwww.tahoebike.org)
 
