@@ -5,10 +5,11 @@ exports.getRoute = (startLocation, endLocation, scenario) => {
   return fetch(`${config.bikeMapperApiUrl}${parameters}`)
   .then(response => {
     if (response.ok) {
-        return response.json();
+      return response.json();
     } else {
-        console.log('Unsuccessful response from getRoute: ', response.statusText);
-        return Promise.reject(response);
+      console.error('Unsuccessful response from getRoute: ', response.statusText);
+      return Promise.reject(response);
     }
   })
+  .catch(err => console.error(err));
 };
