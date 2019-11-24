@@ -192,13 +192,22 @@ function createConstructionLayer() {
 
 exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarkerDrag, handleMapZoom) => {
   initialCenter = center;
-  map = L.mapbox.map('map', 'mapbox.streets', {
-    center,
-    zoom,
-    minZoom,
-  });
-
-  L.tileLayer(`https://api.mapbox.com/styles/v1/tahoebike/cjhxp09fi10232sr94gc17qks/tiles/256/{z}/{x}/{y}?access_token=${config.mapboxAccessToken}`).addTo(map);
+  // https://docs.mapbox.com/mapbox.js/api/v3.2.0/l-mapbox-map/
+  map = L.mapbox.map(
+    'map', // DOM element ID
+    null,
+    {
+      center,
+      zoom,
+      minZoom,
+    },
+  );
+  L.mapbox.styleLayer(
+    'mapbox://styles/tahoebike/ck3cbc5z81vr71clhw1rfylmy',
+    {
+      accessToken: config.mapboxAccessToken,
+    },
+  ).addTo(map);
 
   startMarker = L.marker(center, {
     draggable,
