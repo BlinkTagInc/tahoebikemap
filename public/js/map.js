@@ -276,6 +276,7 @@ exports.updatePath = (decodedPath) => {
     path.setLatLngs([initialCenter, initialCenter]);
   } else {
     path.setLatLngs(decodedPath).addTo(map);
+    path.bringToBack();
     map.fitBounds(path.getBounds(), { padding: [30, 30] });
   }
 };
@@ -320,12 +321,6 @@ exports.toggleLayer = (layerName, show) => {
   if (show) {
     for (const layer of layers) {
       layer.addTo(map);
-    }
-
-    // Re-add route path so it is on top
-    if (path) {
-      map.removeLayer(path);
-      path.addTo(map);
     }
   } else {
     for (const layer of layers) {
