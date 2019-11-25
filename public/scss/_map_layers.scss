@@ -54,16 +54,19 @@
     }
 
     &.bikeParking {
-      background: url('../img/bike_parking_marker.svg') 0 0 no-repeat;
-      background-size: 15px 15px;
+      background: url('../img/BikeParkingIcon.svg') 0 0 no-repeat;
+      background-size: 15px 18px;
+      width: 15px;
+      height: 18px;
+      overflow: visible;
     }
 
     &.bikeShops {
-      background: url('../img/bike_shop_marker.png') 0 0 no-repeat;
-      background-size: 19px 19px;
-      width: 19px;
-      height: 19px;
-      margin: 2px;
+      background: url('../img/BikeShopIcon.svg') 0 0 no-repeat;
+      background-size: 15px 18px;
+      width: 15px;
+      height: 18px;
+      overflow: visible;
     }
 
     &.construction {
