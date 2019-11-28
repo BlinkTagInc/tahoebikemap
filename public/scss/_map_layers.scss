@@ -30,25 +30,27 @@
     margin: 4px;
 
     &.class1 {
-      border-top: 4px solid #8ec733;
-      height: 0px;
+      background: #fcf4db;
+      border-top: 1px solid #330066;
+      border-bottom: 1px solid #330066;
+      height: 3px;
       vertical-align: -2px;
     }
 
     &.class2 {
-      border-top: 4px solid #f7a745;
+      border-top: 3px solid #660099;
       height: 0px;
       vertical-align: -2px;
     }
 
     &.class3 {
-      border-top: 2px solid #f7a745;
+      border-top: 3px dashed #9933CC;
       height: 0px;
       vertical-align: -2px;
     }
 
     &.winter {
-      border-top: 3px dashed #5b8844;
+      border-top: 3px dashed #ff0000;
       height: 0px;
       vertical-align: -2px;
     }
