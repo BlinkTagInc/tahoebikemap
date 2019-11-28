@@ -16,6 +16,7 @@ L.mapbox.accessToken = config.mapboxAccessToken;
 
 // Setup layers
 const class1Layer = L.mapbox.featureLayer();
+const class1LayerOutline = L.mapbox.featureLayer();
 const class2Layer = L.mapbox.featureLayer();
 const class3Layer = L.mapbox.featureLayer();
 const winterLayer = L.mapbox.featureLayer();
@@ -26,11 +27,17 @@ const constructionLayer = L.layerGroup();
 fetch('/data/class1.geojson')
 .then((response) => response.json())
 .then((json) => {
+  class1LayerOutline.setGeoJSON(json)
+  .setStyle({
+    color: '#330066',
+    weight: 3,
+    opacity: 0.8,
+  });
   class1Layer.setGeoJSON(json)
   .setStyle({
-    color: '#8ec733',
-    weight: 4,
-    opacity: 1,
+    color: '#fcf4db',
+    weight: 1,
+    opacity: 0.8,
   });
 });
 
@@ -39,9 +46,9 @@ fetch('/data/class2.geojson')
 .then((json) => {
   class2Layer.setGeoJSON(json)
   .setStyle({
-    color: '#f7a745',
-    weight: 4,
-    opacity: 1,
+    color: '#660099',
+    weight: 3,
+    opacity: 0.8,
   });
 });
 
@@ -50,9 +57,10 @@ fetch('/data/class3.geojson')
 .then((json) => {
   class3Layer.setGeoJSON(json)
   .setStyle({
-    color: '#f7a745',
-    weight: 2,
-    opacity: 1,
+    color: '#9933CC',
+    weight: 3,
+    opacity: 0.8,
+    dashArray: '3,5'
   });
 });
 
@@ -84,11 +92,10 @@ const fetchTruckeeData = fetch('/data/truckeeTrails.geojson')
 Promise.all([fetchTrpaData, fetchTruckeeData]).then(combinedData => {
   winterLayer.setGeoJSON(combinedData)
     .setStyle({
-      color: '#5b8844',
-      weight: 4,
-      opacity: 1,
-      dashArray: '10,10',
-      lineCap: 'butt',
+      color: '#ff0000',
+      weight: 3,
+      opacity: 0.8,
+      dashArray: '3,5'
     });
 })
 
@@ -228,9 +235,10 @@ exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarke
   });
 
   path = L.polyline([center, center], {
-    color: '#000000',
-    opacity: 0.3,
-    weight: 15,
+    color: '#ff6712',
+    opacity: 0.8,
+    width: 5,
+    dashArray: '6, 12',
   });
 
   map.on('click', (event) => {
@@ -256,6 +264,7 @@ exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarke
   createConstructionLayer();
 
   class1Layer.addTo(map);
+  class1LayerOutline.addTo(map);
   class2Layer.addTo(map);
   class3Layer.addTo(map);
   constructionLayer.addTo(map);
@@ -308,7 +317,7 @@ exports.latlngIsWithinBounds = (latlng, type) => {
 exports.toggleLayer = (layerName, show) => {
   let layers;
   if (layerName === 'class1') {
-    layers = [class1Layer];
+    layers = [class1LayerOutline, class1Layer];
   } else if (layerName === 'class2') {
     layers = [class2Layer];
   } else if (layerName === 'class3') {
