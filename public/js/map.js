@@ -136,7 +136,7 @@ function formatBikeShopsPopup(properties) {
   }
 
   const website = properties.Website ? `<a href="${properties.Website}" target="_blank">${properties.Website}</a>` : '';
-  return `<b>${properties.Name}</b><br>LTBC Business Member<br>${properties.Address || ''}<br>${properties['Phone Number'] || ''}<br>${website}`;
+  return `<b>${properties.Name}</b> />LTBC Business Member<br />${properties.Address || ''}<br />${properties['Phone Number'] || ''}<br />${website}`;
 }
 
 function createBikeShopLayer() {
@@ -156,7 +156,7 @@ function formatConstructionPopup(properties) {
     <p>${properties.description}</p>
     <small>
     ${properties.last_updated ? (`Last Updated: ${properties.last_updated}`) : ''}
-    <br>
+    <br />
     ${disclaimer}
     </small>
   `;
