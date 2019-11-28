@@ -14,6 +14,9 @@ let initialCenter;
 // Setup mapbox
 L.mapbox.accessToken = config.mapboxAccessToken;
 const MAPBOX_DATASETS_API = 'https://api.mapbox.com/datasets/v1/tahoebike';
+const CONSTRUCTION_DATASET_ID = 'ck3gy4qcm2hg42ol93x46deff';
+const BIKE_PARKING_DATASET_ID = 'ck3gxv6o90p8r2inyo63i5h26';
+const BIKE_SHOPS_DATASET_ID = 'ck3gxsvmm2hbt2ol9jstcn930';
 
 // Setup layers
 const class1Layer = L.mapbox.featureLayer();
@@ -121,7 +124,6 @@ function createIconLayer(layer, datasetId, style, formattingFunction) {
 
 
 function createBikeParkingLayer() {
-  const BIKE_PARKING_DATASET_ID = 'ck3gxv6o90p8r2inyo63i5h26';
   createIconLayer(
     bikeParkingLayer,
     BIKE_PARKING_DATASET_ID,
@@ -140,7 +142,6 @@ function formatBikeShopsPopup(properties) {
 }
 
 function createBikeShopLayer() {
-  const BIKE_SHOPS_DATASET_ID = 'ck3gxsvmm2hbt2ol9jstcn930';
   createIconLayer(
     bikeShopsLayer,
     BIKE_SHOPS_DATASET_ID,
@@ -163,7 +164,6 @@ function formatConstructionPopup(properties) {
 }
 
 function createConstructionLayer() {
-  const CONSTRUCTION_DATASET_ID = 'ck3gy4qcm2hg42ol93x46deff';
   createIconLayer(
     constructionLayer,
     CONSTRUCTION_DATASET_ID,
