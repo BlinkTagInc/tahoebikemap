@@ -14,9 +14,9 @@ let initialCenter;
 // Setup mapbox
 L.mapbox.accessToken = config.mapboxAccessToken;
 const MAPBOX_DATASETS_API = 'https://api.mapbox.com/datasets/v1/tahoebike';
-const CONSTRUCTION_DATASET_ID = 'ck3gy4qcm2hg42ol93x46deff';
-const BIKE_PARKING_DATASET_ID = 'ck3gxv6o90p8r2inyo63i5h26';
-const BIKE_SHOPS_DATASET_ID = 'ck3gxsvmm2hbt2ol9jstcn930';
+const CONSTRUCTION_DATASET_ID = 'ck3pdyl2g5fn42tpnfsh5pibh';
+const BIKE_PARKING_DATASET_ID = 'ck3pdz0lj0ezu2injv641rf8z';
+const BIKE_SHOPS_DATASET_ID = 'ck3pdzfet26fm2ilhadvn614o';
 
 // Setup layers
 const class1Layer = L.mapbox.featureLayer();
@@ -133,12 +133,28 @@ function createBikeParkingLayer() {
 }
 
 function formatBikeShopsPopup(properties) {
-  if (!properties['LTBC Business Member Notation']) {
-    return `<b>${properties.Name}</b>`;
-  }
+  // Previously we showed less info for bike shops that are not LTBC Business Members
+  // But no shops have renewed their membership recently (as of late 2019)
+  // So lets show as much info as we have for each shop
+  // if (!properties['business_member']) {
+  //   return `<b>${properties.name}</b>`;
+  // }
 
-  const website = properties.Website ? `<a href="${properties.Website}" target="_blank">${properties.Website}</a>` : '';
-  return `<b>${properties.Name}</b> />LTBC Business Member<br />${properties.Address || ''}<br />${properties['Phone Number'] || ''}<br />${website}`;
+  let textContent = properties.name ? `<b>${properties.name}</b>` : 'Unknown Bike Shop';
+  if (properties.business_member) {
+    textContent += `<br />LTBC Business Member`
+  }
+  if (properties.address) {
+    textContent += `<br />${properties.address}`
+  }
+  if (properties.phone_number) {
+    textContent += `<br />${properties.phone_number}`
+  }
+  if (properties.website) {
+    textContent += `<br /><a href="${properties.website}" target="_blank">${properties.website}</a>`
+  }
+  
+  return textContent;
 }
 
 function createBikeShopLayer() {
