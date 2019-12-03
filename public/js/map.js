@@ -1,7 +1,9 @@
+import 'whatwg-fetch';
+
+const L = require('mapbox.js');
+const mapStyles = require('./mapStyles');
 const config = require('../../frontendconfig.json');
 const error = require('./error');
-
-import 'whatwg-fetch';
 
 let map;
 let startMarker;
@@ -9,10 +11,12 @@ let endMarker;
 let path;
 let initialCenter;
 
-const L = require('mapbox.js');
-
 // Setup mapbox
 L.mapbox.accessToken = config.mapboxAccessToken;
+const MAPBOX_DATASETS_API = 'https://api.mapbox.com/datasets/v1/tahoebike';
+const CONSTRUCTION_DATASET_ID = 'ck3pdyl2g5fn42tpnfsh5pibh';
+const BIKE_PARKING_DATASET_ID = 'ck3pdz0lj0ezu2injv641rf8z';
+const BIKE_SHOPS_DATASET_ID = 'ck3pdzfet26fm2ilhadvn614o';
 
 // Setup layers
 const class1Layer = L.mapbox.featureLayer();
@@ -20,9 +24,9 @@ const class1LayerOutline = L.mapbox.featureLayer();
 const class2Layer = L.mapbox.featureLayer();
 const class3Layer = L.mapbox.featureLayer();
 const winterLayer = L.mapbox.featureLayer();
-const bikeParkingLayer = L.layerGroup();
-const bikeShopsLayer = L.layerGroup();
-const constructionLayer = L.layerGroup();
+const bikeParkingLayer = L.mapbox.featureLayer();
+const bikeShopsLayer = L.mapbox.featureLayer();
+const constructionLayer = L.mapbox.featureLayer();
 
 fetch('/data/class1.geojson')
 .then((response) => response.json())
@@ -99,102 +103,89 @@ Promise.all([fetchTrpaData, fetchTruckeeData]).then(combinedData => {
     });
 })
 
-
-function createBikeParkingLayer() {
-  const bikeParkingLayerTableId = '1KeuYN2D5EQMkah2TKCrm8gOfTqHCpTuRMi1JwCkK';
-  fetch(`https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%20${bikeParkingLayerTableId}&key=${config.googleFusionTablesApiKey}`)
+function createIconLayer(layer, datasetId, style, formattingFunction) {
+  const endpoint = `${MAPBOX_DATASETS_API}/${datasetId}/features?access_token=${config.mapboxAccessToken}`;
+  fetch(endpoint)
   .then((response) => response.json())
-  .then((json) => {
-    if (!json) {
-      error.handleError(new Error('Unable to fetch bike rack data'));
+  .then((geojson) => {
+    if (!geojson) {
+      error.handleError(new Error(`Unable to fetch data for dataset id ${datasetId}`));
       return;
     }
-
-    if (!json.rows) {
-      // No data for this table
-      return;
-    }
-
-    json.rows.forEach((point) => {
-      const bikeRackIcon = L.divIcon({
-        className: 'bike-rack-icon',
-        iconSize: [20, 20],
-      });
-
-      L.marker([parseFloat(point[0]), parseFloat(point[1])], { icon: bikeRackIcon })
-      .addTo(bikeParkingLayer);
+    layer.on('layeradd', (e) => {
+      e.layer.setIcon(L.icon(style));
+      if (formattingFunction) {
+        e.layer.bindPopup(formattingFunction(e.layer.feature.properties));
+      }
     });
+    layer.setGeoJSON(geojson);
   });
 }
 
-function formatBikeShopPopup(shop) {
-  if (shop[1] !== 'LTBC Business Member') {
-    return `<b>${shop[0]}</b>`;
-  }
 
-  const website = shop[5] ? `<a href="${shop[5]}" target="_blank">${shop[5]}</a>` : '';
-  return `<b>${shop[0]}</b><br>LTBC Business Member<br>${shop[2]}<br>${shop[6]}<br>${website}`;
+function createBikeParkingLayer() {
+  createIconLayer(
+    bikeParkingLayer,
+    BIKE_PARKING_DATASET_ID,
+    mapStyles.bikeParkingIconStyle,
+    null,
+  );
+}
+
+function formatBikeShopsPopup(properties) {
+  // Previously we showed less info for bike shops that are not LTBC Business Members
+  // But no shops have renewed their membership recently (as of late 2019)
+  // So lets show as much info as we have for each shop
+  // if (!properties['business_member']) {
+  //   return `<b>${properties.name}</b>`;
+  // }
+
+  let textContent = properties.name ? `<b>${properties.name}</b>` : 'Unknown Bike Shop';
+  if (properties.business_member) {
+    textContent += `<br />LTBC Business Member`
+  }
+  if (properties.address) {
+    textContent += `<br />${properties.address}`
+  }
+  if (properties.phone_number) {
+    textContent += `<br />${properties.phone_number}`
+  }
+  if (properties.website) {
+    textContent += `<br /><a href="${properties.website}" target="_blank">${properties.website}</a>`
+  }
+  
+  return textContent;
 }
 
 function createBikeShopLayer() {
-  const bikeShopsLayerTableId = '1Jlh83cf0VSIAqPiPd3QRaI-EFrpvl5zWl53PBDi0';
-  fetch(`https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%20${bikeShopsLayerTableId}&key=${config.googleFusionTablesApiKey}`)
-  .then((response) => response.json())
-  .then((json) => {
-    if (!json) {
-      error.handleError(new Error('Unable to fetch bike shop data'));
-      return;
-    }
-
-    if (!json.rows) {
-      // No data for this table
-      return;
-    }
-
-    json.rows.forEach((shop) => {
-      const bikeShopIcon = L.divIcon({
-        className: 'bike-shop-icon',
-        iconSize: [24, 24],
-      });
-
-      L.marker([parseFloat(shop[3]), parseFloat(shop[4])], { icon: bikeShopIcon })
-      .bindPopup(formatBikeShopPopup(shop))
-      .addTo(bikeShopsLayer);
-    });
-  });
+  createIconLayer(
+    bikeShopsLayer,
+    BIKE_SHOPS_DATASET_ID,
+    mapStyles.bikeShopsIconStyle,
+    formatBikeShopsPopup,
+  );
 }
 
-function formatConstructionPopup(item) {
+function formatConstructionPopup(properties) {
   const disclaimer = 'Construction notices provided by map users. Note that less recent notices may be out of date, and require confirmation.';
-  return `<p>${item[0]}</p><small>Added: ${item[3]}<br>${disclaimer}`;
+  return `
+    <h2>${properties.title}</h2>
+    <p>${properties.description}</p>
+    <small>
+    ${properties.last_updated ? (`Last Updated: ${properties.last_updated}`) : ''}
+    <br />
+    ${disclaimer}
+    </small>
+  `;
 }
 
 function createConstructionLayer() {
-  const bikeConstructionLayerTableId = '1lYIV19mk2ztU2lL-7U68NFC04l352mxLg7Klo_v7';
-  fetch(`https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%20${bikeConstructionLayerTableId}&key=${config.googleFusionTablesApiKey}`)
-  .then((response) => response.json())
-  .then((json) => {
-    if (!json) {
-      error.handleError(new Error('Unable to fetch construction data'));
-      return;
-    }
-
-    if (!json.rows) {
-      // No data for this table
-      return;
-    }
-
-    const constructionIcon = L.divIcon({
-      className: 'construction-icon',
-      iconSize: [24, 24],
-    });
-
-    json.rows.forEach((item) => {
-      L.marker([parseFloat(item[1]), parseFloat(item[2])], { icon: constructionIcon })
-      .bindPopup(formatConstructionPopup(item))
-      .addTo(constructionLayer);
-    });
-  });
+  createIconLayer(
+    constructionLayer,
+    CONSTRUCTION_DATASET_ID,
+    mapStyles.constructionIconStyle,
+    formatConstructionPopup,
+  );
 }
 
 exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarkerDrag, handleMapZoom) => {
