@@ -199,13 +199,22 @@ function createConstructionLayer() {
 
 exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarkerDrag, handleMapZoom) => {
   initialCenter = center;
-  map = L.mapbox.map('map', 'mapbox.streets', {
-    center,
-    zoom,
-    minZoom,
-  });
-
-  L.tileLayer(`https://api.mapbox.com/styles/v1/tahoebike/cjhxp09fi10232sr94gc17qks/tiles/256/{z}/{x}/{y}?access_token=${config.mapboxAccessToken}`).addTo(map);
+  // https://docs.mapbox.com/mapbox.js/api/v3.2.0/l-mapbox-map/
+  map = L.mapbox.map(
+    'map', // DOM element ID
+    null,
+    {
+      center,
+      zoom,
+      minZoom,
+    },
+  );
+  L.mapbox.styleLayer(
+    'mapbox://styles/tahoebike/ck3cbc5z81vr71clhw1rfylmy',
+    {
+      accessToken: config.mapboxAccessToken,
+    },
+  ).addTo(map);
 
   startMarker = L.marker(center, {
     draggable,
@@ -259,8 +268,7 @@ exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarke
   class2Layer.addTo(map);
   class3Layer.addTo(map);
   constructionLayer.addTo(map);
-  // Uncomment to add winterlayer by default:
-  // winterLayer.addTo(map);
+  winterLayer.addTo(map);
 };
 
 exports.updateStartMarker = (latlng) => {
@@ -285,6 +293,7 @@ exports.updatePath = (decodedPath) => {
     path.setLatLngs([initialCenter, initialCenter]);
   } else {
     path.setLatLngs(decodedPath).addTo(map);
+    path.bringToBack();
     map.fitBounds(path.getBounds(), { padding: [30, 30] });
   }
 };
@@ -329,12 +338,6 @@ exports.toggleLayer = (layerName, show) => {
   if (show) {
     for (const layer of layers) {
       layer.addTo(map);
-    }
-
-    // Re-add route path so it is on top
-    if (path) {
-      map.removeLayer(path);
-      path.addTo(map);
     }
   } else {
     for (const layer of layers) {
