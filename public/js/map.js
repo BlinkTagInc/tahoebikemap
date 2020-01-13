@@ -89,7 +89,12 @@ const fetchTruckeeData = fetch('/data/truckeeTrails.geojson')
   .then((json) => {
     // Only include trails with CLASS == "I", and MAINTBY == "Town of Truckee"
     // "The trails that we plow in the winter are only those Class I paved trails managed by the Town" - Sarah Kunnen, Engineering Technician, Town Of Truckee
-    const filteredFeatures = json.features.filter(({ properties }) => (properties.CLASS === 'I' && properties.MAINTBY == 'Town of Truckee'))
+    const now = new Date()
+    const filteredFeatures = json.features.filter(({ properties }) => (
+      properties.CLASS === 'I' &&
+      properties.MAINTBY == 'Town of Truckee' &&
+      new Date(properties.INSTALLDAT) < now  // Exclude routes with install dates in the future
+    ))
     const nextJson = Object.assign({}, json);
     nextJson.features = filteredFeatures;
     return Promise.resolve(nextJson);
