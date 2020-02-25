@@ -1,6 +1,6 @@
 # Tahoe Bike Map
 
-This is a web app for finding efficient bike routes around the Lake Tahoe region. See it in action at http://map.biketahoe.org.
+This is a web app for finding efficient bike routes around the Lake Tahoe region. See it in action at http://map.tahoebike.org.
 
 It allows users to specify a start and end point to a route and allows them to choose a route type. The route type can be one biased towards bike routes and bike lanes or a more direct route.
 
