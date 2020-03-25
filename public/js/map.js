@@ -78,7 +78,8 @@ const fetchTrpaData = fetch('/data/trpaTrails.geojson')
     // TODO update the dataset and remove this feature.
     const filteredFeatures = json.features
       .filter(feature => feature.properties.WNTR_MAINT === 'YES')
-      .filter(feature => feature.properties.MAINT_JURS !== 'EL DORADO COUNTY')
+      // El Dorado County has temporarily started plowing again, so comment out this filter
+      // .filter(feature => feature.properties.MAINT_JURS !== 'EL DORADO COUNTY')
     const nextJson = Object.assign({}, json);
     nextJson.features = filteredFeatures;
     return Promise.resolve(nextJson);
