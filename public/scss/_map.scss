@@ -17,17 +17,8 @@
 }
 
 .popup-image-container {
-  /* Our image comes with auto-generated markup, with <a>, <br>, <a> tags.
-  We only want to display the first <a> tag, and we want to modify the image width within it
-  */
   img {
     width: 100%;
-  }
-  :first-child {
-    display: initial;
-  }
-  > * {
-    display: none;
   }
 }
 
