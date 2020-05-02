@@ -25,11 +25,12 @@ function bundle() {
 }
 
 
-gulp.task('scss:lint', function() {
+gulp.task('scss:lint', function(done) {
   gulp.src('./public/scss/**/*.scss')
     .pipe(plugins.sassLint())
     .pipe(plugins.sassLint.format())
     .pipe(plugins.sassLint.failOnError());
+  done();
 });
 
 
