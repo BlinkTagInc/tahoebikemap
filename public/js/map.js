@@ -135,7 +135,7 @@ function createIconLayer(layer, datasetId, style, formattingFunction) {
 function formatBikeParkingPopup(properties) {
   let markup = `<h2>${properties.description}</h2>`;
   if (properties.image) {
-    markup += ` 
+    markup += `
       <div class="popup-image-container">
         ${properties.image}
       </div>
