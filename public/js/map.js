@@ -132,13 +132,24 @@ function createIconLayer(layer, datasetId, style, formattingFunction) {
   });
 }
 
+function formatBikeParkingPopup(properties) {
+  let markup = `<h2>${properties.description}</h2>`;
+  if (properties.image) {
+    markup += ` 
+      <div class="popup-image-container">
+        ${properties.image}
+      </div>
+    `
+  }
+  return markup;
+}
 
 function createBikeParkingLayer() {
   createIconLayer(
     bikeParkingLayer,
     BIKE_PARKING_DATASET_ID,
     mapStyles.bikeParkingIconStyle,
-    null,
+    formatBikeParkingPopup,
   );
 }
 
