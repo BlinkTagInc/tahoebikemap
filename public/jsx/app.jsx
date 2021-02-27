@@ -264,6 +264,7 @@ class App extends React.Component {
         />
         <Controls
           updateRoute={this.updateRoute}
+          setStartLocation={this.setStartLocation}
           clearRoute={this.clearRoute}
           startAddress={this.state.startAddress}
           endAddress={this.state.endAddress}

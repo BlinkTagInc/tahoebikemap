@@ -77,6 +77,23 @@ class Controls extends React.Component {
     return errorFields;
   }
 
+  setStartAddressToMyGeolocation() {
+    const onGeoLocationSuccess = position => {
+      const { latitude, longitude} = position.coords;
+      this.props.setStartLocation({lat: latitude, lng: longitude})
+    }
+
+    const onGeoLocationError = () => {
+      alert("Failed to look up location")
+    }
+
+    if (!navigator.geolocation) {
+      alert('Geolocation is not supported by your browser');
+    } else {
+      navigator.geolocation.getCurrentPosition(onGeoLocationSuccess.bind(this), onGeoLocationError);
+    }
+  }
+
   render() {
     return (
       <div className={classNames('controls', 'hidden-print', { hide: this.props.mobileView !== 'directions' && this.props.isMobile })}>
@@ -97,6 +114,7 @@ class Controls extends React.Component {
               placeholder={config.startAddressPlaceholder}
             />
           </div>
+          <button onClick={this.setStartAddressToMyGeolocation.bind(this)}>Find Me</button>
           <div
             className={classNames(
               'form-group',
