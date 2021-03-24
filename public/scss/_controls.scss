@@ -9,8 +9,9 @@
 
   .start-address {
     height: 43px;
-    overflow: hidden;
     margin-bottom: 0;
+    overflow: hidden;
+    position: relative;
   }
 
   .start-address .control-label {
@@ -49,6 +50,24 @@
     width: 224px;
     display: inline-block;
     float: right;
+  }
+
+  .geo-find-me {
+    background: rgba(255, 255, 255, 0.85);
+    border: none;
+    border-radius: 2px;
+    box-sizing: border-box;
+    color: $primary;
+    height: 32px;
+    padding: 0;
+    position: absolute;
+    right: 2px;
+    top: 10px;
+    width: 34px;
+  
+    img {
+      width: 20px;
+    }
   }
 
   input:focus::-webkit-input-placeholder { color:transparent; }
