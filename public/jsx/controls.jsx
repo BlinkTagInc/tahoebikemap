@@ -1,20 +1,20 @@
-const React = require('react');
-const PropTypes = require('prop-types');
-const _ = require('underscore');
-const classNames = require('classnames');
+const React = require("react");
+const PropTypes = require("prop-types");
+const _ = require("underscore");
+const classNames = require("classnames");
 
-const config = require('../../frontendconfig.json');
+const config = require("../../frontendconfig.json");
 
-const Disclaimer = require('./disclaimer.jsx');
+const Disclaimer = require("./disclaimer.jsx");
 
 class Controls extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      startAddress: '',
-      endAddress: '',
-      scenario: '1',
+      startAddress: "",
+      endAddress: "",
+      scenario: "1",
       errorFields: [],
     };
 
@@ -28,7 +28,11 @@ class Controls extends React.Component {
         return false;
       }
 
-      return this.props.updateRoute(this.state.startAddress, this.state.endAddress, this.state.scenario);
+      return this.props.updateRoute(
+        this.state.startAddress,
+        this.state.endAddress,
+        this.state.scenario
+      );
     };
 
     this.handleStartAddressChange = (event) => {
@@ -67,38 +71,54 @@ class Controls extends React.Component {
   validateForm() {
     const errorFields = [];
     if (!this.state.startAddress) {
-      errorFields.push('startAddress');
+      errorFields.push("startAddress");
     }
 
     if (!this.state.endAddress) {
-      errorFields.push('endAddress');
+      errorFields.push("endAddress");
     }
 
     return errorFields;
   }
 
   setStartAddressToMyGeolocation() {
-    const onGeoLocationSuccess = position => {
-      const { latitude, longitude} = position.coords;
-      this.props.setStartLocation({lat: latitude, lng: longitude})
-    }
+    const onGeoLocationSuccess = (position) => {
+      const { latitude, longitude } = position.coords;
+      this.props.setStartLocation({ lat: latitude, lng: longitude });
+    };
 
     const onGeoLocationError = () => {
-      alert("Failed to look up location")
-    }
+      alert("Failed to look up location");
+    };
 
     if (!navigator.geolocation) {
-      alert('Geolocation is not supported by your browser');
+      alert("Geolocation is not supported by your browser");
     } else {
-      navigator.geolocation.getCurrentPosition(onGeoLocationSuccess.bind(this), onGeoLocationError);
+      navigator.geolocation.getCurrentPosition(
+        onGeoLocationSuccess.bind(this),
+        onGeoLocationError
+      );
     }
   }
 
   render() {
     return (
-      <div className={classNames('controls', 'hidden-print', { hide: this.props.mobileView !== 'directions' && this.props.isMobile })}>
+      <div
+        className={classNames("controls", "hidden-print", {
+          hide: this.props.mobileView !== "directions" && this.props.isMobile,
+        })}
+      >
         <form onSubmit={this.processForm}>
-          <div className={classNames('form-group', 'form-inline', 'start-address', { 'has-error': _.contains(this.state.errorFields, 'startAddress') })}>
+          <div
+            className={classNames(
+              "form-group",
+              "form-inline",
+              "start-address",
+              {
+                "has-error": _.contains(this.state.errorFields, "startAddress"),
+              }
+            )}
+          >
             <label className="control-label">Start Location</label>
             <img
               src="img/start_marker.png"
@@ -113,15 +133,17 @@ class Controls extends React.Component {
               className="form-control"
               placeholder={config.startAddressPlaceholder}
             />
+            <button
+              className="geo-find-me"
+              onClick={this.setStartAddressToMyGeolocation.bind(this)}
+            >
+              <img src="img/compass-outline.svg" alt="Compass Icon" />{" "}
+            </button>
           </div>
-          <button onClick={this.setStartAddressToMyGeolocation.bind(this)}>Find Me</button>
           <div
-            className={classNames(
-              'form-group',
-              'form-inline',
-              'end-address',
-              { 'has-error': _.contains(this.state.errorFields, 'endAddress') }
-            )}
+            className={classNames("form-group", "form-inline", "end-address", {
+              "has-error": _.contains(this.state.errorFields, "endAddress"),
+            })}
           >
             <label className="control-label">End Location</label>
             <img
@@ -149,23 +171,28 @@ class Controls extends React.Component {
               <option value="2">The most direct route</option>
             </select>
           </div>
-          <a href="#" className="clear-link" onClick={this.props.clearRoute}>Clear</a>
-          <button
-            type="submit"
-            className="btn btn-success btn-update-route"
-          >
+          <a href="#" className="clear-link" onClick={this.props.clearRoute}>
+            Clear
+          </a>
+          <button type="submit" className="btn btn-success btn-update-route">
             <i
-              className={classNames(
-                'fa',
-                'fa-circle-o-notch',
-                'fa-spin',
-                { hidden: !this.props.loading }
-              )}
+              className={classNames("fa", "fa-circle-o-notch", "fa-spin", {
+                hidden: !this.props.loading,
+              })}
               aria-hidden="true"
-            ></i> Get Directions
+            ></i>{" "}
+            Get Directions
           </button>
         </form>
-        <div className="donate">Like this map? <a href="http://www.tahoebike.org/get-involved/join/" target="_blank" rel="noopener noreferrer">Please donate!</a>
+        <div className="donate">
+          Like this map?{" "}
+          <a
+            href="http://www.tahoebike.org/get-involved/join/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Please donate!
+          </a>
         </div>
         <Disclaimer classes={{ hide: !this.props.showDisclaimer }} />
       </div>
