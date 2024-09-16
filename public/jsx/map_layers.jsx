@@ -17,7 +17,7 @@ class MapLayers extends React.Component {
       bikeParking: false,
       bikeShops: false,
       construction: true,
-      winter: true,
+      winter: false,
       visible: !this.props.isMobile,
     };
 
