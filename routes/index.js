@@ -1,3 +1,4 @@
+const { lookupQRIndex } = require('../libs/qr')
 const nconf = require('nconf');
 const _ = require('underscore');
 const request = require('request');
@@ -10,9 +11,7 @@ exports.index = (req, res, next) => {
 };
 
 exports.qr = (req, res, next) => {
-  // Redirect /qr routes to index route for now
-  // TODO in the future, handle specific redirects based on the QR code value
-  res.redirect('/');
+  res.redirect(lookupQRIndex(req.params.qrId));
 };
 
 exports.terms = (req, res, next) => {
