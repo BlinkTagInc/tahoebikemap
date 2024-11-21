@@ -94,9 +94,12 @@ class App extends React.Component {
           error.handleError(new Error('No path recieved'));
           return;
         }
+        // Decode the path if a valid path is returned.
+        // If any empty path is returned (i.e from one point to the same point), then manually construct a path from start to end
+        const decodedPath = results.path[0] ? polyline.decode(results.path[0]) : [this.state.startLocation, this.state.endLocation]
 
         this.setState({
-          decodedPath: polyline.decode(results.path[0]),
+          decodedPath: decodedPath,
           directions: results.directions,
           elevationProfile: results.elevation_profile,
           showDisclaimer: false,
