@@ -9,10 +9,7 @@ function lookupQRIndex(idx) {
         '2': '/#1706+lake+tahoe+blvd/1706+lake+tahoe+blvd/1',
         '3': '/#1000+Emerald+Bay+Rd/1000+Emerald+Bay+Rd/1',
     }
-    if (Object.hasOwn(mapping, idx)) {
-        return mapping[idx]
-    }
-    return '/'
+    return mapping[idx] || '/';
 }
 
 module.exports = { lookupQRIndex };
