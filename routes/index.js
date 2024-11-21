@@ -9,6 +9,12 @@ exports.index = (req, res, next) => {
   res.render('index');
 };
 
+exports.qr = (req, res, next) => {
+  // Redirect /qr routes to index route for now
+  // TODO in the future, handle specific redirects based on the QR code value
+  res.redirect('/');
+};
+
 exports.terms = (req, res, next) => {
   res.render('terms');
 };
