@@ -17,7 +17,7 @@ class MapLayers extends React.Component {
       bikeParking: false,
       bikeShops: false,
       construction: true,
-      winter: true,
+      winter: false,
       visible: !this.props.isMobile,
     };
 
@@ -83,7 +83,9 @@ class MapLayers extends React.Component {
         <div
           className="map-layers-open-box"
           onClick={this.toggleMapLayersVisibility}
-        >Toggle Map Layers</div>
+        >
+Toggle Map Layers
+        </div>
       );
     }
 
@@ -92,9 +94,11 @@ class MapLayers extends React.Component {
         <div
           className="close-box"
           onClick={this.toggleMapLayersVisibility}
-        >&minus;</div>
+        >
+&minus;
+        </div>
         <div>
-          <div className="map-layer-legend construction"></div>
+          <div className="map-layer-legend construction" />
           <label>
             <input
               type="checkbox"
@@ -105,7 +109,7 @@ class MapLayers extends React.Component {
           </label>
         </div>
         <div>
-          <div className="map-layer-legend bikeParking"></div>
+          <div className="map-layer-legend bikeParking" />
           <label>
             <input
               type="checkbox"
@@ -116,7 +120,7 @@ class MapLayers extends React.Component {
           </label>
         </div>
         <div>
-          <div className="map-layer-legend bikeShops"></div>
+          <div className="map-layer-legend bikeShops" />
           <label>
             <input
               type="checkbox"
@@ -127,7 +131,7 @@ class MapLayers extends React.Component {
           </label>
         </div>
         <div title="paved, separated (off the street) bikeways">
-          <div className="map-layer-legend class1"></div>
+          <div className="map-layer-legend class1" />
           <label>
             <input
               type="checkbox"
@@ -138,7 +142,7 @@ class MapLayers extends React.Component {
           </label>
         </div>
         <div title="dedicated on-street bikeways, marked by striping on pavement">
-          <div className="map-layer-legend class2"></div>
+          <div className="map-layer-legend class2" />
           <label>
             <input
               type="checkbox"
@@ -149,7 +153,7 @@ class MapLayers extends React.Component {
           </label>
         </div>
         <div title="on-street routes signed for bicyclists">
-          <div className="map-layer-legend class3"></div>
+          <div className="map-layer-legend class3" />
           <label>
             <input
               type="checkbox"
@@ -160,7 +164,7 @@ class MapLayers extends React.Component {
           </label>
         </div>
         <div title="Bike paths that may be plowed for winter access. Paths get plowed after streets.">
-          <div className="map-layer-legend winter"></div>
+          <div className="map-layer-legend winter" />
           <label>
             <input
               type="checkbox"

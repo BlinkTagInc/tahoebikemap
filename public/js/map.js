@@ -29,55 +29,54 @@ const bikeShopsLayer = L.mapbox.featureLayer();
 const constructionLayer = L.mapbox.featureLayer();
 
 fetch('/data/class1.geojson')
-.then((response) => response.json())
-.then((json) => {
-  class1LayerOutline.setGeoJSON(json)
-  .setStyle({
-    color: '#330066',
-    weight: 3,
-    opacity: 0.8,
+  .then(response => response.json())
+  .then((json) => {
+    class1LayerOutline.setGeoJSON(json)
+      .setStyle({
+        color: '#330066',
+        weight: 3,
+        opacity: 0.8,
+      });
+    class1Layer.setGeoJSON(json)
+      .setStyle({
+        color: '#fcf4db',
+        weight: 1,
+        opacity: 0.8,
+      });
   });
-  class1Layer.setGeoJSON(json)
-  .setStyle({
-    color: '#fcf4db',
-    weight: 1,
-    opacity: 0.8,
-  });
-});
 
 fetch('/data/class2.geojson')
-.then((response) => response.json())
-.then((json) => {
-  class2Layer.setGeoJSON(json)
-  .setStyle({
-    color: '#660099',
-    weight: 3,
-    opacity: 0.8,
+  .then(response => response.json())
+  .then((json) => {
+    class2Layer.setGeoJSON(json)
+      .setStyle({
+        color: '#660099',
+        weight: 3,
+        opacity: 0.8,
+      });
   });
-});
 
 fetch('/data/class3.geojson')
-.then((response) => response.json())
-.then((json) => {
-  class3Layer.setGeoJSON(json)
-  .setStyle({
-    color: '#9933CC',
-    weight: 3,
-    opacity: 0.8,
-    dashArray: '3,5'
+  .then(response => response.json())
+  .then((json) => {
+    class3Layer.setGeoJSON(json)
+      .setStyle({
+        color: '#9933CC',
+        weight: 3,
+        opacity: 0.8,
+        dashArray: '3,5',
+      });
   });
-});
-
 
 
 const fetchTrpaData = fetch('/data/trpaTrails.geojson')
-  .then((response) => response.json())
+  .then(response => response.json())
   .then((json) => {
     // Only include trails with WNT_MAINT == 'YES'
     // Exclude trails with "MAINT_JURS" == "EL DORADO COUNTY" because they stopped plowing.
     // TODO update the dataset and remove this feature.
     const filteredFeatures = json.features
-      .filter(feature => feature.properties.WNTR_MAINT === 'YES')
+      .filter(feature => feature.properties.WNTR_MAINT === 'YES');
       // El Dorado County has temporarily started plowing again, so comment out this filter
       // .filter(feature => feature.properties.MAINT_JURS !== 'EL DORADO COUNTY')
     const nextJson = Object.assign({}, json);
@@ -86,50 +85,49 @@ const fetchTrpaData = fetch('/data/trpaTrails.geojson')
   });
 
 const fetchTruckeeData = fetch('/data/truckeeTrails.geojson')
-  .then((response) => response.json())
+  .then(response => response.json())
   .then((json) => {
     // Only include trails with CLASS == "I", and MAINTBY == "Town of Truckee"
     // "The trails that we plow in the winter are only those Class I paved trails managed by the Town" - Sarah Kunnen, Engineering Technician, Town Of Truckee
-    const now = new Date()
+    const now = new Date();
     const filteredFeatures = json.features.filter(({ properties }) => (
-      properties.CLASS === 'I' &&
-      properties.MAINTBY == 'Town of Truckee' &&
-      new Date(properties.INSTALLDAT) < now  // Exclude routes with install dates in the future
-    ))
+      properties.CLASS === 'I'
+      && properties.MAINTBY == 'Town of Truckee'
+      && new Date(properties.INSTALLDAT) < now // Exclude routes with install dates in the future
+    ));
     const nextJson = Object.assign({}, json);
     nextJson.features = filteredFeatures;
     return Promise.resolve(nextJson);
-
   });
 
 // combinedData is an array of GeoJSON objects
-Promise.all([fetchTrpaData, fetchTruckeeData]).then(combinedData => {
+Promise.all([fetchTrpaData, fetchTruckeeData]).then((combinedData) => {
   winterLayer.setGeoJSON(combinedData)
     .setStyle({
       color: '#ff0000',
       weight: 3,
       opacity: 0.8,
-      dashArray: '3,5'
+      dashArray: '3,5',
     });
-})
+});
 
 function createIconLayer(layer, datasetId, style, formattingFunction) {
   const endpoint = `${MAPBOX_DATASETS_API}/${datasetId}/features?access_token=${config.mapboxAccessToken}`;
   fetch(endpoint)
-  .then((response) => response.json())
-  .then((geojson) => {
-    if (!geojson) {
-      error.handleError(new Error(`Unable to fetch data for dataset id ${datasetId}`));
-      return;
-    }
-    layer.on('layeradd', (e) => {
-      e.layer.setIcon(L.icon(style));
-      if (formattingFunction) {
-        e.layer.bindPopup(formattingFunction(e.layer.feature.properties));
+    .then(response => response.json())
+    .then((geojson) => {
+      if (!geojson) {
+        error.handleError(new Error(`Unable to fetch data for dataset id ${datasetId}`));
+        return;
       }
+      layer.on('layeradd', (e) => {
+        e.layer.setIcon(L.icon(style));
+        if (formattingFunction) {
+          e.layer.bindPopup(formattingFunction(e.layer.feature.properties));
+        }
+      });
+      layer.setGeoJSON(geojson);
     });
-    layer.setGeoJSON(geojson);
-  });
 }
 
 function formatBikeParkingPopup(properties) {
@@ -139,7 +137,7 @@ function formatBikeParkingPopup(properties) {
       <div class="popup-image-container">
         ${properties.image}
       </div>
-    `
+    `;
   }
   return markup;
 }
@@ -163,18 +161,18 @@ function formatBikeShopsPopup(properties) {
 
   let textContent = properties.name ? `<b>${properties.name}</b>` : 'Unknown Bike Shop';
   if (properties.business_member) {
-    textContent += `<br />LTBC Business Member`
+    textContent += '<br />LTBC Business Member';
   }
   if (properties.address) {
-    textContent += `<br />${properties.address}`
+    textContent += `<br />${properties.address}`;
   }
   if (properties.phone_number) {
-    textContent += `<br />${properties.phone_number}`
+    textContent += `<br />${properties.phone_number}`;
   }
   if (properties.website) {
-    textContent += `<br /><a href="${properties.website}" target="_blank">${properties.website}</a>`
+    textContent += `<br /><a href="${properties.website}" target="_blank">${properties.website}</a>`;
   }
-  
+
   return textContent;
 }
 
@@ -238,7 +236,7 @@ exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarke
   });
 
   endMarker = L.marker(center, {
-    draggable: draggable,
+    draggable,
     icon: L.mapbox.marker.icon({
       'marker-size': 'large',
       'marker-symbol': 'e',
@@ -280,7 +278,7 @@ exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarke
   class2Layer.addTo(map);
   class3Layer.addTo(map);
   constructionLayer.addTo(map);
-  winterLayer.addTo(map);
+  // winterLayer.addTo(map);
 };
 
 exports.updateStartMarker = (latlng) => {
@@ -363,7 +361,7 @@ exports.getPathDistance = (decodedPath) => {
   const polyline = L.polyline(decodedPath);
 
   let distance = 0;
-  const length = polyline._latlngs.length;
+  const { length } = polyline._latlngs;
   for (let i = 1; i < length; i++) {
     distance += polyline._latlngs[i].distanceTo(polyline._latlngs[i - 1]);
   }
@@ -380,4 +378,4 @@ exports.panTo = (latlng) => {
   if (map.getZoom() > 11) {
     map.setZoom(11);
   }
-}
+};
