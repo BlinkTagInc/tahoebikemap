@@ -1,3 +1,4 @@
+const { lookupQRIndex } = require('../libs/qr')
 const nconf = require('nconf');
 const _ = require('underscore');
 const request = require('request');
@@ -7,6 +8,10 @@ SendGrid.setApiKey(nconf.get('SENDGRID_API_KEY'));
 
 exports.index = (req, res, next) => {
   res.render('index');
+};
+
+exports.qr = (req, res, next) => {
+  res.redirect(lookupQRIndex(req.params.qrId));
 };
 
 exports.terms = (req, res, next) => {

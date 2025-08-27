@@ -31,6 +31,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', routes.index);
 
+app.get('/qr', routes.qr);
+app.get('/qr/:qrId', routes.qr);
+
 app.get('/terms', routes.terms);
 
 app.get('/api', routes.api);

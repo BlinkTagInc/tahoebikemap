@@ -94,11 +94,16 @@ class App extends React.Component {
           error.handleError(new Error('No path recieved'));
           return;
         }
+        // Decode the path if a valid path is returned.
+        // If any empty path is returned (i.e from one point to the same point), then manually construct a path from start to end
+        const decodedPath = results.path[0] ? polyline.decode(results.path[0]) : [this.state.startLocation, this.state.endLocation]
+        // If empty elevationProfile is returned (i.e. from one point to the same point), then coerce the value from empty array to null
+        const elevationProfile = results.elevation_profile.length > 0 ? results.elevation_profile : null;
 
         this.setState({
-          decodedPath: polyline.decode(results.path[0]),
+          decodedPath: decodedPath,
           directions: results.directions,
-          elevationProfile: results.elevation_profile,
+          elevationProfile: elevationProfile,
           showDisclaimer: false,
         });
         url.updateUrlParams([this.state.startAddress, this.state.endAddress, this.state.scenario]);
