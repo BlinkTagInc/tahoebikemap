@@ -76,7 +76,7 @@ const fetchTrpaData = fetch('/data/trpaTrails.geojson')
     // Exclude trails with "MAINT_JURS" == "EL DORADO COUNTY" because they stopped plowing.
     // TODO update the dataset and remove this feature.
     const filteredFeatures = json.features
-      .filter(feature => feature.properties.WNTR_MAINT === 'YES');
+      .filter(feature => feature.properties.WNTR_MAINT && feature.properties.WNTR_MAINT.toUpperCase() === 'YES' && feature.properties.CLASS === '1');
       // El Dorado County has temporarily started plowing again, so comment out this filter
       // .filter(feature => feature.properties.MAINT_JURS !== 'EL DORADO COUNTY')
     const nextJson = Object.assign({}, json);
@@ -278,7 +278,7 @@ exports.drawMap = (center, zoom, minZoom, draggable, handleMapClick, handleMarke
   class2Layer.addTo(map);
   class3Layer.addTo(map);
   constructionLayer.addTo(map);
-  // winterLayer.addTo(map);
+  winterLayer.addTo(map);
 };
 
 exports.updateStartMarker = (latlng) => {
