@@ -33,7 +33,7 @@
     "gulp-streamify": "1.0.2",
     "gulp-uglify": "3.0.2",
     "gulp-util": "3.0.8",
-    "jquery": "3.4.1",
+    "jquery": "3.5.0",
     "jquery-locationpicker": "github:brendannee/jquery-locationpicker-plugin#e9986f8777d6833a1321f09ca6f58c56884087d2",
     "keen-tracking": "^4.4.1",
     "mapbox.js": "^3.2.1",
