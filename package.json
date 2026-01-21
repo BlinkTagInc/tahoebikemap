@@ -41,7 +41,7 @@
     "nconf": "0.10.0",
     "node-fetch": "^2.6.0",
     "polyline": "0.2.0",
-    "pug": "2.0.3",
+    "pug": "3.0.1",
     "react": "^15.6.2",
     "react-d3-basic": "^1.6.11",
     "react-dom": "^15.6.2",
